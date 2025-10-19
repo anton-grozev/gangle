@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изчисляване на работен заден ъгъл</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            letter-spacing: -0.3px;
+            background: linear-gradient(90deg, #E0F7FA 0%, #B3E5FC 20%, #81D4FA 40%, #4DD0E1 60%, #26C6DA 80%, #E0F7FA 100%);
+            background-size: 200% 200%;
+            animation: slideGradient 8s ease-in-out infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        @keyframes slideGradient {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25), 0 0 60px rgba(77, 208, 225, 0.15);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .mode-btn {
+            padding: 14px 28px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .mode-btn:hover {
+            border-color: #1abc9c;
+            color: #1abc9c;
+        }
+
+        .mode-btn.active {
+            background: #1abc9c;
+            color: white;
+            border-color: #1abc9c;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 19px;
+            line-height: 1.4;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 20px;
+            line-height: 1.5;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #1abc9c;
+            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2), 0 0 15px rgba(26, 188, 156, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .params-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .params-grid .form-group {
+            margin-bottom: 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f0f7ff 100%);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #1abc9c;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        .params-grid .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .params-grid .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .params-grid .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .params-grid .form-group:nth-child(4) { animation-delay: 0.4s; }
+
+        .section-title {
+            font-size: 23px;
+            font-weight: 700;
+            color: #1abc9c;
+            margin-bottom: 15px;
+            margin-top: 20px;
+            line-height: 1.3;
+        }
+
+        .points-container {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .point-group {
+            background: white;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #1abc9c;
+            line-height: 1.5;
+        }
+
+        .point-group h4 {
+            color: #1abc9c;
+            font-size: 19px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .point-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .point-inputs input {
+            padding: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .point-inputs input:focus {
+            outline: none;
+            border-color: #1abc9c;
+            box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.2), 0 0 12px rgba(26, 188, 156, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .add-point-btn, .remove-point-btn {
+            padding: 10px 18px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 19px;
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .add-point-btn {
+            background: #667eea;
+            color: white;
+            width: 100%;
+        }
+
+        .add-point-btn:hover {
+            background: #5568d3;
+        }
+
+        .remove-point-btn {
+            background: #ff6b6b;
+            color: white;
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+
+        .remove-point-btn:hover {
+            background: #ee5a52;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 23px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .btn-calculate {
+            background: #1abc9c;
+            color: white;
+            grid-column: 1 / -1;
+        }
+
+        .btn-calculate:hover {
+            background: #16a085;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(26, 188, 156, 0.3);
+        }
+
+        .btn-reset {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #dee2e6;
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #d5f4f1 0%, #e0f7fa 100%);
+            border-radius: 8px;
+            border-left: 4px solid #1abc9c;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .results h3 {
+            color: #1abc9c;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .result-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInUp 0.6s ease-out backwards;
+            line-height: 1.5;
+        }
+
+        .result-item:nth-child(1) { animation-delay: 0.1s; }
+        .result-item:nth-child(2) { animation-delay: 0.2s; }
+        .result-item:nth-child(3) { animation-delay: 0.3s; }
+        .result-item:nth-child(4) { animation-delay: 0.4s; }
+        .result-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #1abc9c;
+            font-weight: 700;
+            font-size: 23px;
+            line-height: 1.4;
+        }
+
+        .result-value {
+            color: #005a52;
+            font-weight: 800;
+            font-size: 25px;
+            background: rgba(26, 188, 156, 0.15);
+            padding: 6px 12px;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+
+        .error {
+            padding: 15px;
+            background: #ffe0e0;
+            border-left: 4px solid #ff6b6b;
+            border-radius: 8px;
+            color: #cc0000;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .error.active {
+            display: block;
+        }
+
+        .copy-btn {
+            background: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 19px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .copy-btn:hover {
+            background: #16a085;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+        }
+
+        .copy-btn.copied {
+            background: #27ae60;
+        }
+
+        /* Валидиране в реално време */
+        input.valid {
+            border-color: #27ae60 !important;
+        }
+
+        input.invalid {
+            border-color: #ff6b6b !important;
+        }
+
+        /* Tooltip */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            background-color: #1abc9c;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1abc9c transparent transparent transparent;
+        }
+
+        .tooltip-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: linear-gradient(90deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        body.dark-mode .container {
+            background: #0f1419;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode header {
+            border-bottom-color: #1abc9c;
+        }
+
+        body.dark-mode h1, body.dark-mode h3, body.dark-mode h4 {
+            color: #4DD0E1;
+        }
+
+        body.dark-mode input, body.dark-mode label {
+            background: #1a1f2e;
+            color: #e0e0e0;
+            border-color: #333;
+        }
+
+        body.dark-mode .params-grid .form-group {
+            background: #1a1f2e;
+        }
+
+        body.dark-mode .point-group {
+            background: #1a1f2e;
+        }
+
+        body.dark-mode .points-container {
+            background: #0f1419;
+        }
+
+        body.dark-mode .result-item {
+            border-bottom-color: #333;
+        }
+
+        body.dark-mode .result-label {
+            color: #4DD0E1;
+            font-weight: 800;
+        }
+
+        body.dark-mode .result-value {
+            color: #B2EBF2;
+            background: rgba(77, 208, 225, 0.25);
+            font-weight: 800;
+        }
+
+        body.dark-mode .results {
+            background: #1a1f2e;
+        }
+
+        body.dark-mode .error {
+            background: #4a1a1a;
+        }
+
+        body.dark-mode button {
+            background: #1abc9c;
+            color: white;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #1abc9c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(26, 188, 156, 0.5);
+        }
+
+        @media (max-width: 500px) {
+            .params-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .point-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+
+        .info-text {
+            font-size: 10px;
+            color: #999;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Изчисляване на работен заден ъгъл α<sub>f</sub></h1>
+        </header>
+
+        <!-- SW MODE -->
+        <div id="sw-mode" class="form-section active">
+            <div class="params-grid">
+                <div class="form-group">
+                    <label for="l-sw">&#128207; l [mm]:</label>
+                    <input type="number" id="l-sw" value="85.0879" step="0.0001">
+                    <p class="info-text">Разстояние от върха на конуса до ос-отсечката d</p>
+                </div>
+                <div class="form-group">
+                    <label for="d-sw">&#128207; d [mm]:</label>
+                    <input type="number" id="d-sw" value="5.7064" step="0.0001">
+                    <p class="info-text">Ос-отсечка</p>
+                </div>
+                <div class="form-group">
+                    <label for="theta-sw">📐 θ [°]:</label>
+                    <input type="number" id="theta-sw" value="25" step="0.01">
+                    <p class="info-text">Ъгъл между осите на свредлото и конуса</p>
+                </div>
+                <div class="form-group">
+                    <label for="beta-sw">📐 β [°]:</label>
+                    <input type="number" id="beta-sw" value="34" step="0.01">
+                    <p class="info-text">Ъгъл между оста на конуса и образуващата (2β е ъгълът при върха)</p>
+                </div>
+            </div>
+
+            <div class="section-title">📍 Координати на точките спрямо върхът на свредлото</div>
+            <div class="points-container" id="sw-points">
+                <div class="point-group">
+                    <h4>Точка 1</h4>
+                    <div class="point-inputs">
+                        <input type="number" class="x-coord" placeholder="X [mm]" step="0.01">
+                        <input type="number" class="y-coord" placeholder="Y [mm]" step="0.01">
+                        <input type="number" class="z-coord" placeholder="Z [mm]" step="0.01">
+                        <button class="remove-point-btn" onclick="removePoint(this)">Премахни</button>
+                    </div>
+                </div>
+            </div>
+            <button class="add-point-btn" onclick="addPoint('sw')">+ Добави точка</button>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-reset" onclick="resetForm()">Изчисти</button>
+        </div>
+
+        <div class="error" id="error-message"></div>
+
+        <div class="results" id="results">
+            <h3>✓ Резултати:</h3>
+            <div id="results-content"></div>
+            <button class="copy-btn" id="copy-btn" onclick="copyResults()">📋 Копирай резултатите</button>
+        </div>
+    </div>
+
+    <button class="dark-mode-toggle" id="dark-mode-toggle" onclick="toggleDarkMode()" title="Включи/Изключи тъмен режим">🌙</button>
+
+    <script>
+        let currentMode = 'sw';
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                resetForm();
+            }
+        });
+
+        // Load dark mode on page load
+        window.addEventListener('load', function() {
+            loadDarkMode();
+            setupValidation();
+            setupTooltips();
+        });
+
+        // Dark mode
+        function toggleDarkMode() {
+            const isDarkMode = document.body.classList.toggle('dark-mode');
+            const btn = document.getElementById('dark-mode-toggle');
+            btn.textContent = isDarkMode ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        function loadDarkMode() {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('dark-mode-toggle').textContent = '☀️';
+            }
+        }
+
+        // Валидиране в реално време
+        function setupValidation() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const value = this.value;
+                    if (value === '' || isNaN(value) || parseFloat(value) <= 0) {
+                        this.classList.remove('valid');
+                        this.classList.add('invalid');
+                    } else {
+                        this.classList.remove('invalid');
+                        this.classList.add('valid');
+                    }
+                    // Auto-calculate on input change
+                    autoCalculate();
+                });
+            });
+        }
+
+        function autoCalculate() {
+            // Задържаме с малко закъснение, за да не се изчислява на всеки character
+            clearTimeout(window.calcTimeout);
+            window.calcTimeout = setTimeout(() => {
+                calculate();
+            }, 300);
+        }
+
+        // Tooltip
+        function setupTooltips() {
+            const labels = document.querySelectorAll('label');
+            labels.forEach(label => {
+                const parent = label.parentElement;
+                const infoText = parent.querySelector('.info-text');
+                if (infoText) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'tooltip-container';
+                    label.parentNode.insertBefore(wrapper, label);
+                    wrapper.appendChild(label);
+                    
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = infoText.textContent;
+                    wrapper.appendChild(tooltip);
+                }
+            });
+        }
+
+        function addPoint(mode) {
+            const container = document.getElementById(mode + '-points');
+            const pointCount = container.children.length + 1;
+            
+            const pointGroup = document.createElement('div');
+            pointGroup.className = 'point-group';
+            pointGroup.innerHTML = `
+                <h4>Точка ${pointCount}</h4>
+                <div class="point-inputs">
+                    <input type="number" class="x-coord" placeholder="X [mm]" step="0.01">
+                    <input type="number" class="y-coord" placeholder="Y [mm]" step="0.01">
+                    <input type="number" class="z-coord" placeholder="Z [mm]" step="0.01">
+                    <button class="remove-point-btn" onclick="removePoint(this)">Премахни</button>
+                </div>
+            `;
+            
+            container.appendChild(pointGroup);
+            
+            // Setup auto-calculate for new inputs
+            const newInputs = pointGroup.querySelectorAll('input[type="number"]');
+            newInputs.forEach(input => {
+                input.addEventListener('input', autoCalculate);
+            });
+            
+            autoCalculate();
+        }
+
+        function removePoint(btn) {
+            btn.closest('.point-group').remove();
+            updatePointNumbers();
+            autoCalculate();
+        }
+
+        function updatePointNumbers() {
+            const mode = currentMode;
+            const container = document.getElementById(mode + '-points');
+            container.querySelectorAll('.point-group').forEach((group, idx) => {
+                group.querySelector('h4').textContent = `Точка ${idx + 1}`;
+            });
+        }
+
+        function deg2rad(deg) {
+            return deg * Math.PI / 180;
+        }
+
+        function rad2deg(rad) {
+            return rad * 180 / Math.PI;
+        }
+
+        function transformSWCoordinates(x, y, z) {
+            const M11 = -0.1747159967;
+            const M12 = 0.6235799837;
+            const M13 = -0.1867561927;
+            const M21 = 0.3122687596;
+            const M22 = -0.1413437982;
+            const M23 = 0.8581431812;
+            const M31 = 0.8697589148;
+            const M32 = -0.1087945740;
+            const M33 = -0.4267759731;
+
+            const xM = M11 * x + M12 * y + M13 * z;
+            const yM = M21 * x + M22 * y + M23 * z;
+            const zM = M31 * x + M32 * y + M33 * z;
+
+            return { xM, yM, zM };
+        }
+
+        function calculateAngles(l, d, theta, beta, coordinates) {
+            const results = [];
+
+            const tanTheta = Math.tan(theta);
+            const tanBeta = Math.tan(beta);
+            
+            const ah = tanTheta * tanTheta - tanBeta * tanBeta;
+            const bh = tanTheta * tanTheta * l;
+            const ch = l * l * tanTheta * tanTheta + d * d;
+
+            let h;
+            if (Math.abs(ah) < 1e-10) {
+                h = 0.5 * ch / bh;
+            } else {
+                const discriminant = bh * bh - ah * ch;
+                h = (bh - Math.sqrt(discriminant)) / ah;
+            }
+
+            const cosTheta = Math.cos(theta);
+            const cosBeta = Math.cos(beta);
+            const sinTheta = Math.sin(theta);
+
+            for (let coord of coordinates) {
+                const yM = coord.y;
+                const zM = coord.z;
+
+                const axc = cosTheta * cosTheta - cosBeta * cosBeta;
+                const bxc = cosTheta * cosTheta * (yM * sinTheta - h) - 
+                           cosBeta * cosBeta * (l * sinTheta * sinTheta - h);
+                
+                const term1 = cosTheta * cosTheta * Math.pow(yM * sinTheta - h, 2);
+                const term2 = cosBeta * cosBeta * (Math.pow(l * sinTheta * sinTheta - h, 2) + 
+                             cosTheta * cosTheta * (Math.pow(yM - l * sinTheta, 2) + Math.pow(zM - d, 2)));
+                const cxc = term1 - term2;
+
+                let xM_i;
+                if (Math.abs(axc) < 1e-10) {
+                    xM_i = 0.5 * cxc / bxc;
+                } else {
+                    const discriminant = bxc * bxc - axc * cxc;
+                    const sign_bxc = bxc >= 0 ? 1 : -1;
+                    xM_i = (bxc - sign_bxc * Math.sqrt(discriminant)) / axc;
+                }
+
+                const sqrt_yM2_zM2 = Math.sqrt(yM * yM + zM * zM);
+                const A_term1 = (xM_i - yM * sinTheta + h) * cosTheta * cosTheta;
+                const A_term2 = (xM_i - l * sinTheta * sinTheta + h) * cosBeta * cosBeta;
+                const A = sqrt_yM2_zM2 * (A_term1 - A_term2) / cosTheta;
+
+                const B_term1 = (yM * d - zM * l * sinTheta) * cosBeta * cosBeta;
+                const B_term2 = zM * (xM_i - yM * sinTheta + h) * sinTheta;
+                const B = B_term1 + B_term2;
+
+                const alphaRAD_radians = Math.atan(-B / A);
+                const alphaRAD_degrees = rad2deg(alphaRAD_radians);
+
+                results.push(alphaRAD_degrees);
+            }
+
+            return results;
+        }
+
+        function calculate() {
+            clearError();
+            
+            try {
+                let l, d, theta, beta, coordinates = [];
+
+                l = parseFloat(document.getElementById('l-sw').value);
+                d = parseFloat(document.getElementById('d-sw').value);
+                theta = deg2rad(parseFloat(document.getElementById('theta-sw').value));
+                beta = deg2rad(parseFloat(document.getElementById('beta-sw').value));
+
+                const points = document.querySelectorAll('#sw-points .point-group');
+                points.forEach(point => {
+                    const x = parseFloat(point.querySelector('.x-coord').value);
+                    const y = parseFloat(point.querySelector('.y-coord').value);
+                    const z = parseFloat(point.querySelector('.z-coord').value);
+                    
+                    const transformed = transformSWCoordinates(x, y, z);
+                    coordinates.push({ y: transformed.yM, z: transformed.zM });
+                });
+
+                if (coordinates.length === 0) {
+                    // Скрий резултатите ако няма точки
+                    document.getElementById('results').classList.remove('active');
+                    return;
+                }
+
+                if (isNaN(l) || isNaN(d) || isNaN(theta) || isNaN(beta)) {
+                    // Скрий резултатите ако имаме невалидни параметри
+                    document.getElementById('results').classList.remove('active');
+                    return;
+                }
+
+                const angles = calculateAngles(l, d, theta, beta, coordinates);
+
+                let resultsHTML = '';
+                angles.forEach((angle, idx) => {
+                    if (!isNaN(angle)) {
+                        resultsHTML += `
+                            <div class="result-item">
+                                <span class="result-label">📐 α<sub>f</sub><sub>${idx + 1}</sub></span>
+                                <span class="result-value">${angle.toFixed(2)}°</span>
+                            </div>
+                        `;
+                    }
+                });
+
+                if (resultsHTML === '') {
+                    // Скрий резултатите ако няма валидни резултати
+                    document.getElementById('results').classList.remove('active');
+                    return;
+                }
+
+                document.getElementById('results-content').innerHTML = resultsHTML;
+                document.getElementById('results').classList.add('active');
+            } catch (err) {
+                showError(err.message);
+            }
+        }
+
+        function resetForm() {
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                if (input.hasAttribute('value')) {
+                    input.value = input.getAttribute('value');
+                } else {
+                    input.value = '';
+                }
+            });
+            
+            const container = document.getElementById('sw-points');
+            while (container.children.length > 1) {
+                container.removeChild(container.lastChild);
+            }
+
+            document.getElementById('results').classList.remove('active');
+            clearError();
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = '❌ ' + message;
+            errorDiv.classList.add('active');
+        }
+
+        function clearError() {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.classList.remove('active');
+        }
+
+        function copyResults() {
+            const resultsContent = document.getElementById('results-content').innerText;
+            if (resultsContent.trim() === '') {
+                showError('Няма резултати за копиране!');
+                return;
+            }
+            
+            navigator.clipboard.writeText(resultsContent).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.textContent = '✓ Копирано!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Копирай резултатите';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function addToHistory(l, d, theta, beta, results) {
+            // Функция премахната - историята е деактивирана
+        }
+
+        function displayHistory() {
+            // Функция премахната - историята е деактивирана
+        }
+
+        function loadHistoryItem(idx) {
+            // Функция премахната - историята е деактивирана
+        }
+
+        function clearHistory() {
+            // Функция премахната - историята е деактивирана
+        }
+
+        // Позволяване на Enter за изчисление
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                calculate();
+            }
+        });
+    </script>
+</body>
+</html>
