@@ -117,6 +117,7 @@
             margin-bottom: 24px;
             border-bottom: 2px solid #6b7280;
             padding-bottom: 16px;
+            position: relative;
         }
 
         h1 {
@@ -785,6 +786,41 @@
 
             .button-group {
                 grid-template-columns: 1fr;
+            }
+
+            /* Mobile header adjustments */
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+                padding: 8px 16px 16px 16px;
+            }
+
+            header h1 {
+                font-size: 18px;
+                margin: 0;
+                flex-grow: 1;
+                text-align: center;
+            }
+
+            /* Move buttons into header for mobile */
+            .lang-toggle,
+            .dark-mode-toggle {
+                position: static;
+                margin: 0 4px;
+                padding: 6px 8px;
+                font-size: 12px;
+                min-width: auto;
+            }
+
+            .lang-toggle {
+                order: 1;
+            }
+
+            .dark-mode-toggle {
+                order: 2;
+                margin-right: 0;
             }
 
             .container {
