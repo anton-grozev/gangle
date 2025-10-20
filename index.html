@@ -16,9 +16,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-            letter-spacing: -0.3px;
+            font-family: 'Inter', 'Roboto', 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            line-height: 1.5;
+            letter-spacing: 0;
             background: linear-gradient(135deg, #E8F5E8 0%, #F0F8FF 25%, #E0F7FA 50%, #F5F5DC 75%, #E8F5E8 100%);
             background-size: 400% 400%;
             animation: lightGradientFlow 12s ease-in-out infinite;
@@ -87,43 +87,44 @@
         }
 
         .input-container {
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 25px;
-            background: linear-gradient(135deg, #f8f9ff 0%, #f0f7ff 100%);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 24px;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .input-container-title {
-            color: #1abc9c;
-            margin-bottom: 20px;
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.3;
+            color: #374151;
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
         }
 
         .right-column {
             grid-column: 2;
             position: sticky;
-            top: 20px; /* Sticky позициониране */
-            min-height: 300px; /* Минимална височина за видимост */
-            border: 1px solid #ddd; /* Временна граница за debug */
+            top: 20px;
+            min-height: 300px;
         }
 
         header {
-            grid-column: 1 / -1; /* Простира се през двете колони */
+            grid-column: 1 / -1;
             text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 15px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #6b7280;
+            padding-bottom: 16px;
         }
 
         h1 {
-            color: #333;
-            font-size: 3em; /* Променено от 48px на 3em */
-            margin-bottom: 10px;
-            font-weight: 700;
+            color: #111827;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 600;
             line-height: 1.2;
+            font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .subtitle {
@@ -175,28 +176,32 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 1.1875em; /* Променено от 19px на 1.1875em */
+            margin-bottom: 6px;
+            color: #374151;
+            font-weight: 500;
+            font-size: 0.9rem;
             line-height: 1.4;
+            font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .form-group input {
             width: 100%;
             padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1.25em; /* Променено от 20px на 1.25em */
-            line-height: 1.5;
-            transition: border-color 0.3s ease;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            transition: border-color 0.2s ease;
+            background: #ffffff;
+            color: #374151;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #1abc9c;
-            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2), 0 0 15px rgba(26, 188, 156, 0.4);
-            transition: all 0.3s ease;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            transition: all 0.2s ease;
         }
 
         .params-grid {
@@ -262,15 +267,20 @@
 
         .point-inputs input {
             padding: 10px;
-            font-size: 1em; /* Променено от 16px на 1em */
-            line-height: 1.5;
+            font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: #ffffff;
+            color: #374151;
         }
 
         .point-inputs input:focus {
             outline: none;
-            border-color: #1abc9c;
-            box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.2), 0 0 12px rgba(26, 188, 156, 0.4);
-            transition: all 0.3s ease;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            transition: all 0.2s ease;
         }
 
         .add-point-btn, .remove-point-btn {
@@ -346,13 +356,14 @@
         }
 
         .results {
-            display: block; /* Винаги показани в дясната колона */
-            margin-top: 0; /* Премахваме margin-top */
-            padding: 20px;
-            background: linear-gradient(135deg, #d5f4f1 0%, #e0f7fa 100%);
+            display: block;
+            margin-top: 0;
+            padding: 24px;
+            background: #ffffff;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            border-left: 4px solid #1abc9c;
-            min-height: 200px; /* Минимална височина */
+            min-height: 200px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .results.active {
@@ -360,11 +371,12 @@
         }
 
         .results h3 {
-            color: #1abc9c;
-            margin-bottom: 20px;
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.3;
+            color: #374151;
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
         }
 
         .results-empty {
