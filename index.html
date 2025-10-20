@@ -70,16 +70,17 @@
         }
 
         .container {
-            background: white;
+            background: #f8fafc;
+            border: 2px solid #6b7280;
             border-radius: 15px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25), 0 0 60px rgba(77, 208, 225, 0.15);
-            max-width: 1400px; /* Увеличено за две колони */
+            max-width: 1400px;
             width: 100%;
             padding: 40px;
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Две равни колони */
-            gap: 40px; /* Разстояние между колоните */
-            align-items: start; /* Подравняване отгоре */
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
         }
 
         .left-column {
@@ -87,10 +88,10 @@
         }
 
         .input-container {
-            border: 1px solid #d1d5db;
+            border: 2px solid #3b82f6;
             border-radius: 8px;
             padding: 24px;
-            background: #ffffff;
+            background: #f1f5f9;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
@@ -359,8 +360,8 @@
             display: block;
             margin-top: 0;
             padding: 24px;
-            background: #ffffff;
-            border: 1px solid #d1d5db;
+            background: #f0fdf4;
+            border: 2px solid #10b981;
             border-radius: 8px;
             min-height: 200px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -577,8 +578,9 @@
         }
 
         body.dark-mode .container {
-            background: #0f1419;
-            color: #e0e0e0;
+            background: #1f2937;
+            color: #e5e7eb;
+            border-color: #9ca3af;
         }
 
         body.dark-mode header {
@@ -625,12 +627,12 @@
         }
 
         body.dark-mode .input-container {
-            background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
-            border-color: #333;
+            background: #374151;
+            border-color: #60a5fa;
         }
 
         body.dark-mode .input-container-title {
-            color: #4DD0E1;
+            color: #e5e7eb;
         }
 
         body.dark-mode .result-item {
@@ -649,7 +651,12 @@
         }
 
         body.dark-mode .results {
-            background: #1a1f2e;
+            background: #374151;
+            border-color: #34d399;
+        }
+
+        body.dark-mode .results h3 {
+            color: #e5e7eb;
         }
 
         body.dark-mode .error {
