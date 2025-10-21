@@ -165,13 +165,7 @@ PhD Candidate in Manufacturing Engineering
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Ruse University Engineering Faculty
 - Manufacturing Engineering Research Group
