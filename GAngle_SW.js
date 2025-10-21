@@ -1,6 +1,5 @@
 /**
- * GAngle_SW.js - Основна библиотека за изчисляване на работен заден ъгъл
- * Оптимизирана версия само с необходимия код за уеб приложението
+ * GAngle_SW.js - Библиотека за изчисляване на работен заден ъгъл
  */
 
 class DrillSharpeningTransform {
@@ -26,7 +25,7 @@ class DrillSharpeningTransform {
     }
 
     /**
-     * Трансформирам SW координати към оригиналния координатен систем
+     * Трансформация от SW към оригинална координатна система
      */
     static transformSWCoordinates(xM_SW, yM_SW, zM_SW) {
         const xM = this.M11 * xM_SW + this.M12 * yM_SW + this.M13 * zM_SW;
@@ -48,7 +47,7 @@ class DrillSharpeningTransform {
         const isArrayInput = Array.isArray(xM_SW) || Array.isArray(yM_SW) || Array.isArray(zM_SW);
         const numPoints = Math.max(xM_SW_array.length, yM_SW_array.length, zM_SW_array.length);
 
-        // Трансформирам SW координати към оригинална система
+        // Трансформация към оригинална система
         const xM = [];
         const yM = [];
         const zM = [];
@@ -68,7 +67,7 @@ class DrillSharpeningTransform {
             throw new Error('yM и zM координатите трябва да имат еднаква дължина');
         }
 
-        // Изчисляване на h параметъра чрез квадратно уравнение
+        // Изчисляване на h параметъра
         const tanTheta = Math.tan(theta);
         const tanBeta = Math.tan(beta);
         
@@ -93,12 +92,12 @@ class DrillSharpeningTransform {
             h = (bh + Math.sqrt(discriminant)) / ah;
         }
 
-        // Предварително изчисляване на тригонометричните стойности
+        // Предварително изчисляване на тригонометрични стойности
         const cosTheta = Math.cos(theta);
         const cosBeta = Math.cos(beta);
         const sinTheta = Math.sin(theta);
 
-        // Обработка на всяка точка върху коничната повърхност
+        // Обработка на всяка точка
         const results = {
             alphaRAD: [],
             h: h,
@@ -109,7 +108,7 @@ class DrillSharpeningTransform {
             const yM_i = yM[i];
             const zM_i = zM[i];
 
-            // Решаване на квадратното уравнение за xM координатата
+            // Решаване на квадратно уравнение за xM координатата
             const axc = cosTheta * cosTheta - cosBeta * cosBeta;
             const bxc = cosTheta * cosTheta * (yM_i * sinTheta - h) - 
                        cosBeta * cosBeta * (l * sinTheta * sinTheta - h);
@@ -130,7 +129,7 @@ class DrillSharpeningTransform {
                 xM_i = (bxc - sign_bxc * Math.sqrt(discriminant)) / axc;
             }
 
-            // Изчисляване на ъгъла на заточване чрез формулата α = arctan(B/A)
+            // Изчисляване на ъгъла на заточване α = arctan(B/A)
             const sqrt_yM2_zM2 = Math.sqrt(yM_i * yM_i + zM_i * zM_i);
             const A_term1 = (xM_i - yM_i * sinTheta + h) * cosTheta * cosTheta;
             const A_term2 = (xM_i - l * sinTheta * sinTheta + h) * cosBeta * cosBeta;
@@ -162,7 +161,7 @@ class DrillSharpeningTransform {
     }
 }
 
-// Експорт за браузър (глобална променлива)
+// Експорт за браузър
 if (typeof window !== 'undefined') {
     window.DrillSharpeningTransform = DrillSharpeningTransform;
 }

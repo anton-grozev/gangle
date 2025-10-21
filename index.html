@@ -26,8 +26,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            /* Responsive font scaling based on viewport zoom */
             font-size: 16px;
         }
 
@@ -131,7 +129,7 @@
 
         .subtitle {
             color: #666;
-            font-size: 1.125em; /* Променено от 18px на 1.125em */
+            font-size: 1.125em;
         }
 
         .mode-selector {
@@ -259,7 +257,7 @@
 
         .point-group h4 {
             color: #1abc9c;
-            font-size: 1.1875em; /* Променено от 19px на 1.1875em */
+            font-size: 1.1875em;
             margin-bottom: 10px;
             font-weight: 700;
         }
@@ -481,7 +479,7 @@
             background: #27ae60;
         }
 
-        /* Валидиране в реално време */
+        /* Валидиране */
         input.valid {
             border-color: #27ae60 !important;
         }
@@ -755,7 +753,7 @@
             box-shadow: 0 6px 16px rgba(26, 188, 156, 0.5);
         }
 
-        /* Responsive за екрани над 500px - осигуряваме двуколонна структура */
+        /* Responsive за екрани над 500px */
         @media (min-width: 501px) {
             .container {
                 display: grid;
@@ -796,7 +794,7 @@
             header {
                 text-align: center;
                 padding: 16px;
-                margin-top: 50px; /* Space for buttons above */
+                margin-top: 50px;
             }
 
             header h1 {
@@ -804,7 +802,6 @@
                 margin: 0;
             }
 
-            /* Move buttons to very top for mobile */
             .lang-toggle,
             .dark-mode-toggle {
                 position: fixed;
@@ -826,7 +823,7 @@
             .container {
                 padding: 20px;
                 display: grid;
-                grid-template-columns: 1fr; /* Една колона на мобилни */
+                grid-template-columns: 1fr;
                 gap: 20px;
             }
 
@@ -835,8 +832,8 @@
             }
 
             .right-column {
-                position: static; /* Премахваме sticky на мобилни */
-                margin-top: 20px; /* Добавяме отстояние между колоните */
+                position: static;
+                margin-top: 20px;
             }
 
             h1 {
@@ -851,31 +848,27 @@
         }
 
         /* Zoom-responsive scaling */
-        /* При 80% zoom (1.25x увеличение на viewport) */
         @media screen and (min-width: 1200px) {
             body {
-                font-size: 14px; /* 80% от 16px = 12.8px, закръглено до 14px */
+                font-size: 14px;
             }
         }
 
-        /* При 75% zoom (1.33x увеличение на viewport) */
         @media screen and (min-width: 1400px) {
             body {
-                font-size: 13px; /* 75% от 16px = 12px, леко увеличено за четливост */
+                font-size: 13px;
             }
         }
 
-        /* При 67% zoom (1.5x увеличение на viewport) */
         @media screen and (min-width: 1600px) {
             body {
-                font-size: 12px; /* 67% от 16px = 10.7px, закръглено до 12px */
+                font-size: 12px;
             }
         }
 
-        /* При 50% zoom (2x увеличение на viewport) */
         @media screen and (min-width: 2000px) {
             body {
-                font-size: 10px; /* 50% от 16px = 8px, увеличено до 10px за четливост */
+                font-size: 10px;
             }
         }
     </style>
