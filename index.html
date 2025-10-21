@@ -72,14 +72,14 @@
         .container {
             background: #f8fafc;
             border: 2px solid #6b7280;
-            border-radius: 15px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25), 0 0 60px rgba(77, 208, 225, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             max-width: 1400px;
             width: 100%;
-            padding: 40px;
+            padding: 48px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 48px;
             align-items: start;
         }
 
@@ -89,19 +89,19 @@
 
         .input-container {
             border: 2px solid #3b82f6;
-            border-radius: 8px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 32px;
             background: #f1f5f9;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .input-container-title {
             color: #374151;
-            margin-bottom: 16px;
-            font-size: 1.25rem;
+            margin-bottom: 24px;
+            font-size: 1.125rem;
             font-weight: 600;
-            line-height: 1.4;
-            font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            line-height: 1.5;
+            font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .right-column {
@@ -122,11 +122,22 @@
 
         h1 {
             color: #111827;
-            font-size: 2rem;
-            margin-bottom: 8px;
-            font-weight: 600;
+            font-size: 1.75rem;
+            margin-bottom: 12px;
+            font-weight: 700;
             line-height: 1.2;
-            font-family: 'Inter', 'Roboto', sans-serif;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'Monaco', monospace;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .version-info {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', monospace;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin: 0 0 16px 0;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .subtitle {
@@ -136,21 +147,22 @@
 
         .mode-selector {
             display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 16px;
+            margin-bottom: 32px;
             justify-content: center;
         }
 
         .mode-btn {
-            padding: 14px 28px;
-            border: 2px solid #ddd;
+            padding: 12px 24px;
+            border: 2px solid #e5e7eb;
             background: white;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.25em; /* Променено от 20px на 1.25em */
-            font-weight: 700;
-            transition: all 0.3s ease;
-            line-height: 1.4;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            line-height: 1.5;
+            font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .mode-btn:hover {
@@ -173,27 +185,27 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #374151;
             font-weight: 500;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 0.875rem;
+            line-height: 1.5;
             font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
+            padding: 12px 16px;
             border: 1px solid #d1d5db;
-            border-radius: 6px;
+            border-radius: 8px;
             font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-            font-size: 0.95rem;
-            line-height: 1.4;
+            font-size: 0.875rem;
+            line-height: 1.5;
             transition: border-color 0.2s ease;
             background: #ffffff;
             color: #374151;
@@ -209,16 +221,16 @@
         .params-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #eee;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #e5e7eb;
         }
 
         .params-grid .form-group {
             margin-bottom: 0;
             background: linear-gradient(135deg, #f0f9ff 0%, #f0f7ff 100%);
-            padding: 12px;
+            padding: 16px;
             border-radius: 8px;
             border-left: 4px solid #1abc9c;
             animation: slideInLeft 0.5s ease-out;
@@ -230,19 +242,21 @@
         .params-grid .form-group:nth-child(4) { animation-delay: 0.4s; }
 
         .section-title {
-            font-size: 1.4375em; /* Променено от 23px на 1.4375em */
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 600;
             color: #1abc9c;
-            margin-bottom: 15px;
-            margin-top: 20px;
-            line-height: 1.3;
+            margin-bottom: 20px;
+            margin-top: 32px;
+            line-height: 1.4;
+            font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .points-container {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
         }
 
         .point-group {
@@ -325,19 +339,20 @@
         .button-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 16px;
+            margin-top: 32px;
         }
 
         .btn {
-            padding: 16px 32px;
+            padding: 12px 24px;
             border: 2px solid transparent;
             border-radius: 8px;
-            font-size: 1.4375em;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            line-height: 1.4;
+            transition: all 0.2s ease;
+            line-height: 1.5;
+            font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .btn-calculate {
@@ -366,12 +381,12 @@
         .results {
             display: block;
             margin-top: 0;
-            padding: 24px;
+            padding: 32px;
             background: #f0fdf4;
             border: 2px solid #10b981;
-            border-radius: 8px;
-            min-height: 200px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            min-height: 240px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .results.active {
@@ -380,11 +395,11 @@
 
         .results h3 {
             color: #374151;
-            margin-bottom: 16px;
-            font-size: 1.25rem;
+            margin-bottom: 24px;
+            font-size: 1.125rem;
             font-weight: 600;
-            line-height: 1.4;
-            font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            line-height: 1.5;
+            font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .results-empty {
@@ -1013,8 +1028,8 @@
                 paramD: "d [mm]:",
                 paramTheta: "θ [°]:",
                 paramBeta: "β [°]:",
-                infoL: "Distance from cone apex to diameter section d",
-                infoD: "Diameter section",
+                infoL: "Axial distance from cone apex to the axis offset d",
+                infoD: "Axis offset",
                 infoTheta: "Angle between drill and cone axes",
                 infoBeta: "Angle between cone axis and generatrix (2β is the apex angle)",
                 coordinatesTitle: "📍 Point coordinates relative to drill tip",
