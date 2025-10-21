@@ -5,7 +5,6 @@
 A professional web-based calculator for computing the side clearance angle (α<sub>f</sub>) for drill sharpening operations. This tool provides precise calculations using advanced mathematical algorithms for manufacturing and engineering applications.
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://anton-grozev.github.io/gangle/)
-[![Version](https://img.shields.io/badge/Version-2.1.0-orange?style=for-the-badge)](#)
 [![Academic](https://img.shields.io/badge/Academic-Research-green?style=for-the-badge)](#)
 
 ---
@@ -119,25 +118,21 @@ The calculator implements advanced analytical geometry for drill sharpening calc
 
 ---
 
-## 📈 Version History
+## 📈 История на разработката
 
-### v2.1.0 (Current)
-- ✅ Enhanced UI with technical styling
-- ✅ Improved mobile responsiveness
-- ✅ Optimized font selections for engineering use
-- ✅ Updated increment steps to 0.1 units
-- ✅ Code optimization and cleanup
+### Текуща версия
+- ✅ Техническо оформление на потребителския интерфейс
+- ✅ Подобрена мобилна съвместимост
+- ✅ Оптимизирани шрифтове за инженерно приложение
+- ✅ Стандартизирани стъпки за въвеждане (0.1 единици)
+- ✅ Оптимизация и почистване на кода
 
-### v2.0.0
-- ✅ Bilingual support (Bulgarian/English)
-- ✅ Dark/Light mode implementation
-- ✅ SolidWorks coordinate system support
-- ✅ Responsive design overhaul
-
-### v1.0.0
-- ✅ Initial release with core functionality
-- ✅ Basic calculation engine
-- ✅ Standard coordinate system support
+### Предишни версии
+- ✅ Двуезична поддръжка (български/английски)
+- ✅ Светъл/тъмен режим
+- ✅ Поддръжка на SolidWorks координатна система
+- ✅ Отзивчив дизайн
+- ✅ Основна функционалност за изчисления
 
 ---
 
