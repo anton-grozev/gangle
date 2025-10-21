@@ -1,19 +1,10 @@
 /**
- * GAngle_SW.js - Работа със SolidWorks координати
- * 
- * Това е адаптация на GAngle_clean.js която автоматично трансформира
- * SolidWorks координати към оригиналния координатен систем.
- * 
- * Трансформация: [y, z] = scale * Rotation(θ) * [y_SW, z_SW]
- * Параметри открити чрез анализ на две еквивалентни точки
+ * GAngle_SW.js - Основна библиотека за изчисляване на работен заден ъгъл
+ * Оптимизирана версия само с необходимия код за уеб приложението
  */
 
-const readline = require('readline');
-
 class DrillSharpeningTransform {
-    // Точна трансформационна матрица (решена чрез линейна алгебра)
-    // Матрица за преобразуване от SW координати към оригинална система
-    // Открита чрез решаване на система линейни уравнения за три известни точки
+    // Трансформационна матрица за преобразуване от SW координати
     static M11 = -0.1747159967;
     static M12 = 0.6235799837;
     static M13 = -0.1867561927;
@@ -26,14 +17,6 @@ class DrillSharpeningTransform {
     static M32 = -0.1087945740;
     static M33 = -0.4267759731;
 
-    // Константни параметри на системата
-    static WORKSPACE_VALUES = {
-        l: 85.0879,
-        d: 5.7064,
-        theta: 0.4363,   // rad
-        beta: 0.5935,    // rad
-    };
-
     static rad2deg(rad) {
         return rad * 180 / Math.PI;
     }
@@ -44,7 +27,6 @@ class DrillSharpeningTransform {
 
     /**
      * Трансформирам SW координати към оригиналния координатен систем
-     * Използвам точната матрица: M = [M11 M12 M13; M21 M22 M23; M31 M32 M33]
      */
     static transformSWCoordinates(xM_SW, yM_SW, zM_SW) {
         const xM = this.M11 * xM_SW + this.M12 * yM_SW + this.M13 * zM_SW;
@@ -56,7 +38,6 @@ class DrillSharpeningTransform {
 
     /**
      * Основна функция за изчисляване на ъглите на заточване
-     * Приема масиви на SW координати и ги трансформира
      */
     static GAngle(l, d, theta, beta, xM_SW, yM_SW, zM_SW) {
         // Преобразуване на входни данни в масиви
@@ -168,13 +149,6 @@ class DrillSharpeningTransform {
             results.xM.push(xM_i);
         }
 
-        // Показване на резултатите
-        console.log('\nИЗХОДНИ РЕЗУЛТАТИ:');
-        
-        for (let i = 0; i < results.alphaRAD.length; i++) {
-            console.log(`alpha ${i + 1} = ${results.alphaRAD[i].toFixed(2)}°`);
-        }
-
         // Връщане на скаларни стойности ако входът е скалар
         if (!isArrayInput) {
             return {
@@ -186,72 +160,9 @@ class DrillSharpeningTransform {
 
         return results;
     }
-
-    /**
-     * Интерактивен режим
-     */
-    static async interactiveMode() {
-        if (!process.stdin.isTTY) {
-            console.error('❌ ГРЕШКА: Интерактивният режим работи само в интерактивен терминал!');
-            process.exit(1);
-        }
-
-        const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout,
-            terminal: true
-        });
-
-        const question = (prompt) => new Promise((resolve) => rl.question(prompt, resolve));
-
-        console.log('═══════════════════════════════════════════════════════════════');
-        console.log('  ИНТЕРАКТИВЕН РЕЖИМ - ИЗЧИСЛЯВАНЕ НА РАБОТЕН ЗАДЕН ЪГЪЛ');
-        console.log('═══════════════════════════════════════════════════════════════\n');
-
-        try {
-            const l = parseFloat(await question('Въведете l [mm]: '));
-            const d = parseFloat(await question('Въведете d [mm]: '));
-            const theta_deg = parseFloat(await question('Въведете θ [градуси]: '));
-            const theta = this.deg2rad(theta_deg);
-            const beta_deg = parseFloat(await question('Въведете β [градуси]: '));
-            const beta = this.deg2rad(beta_deg);
-
-            console.log('\n--- Въведете координати на точките спрямо върхът на свредлото ---');
-            const numPoints = parseInt(await question('Брой точки: '));
-
-            const xM_SW = [];
-            const yM_SW = [];
-            const zM_SW = [];
-
-            for (let i = 0; i < numPoints; i++) {
-                console.log(`Точка ${i + 1}:`);
-                const x = parseFloat(await question(`  X [mm]: `));
-                const y = parseFloat(await question(`  Y [mm]: `));
-                const z = parseFloat(await question(`  Z [mm]: `));
-                xM_SW.push(x);
-                yM_SW.push(y);
-                zM_SW.push(z);
-            }
-
-            rl.close();
-
-            this.GAngle(l, d, theta, beta, xM_SW, yM_SW, zM_SW);
-
-        } catch (error) {
-            rl.close();
-            console.error(`\n❌ ГРЕШКА: ${error.message}`);
-        }
-    }
 }
 
-// Експорт за използване като модул
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = DrillSharpeningTransform;
-}
-
-// Стартуване на интерактивния режим (само ако е стартиран директно)
-if (require.main === module) {
-    (async () => {
-        await DrillSharpeningTransform.interactiveMode();
-    })();
+// Експорт за браузър (глобална променлива)
+if (typeof window !== 'undefined') {
+    window.DrillSharpeningTransform = DrillSharpeningTransform;
 }
