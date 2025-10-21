@@ -5,8 +5,8 @@
 A professional web-based calculator for computing the side clearance angle (α<sub>f</sub>) for drill sharpening operations. This tool provides precise calculations using advanced mathematical algorithms for manufacturing and engineering applications.
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://anton-grozev.github.io/gangle/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-2.1.0-orange?style=for-the-badge)](#)
+[![Academic](https://img.shields.io/badge/Academic-Research-green?style=for-the-badge)](#)
 
 ---
 
