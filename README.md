@@ -90,20 +90,20 @@ The calculator implements advanced analytical geometry for drill sharpening calc
 
 ---
 
-## 📈 История на разработката
+## 📈 Development History
 
-### Текуща версия
-- ✅ Техническо оформление на потребителския интерфейс
-- ✅ Подобрена мобилна съвместимост
-- ✅ Оптимизирани шрифтове за инженерно приложение
-- ✅ Стандартизирани стъпки за въвеждане (0.1 единици)
-- ✅ Оптимизация и почистване на кода
+### Current Version
+- ✅ Technical refinement of user interface
+- ✅ Improved mobile compatibility
+- ✅ Optimized fonts for engineering application
+- ✅ Standardized input steps (0.1 units)
+- ✅ Code optimization and cleanup
 
-### Предишни версии
-- ✅ Двуезична поддръжка (български/английски)
-- ✅ Светъл/тъмен режим
-- ✅ Отзивчив дизайн
-- ✅ Основна функционалност за изчисления
+### Previous Versions
+- ✅ Bilingual support (Bulgarian/English)
+- ✅ Light/dark mode
+- ✅ Responsive design
+- ✅ Core calculation functionality
 
 ---
 
