@@ -1267,7 +1267,7 @@
 
         function calculateAngles(l, d, theta, beta, coordinates) {
             // Извличаме координатите за използване с външната библиотека
-            const xM_SW = coordinates.map(coord => 0); // X координата се изчислява автоматично
+            const xM_SW = coordinates.map(coord => coord.x);
             const yM_SW = coordinates.map(coord => coord.y);
             const zM_SW = coordinates.map(coord => coord.z);
 
@@ -1297,8 +1297,7 @@
                     
                     // Добавяме точката само ако всички координати са валидни числа
                     if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
-                        const transformed = DrillSharpeningTransform.transformSWCoordinates(x, y, z);
-                        coordinates.push({ y: transformed.yM, z: transformed.zM });
+                        coordinates.push({ x: x, y: y, z: z });
                     }
                 });
 
