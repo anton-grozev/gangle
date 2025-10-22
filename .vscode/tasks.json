@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Serve (python http.server)",
+      "type": "shell",
+      "command": "python3 -m http.server 8000",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Serve (http-server)",
+      "type": "shell",
+      "command": "npx http-server -p 8000",
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}
