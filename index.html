@@ -998,6 +998,8 @@
                 addPointBtn: "+ Добави точка",
                 resetBtn: "Изчисти",
                 copyBtn: "📋 Копирай резултатите",
+                copiedBtn: "✓ Копирано!",
+                noResultsToCopy: "Няма резултати за копиране!",
                 emptyStateInput: "Въведете координатите на поне една точка за да видите резултатите",
                 emptyStateParams: "Въведете всички параметри за да видите резултатите",
                 emptyStateInvalid: "Няма валидни резултати за показване",
@@ -1026,6 +1028,8 @@
                 addPointBtn: "+ Add point",
                 resetBtn: "Clear",
                 copyBtn: "📋 Copy results",
+                copiedBtn: "✓ Copied!",
+                noResultsToCopy: "No results to copy!",
                 emptyStateInput: "Enter coordinates of at least one point to see results",
                 emptyStateParams: "Enter all parameters to see results",
                 emptyStateInvalid: "No valid results to display",
@@ -1379,17 +1383,18 @@
 
         function copyResults() {
             const resultsContent = document.getElementById('results-content').innerText;
+            const t = translations[currentLanguage];
             if (resultsContent.trim() === '') {
-                showError('Няма резултати за копиране!');
+                showError(t.noResultsToCopy);
                 return;
             }
             
             navigator.clipboard.writeText(resultsContent).then(() => {
                 const btn = document.getElementById('copy-btn');
-                btn.textContent = '✓ Копирано!';
+                btn.textContent = t.copiedBtn;
                 btn.classList.add('copied');
                 setTimeout(() => {
-                    btn.textContent = '📋 Копирай резултатите';
+                    btn.textContent = t.copyBtn;
                     btn.classList.remove('copied');
                 }, 2000);
             });
