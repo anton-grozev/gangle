@@ -54,7 +54,7 @@ cd gangle
 
 ### 1. Input Parameters
 - Enter the four main parameters (l, d, θ, β)
-- Add point coordinates using the "+" button
+- Add point coordinates using the "+" button or directly input the values
 - Remove points with the "Remove" button if needed
 
 ### 2. Interpret Results
