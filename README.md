@@ -11,7 +11,6 @@ A professional web-based calculator for computing the side clearance angle (α<s
 
 ## 🎯 Features
 
-- **Dual Mode Operation**: Support for both standard and SolidWorks coordinate systems
 - **Real-time Calculations**: Instant results as you input parameters
 - **Multi-point Analysis**: Calculate angles for multiple points simultaneously
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
@@ -29,18 +28,6 @@ A professional web-based calculator for computing the side clearance angle (α<s
 - **θ [°]**: Angle between drill and cone axes
 - **β [°]**: Angle between cone axis and generatrix (2β is the apex angle)
 - **Point Coordinates**: X, Y, Z coordinates relative to drill tip
-
-### Mathematical Engine
-- Advanced coordinate transformation algorithms
-- Quadratic equation solving for geometric calculations
-- Trigonometric optimization for angle computations
-- SolidWorks coordinate system integration
-
-### Browser Compatibility
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
 
 ---
 
@@ -61,31 +48,16 @@ cd gangle
 # Or simply open index.html in your browser
 ```
 
-### File Structure
-```
-gangle/
-├── index.html          # Main application
-├── GAngle_SW.js        # Core calculation engine
-├── README.md           # Documentation
-└── LICENSE             # License file
-```
-
 ---
 
 ## 📊 Usage Guide
 
-### 1. Select Mode
-Choose between **Standard** or **SolidWorks** coordinate system modes.
-
-### 2. Input Parameters
+### 1. Input Parameters
 - Enter the four main parameters (l, d, θ, β)
 - Add point coordinates using the "+" button
 - Remove points with the "Remove" button if needed
 
-### 3. Calculate Results
-Click the **"Calculate"** button to compute the side clearance angles.
-
-### 4. Interpret Results
+### 2. Interpret Results
 Results show α<sub>f</sub> values for each point with precision to 2 decimal places.
 
 ---
@@ -130,7 +102,6 @@ The calculator implements advanced analytical geometry for drill sharpening calc
 ### Предишни версии
 - ✅ Двуезична поддръжка (български/английски)
 - ✅ Светъл/тъмен режим
-- ✅ Поддръжка на SolidWorks координатна система
 - ✅ Отзивчив дизайн
 - ✅ Основна функционалност за изчисления
 
@@ -154,9 +125,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 PhD Candidate in Manufacturing Engineering  
 *Ruse University, Bulgaria*
 
-- 📧 Email: [your.email@domain.com](mailto:your.email@domain.com)
 - 🔗 LinkedIn: [Your LinkedIn Profile](#)
-- 🌐 Website: [Your Website](#)
 
 ---
 
