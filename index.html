@@ -10,11 +10,9 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         html {
             scroll-behavior: smooth;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.5;
@@ -28,7 +26,6 @@
             align-items: center;
             font-size: 16px;
         }
-
         @keyframes lightGradientFlow {
             0% { background-position: 0% 50%; }
             25% { background-position: 100% 50%; }
@@ -36,7 +33,6 @@
             75% { background-position: 0% 100%; }
             100% { background-position: 0% 50%; }
         }
-
         @keyframes darkGradientFlow {
             0% { background-position: 0% 50%; }
             25% { background-position: 100% 50%; }
@@ -44,7 +40,6 @@
             75% { background-position: 0% 100%; }
             100% { background-position: 0% 50%; }
         }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -55,7 +50,6 @@
                 transform: translateY(0);
             }
         }
-
         @keyframes slideInLeft {
             from {
                 opacity: 0;
@@ -66,7 +60,6 @@
                 transform: translateX(0);
             }
         }
-
         .container {
             background: #f8fafc;
             border: 2px solid #6b7280;
@@ -80,11 +73,9 @@
             gap: 48px;
             align-items: start;
         }
-
         .left-column {
             grid-column: 1;
         }
-
         .input-container {
             border: 2px solid #3b82f6;
             border-radius: 12px;
@@ -92,7 +83,6 @@
             background: #f1f5f9;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-
         .input-container-title {
             color: #374151;
             margin-bottom: 24px;
@@ -101,14 +91,12 @@
             line-height: 1.5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
-
         .right-column {
             grid-column: 2;
             position: sticky;
             top: 20px;
             min-height: 300px;
         }
-
         header {
             grid-column: 1 / -1;
             text-align: center;
@@ -117,7 +105,6 @@
             padding-bottom: 16px;
             position: relative;
         }
-
         h1 {
             color: #111827;
             font-size: 2rem;
@@ -126,19 +113,16 @@
             line-height: 1.2;
             font-family: 'Inter', 'Roboto', sans-serif;
         }
-
         .subtitle {
             color: #666;
             font-size: 1.125em;
         }
-
         .mode-selector {
             display: flex;
             gap: 16px;
             margin-bottom: 32px;
             justify-content: center;
         }
-
         .mode-btn {
             padding: 12px 24px;
             border: 2px solid #e5e7eb;
@@ -151,30 +135,24 @@
             line-height: 1.5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
-
         .mode-btn:hover {
             border-color: #1abc9c;
             color: #1abc9c;
         }
-
         .mode-btn.active {
             background: #1abc9c;
             color: white;
             border-color: #1abc9c;
         }
-
         .form-section {
             display: none;
         }
-
         .form-section.active {
             display: block;
         }
-
         .form-group {
             margin-bottom: 24px;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -184,7 +162,6 @@
             line-height: 1.5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
-
         .form-group input {
             width: 100%;
             padding: 12px 16px;
@@ -197,14 +174,12 @@
             background: #ffffff;
             color: #374151;
         }
-
         .form-group input:focus {
             outline: none;
             border-color: #6366f1;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
             transition: all 0.2s ease;
         }
-
         .params-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -213,7 +188,6 @@
             padding-bottom: 24px;
             border-bottom: 2px solid #e5e7eb;
         }
-
         .params-grid .form-group {
             margin-bottom: 0;
             background: linear-gradient(135deg, #f0f9ff 0%, #f0f7ff 100%);
@@ -222,12 +196,10 @@
             border-left: 4px solid #1abc9c;
             animation: slideInLeft 0.5s ease-out;
         }
-
         .params-grid .form-group:nth-child(1) { animation-delay: 0.1s; }
         .params-grid .form-group:nth-child(2) { animation-delay: 0.2s; }
         .params-grid .form-group:nth-child(3) { animation-delay: 0.3s; }
         .params-grid .form-group:nth-child(4) { animation-delay: 0.4s; }
-
         .section-title {
             font-size: 1.25rem;
             font-weight: 600;
@@ -237,7 +209,6 @@
             line-height: 1.4;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
-
         .points-container {
             margin-bottom: 24px;
             padding: 20px;
@@ -245,7 +216,6 @@
             border-radius: 12px;
             border: 1px solid #e2e8f0;
         }
-
         .point-group {
             background: white;
             padding: 14px;
@@ -254,20 +224,17 @@
             border-left: 4px solid #1abc9c;
             line-height: 1.5;
         }
-
         .point-group h4 {
             color: #1abc9c;
             font-size: 1.1875em;
             margin-bottom: 10px;
             font-weight: 700;
         }
-
         .point-inputs {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
         }
-
         .point-inputs input {
             padding: 10px;
             font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', Consolas, 'Courier New', monospace;
@@ -278,14 +245,12 @@
             background: #ffffff;
             color: #374151;
         }
-
         .point-inputs input:focus {
             outline: none;
             border-color: #6366f1;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
             transition: all 0.2s ease;
         }
-
         .add-point-btn, .remove-point-btn {
             padding: 10px 18px;
             margin-top: 12px;
@@ -297,19 +262,16 @@
             transition: all 0.3s ease;
             line-height: 1.4;
         }
-
         .add-point-btn {
             background: #3b82f6;
             color: white;
             width: 100%;
             border-color: #1d4ed8;
         }
-
         .add-point-btn:hover {
             background: #2563eb;
             border-color: #1e40af;
         }
-
         .remove-point-btn {
             background: #ef4444;
             color: white;
@@ -317,19 +279,16 @@
             padding: 6px 12px;
             border-color: #dc2626;
         }
-
         .remove-point-btn:hover {
             background: #dc2626;
             border-color: #b91c1c;
         }
-
         .button-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-top: 32px;
         }
-
         .btn {
             padding: 12px 24px;
             border: 2px solid transparent;
@@ -341,30 +300,25 @@
             line-height: 1.5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
-
         .btn-calculate {
             background: #1abc9c;
             color: white;
             grid-column: 1 / -1;
         }
-
         .btn-calculate:hover {
             background: #16a085;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(26, 188, 156, 0.3);
         }
-
         .btn-reset {
             background: #f3f4f6;
             color: #374151;
             border-color: #d1d5db;
         }
-
         .btn-reset:hover {
             background: #e5e7eb;
             border-color: #9ca3af;
         }
-
         .results {
             display: block;
             margin-top: 0;
@@ -375,11 +329,9 @@
             min-height: 240px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-
         .results.active {
             display: block;
         }
-
         .results h3 {
             color: #374151;
             margin-bottom: 24px;
@@ -388,21 +340,18 @@
             line-height: 1.5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
-
         .results-empty {
             text-align: center;
             color: #999;
             font-style: italic;
             padding: 40px 20px;
         }
-
         .results-empty::before {
             content: "📊";
             display: block;
             font-size: 3em;
             margin-bottom: 10px;
         }
-
         .result-item {
             padding: 16px 0;
             border-bottom: 1px solid #ddd;
@@ -412,24 +361,20 @@
             animation: fadeInUp 0.6s ease-out backwards;
             line-height: 1.5;
         }
-
         .result-item:nth-child(1) { animation-delay: 0.1s; }
         .result-item:nth-child(2) { animation-delay: 0.2s; }
         .result-item:nth-child(3) { animation-delay: 0.3s; }
         .result-item:nth-child(4) { animation-delay: 0.4s; }
         .result-item:nth-child(5) { animation-delay: 0.5s; }
-
         .result-item:last-child {
             border-bottom: none;
         }
-
         .result-label {
             color: #1abc9c;
             font-weight: 700;
             font-size: 23px;
             line-height: 1.4;
         }
-
         .result-value {
             color: #005a52;
             font-weight: 800;
@@ -439,7 +384,6 @@
             border-radius: 6px;
             line-height: 1.4;
         }
-
         .error {
             padding: 15px;
             background: #ffe0e0;
@@ -449,11 +393,9 @@
             margin-top: 20px;
             display: none;
         }
-
         .error.active {
             display: block;
         }
-
         .copy-btn {
             background: #10b981;
             color: white;
@@ -467,33 +409,45 @@
             transition: all 0.3s ease;
             line-height: 1.4;
         }
-
         .copy-btn:hover {
             background: #059669;
             border-color: #047857;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
-
         .copy-btn.copied {
             background: #27ae60;
         }
 
+        .history-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .history-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
         /* Валидиране */
         input.valid {
             border-color: #27ae60 !important;
         }
-
         input.invalid {
             border-color: #ff6b6b !important;
         }
-
         /* Tooltip */
         .tooltip-container {
             position: relative;
             display: inline-block;
         }
-
         .tooltip {
             visibility: hidden;
             background-color: #1abc9c;
@@ -512,7 +466,6 @@
             transition: opacity 0.3s;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
-
         .tooltip::after {
             content: "";
             position: absolute;
@@ -523,7 +476,6 @@
             border-style: solid;
             border-color: #1abc9c transparent transparent transparent;
         }
-
         .lang-toggle {
             position: fixed;
             top: 20px;
@@ -543,14 +495,12 @@
             align-items: center;
             gap: 5px;
         }
-
         .lang-toggle:hover {
             background: #3b82f6;
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
         }
-
         .dark-mode-toggle {
             position: fixed;
             top: 20px;
@@ -569,168 +519,308 @@
             align-items: center;
             justify-content: center;
         }
-
         .dark-mode-toggle:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
-
         .tooltip-container:hover .tooltip {
             visibility: visible;
             opacity: 1;
         }
-
         /* Dark Mode */
         body.dark-mode {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #1e1e3f 75%, #1a1a2e 100%);
             background-size: 400% 400%;
             animation: darkGradientFlow 15s ease-in-out infinite;
         }
-
         body.dark-mode .container {
             background: #1f2937;
             color: #e5e7eb;
             border-color: #9ca3af;
         }
-
         body.dark-mode header {
             border-bottom-color: #1abc9c;
         }
-
         body.dark-mode h1, body.dark-mode h3, body.dark-mode h4 {
             color: #4DD0E1;
         }
-
         body.dark-mode input, body.dark-mode label {
             background: #1a1f2e;
             color: #e0e0e0;
             border-color: #333;
         }
-
         body.dark-mode .params-grid .form-group {
             background: #1a1f2e;
         }
-
         body.dark-mode .point-group {
             background: #1a1f2e;
         }
-
         body.dark-mode .points-container {
             background: #0f1419;
         }
-
         body.dark-mode .lang-toggle {
             background: #1a1f2e;
             color: #4DD0E1;
             border-color: #4DD0E1;
         }
-
         body.dark-mode .lang-toggle:hover {
             background: #4DD0E1;
             color: #1a1f2e;
         }
-
         body.dark-mode .dark-mode-toggle {
             background: #1a1f2e;
             border-color: #4DD0E1;
             color: #4DD0E1;
         }
-
         body.dark-mode .input-container {
             background: #374151;
             border-color: #60a5fa;
         }
-
         body.dark-mode .input-container-title {
             color: #e5e7eb;
         }
-
         body.dark-mode .result-item {
             border-bottom-color: #333;
         }
-
         body.dark-mode .result-label {
             color: #4DD0E1;
             font-weight: 800;
         }
-
         body.dark-mode .result-value {
             color: #B2EBF2;
             background: rgba(77, 208, 225, 0.25);
             font-weight: 800;
         }
-
         body.dark-mode .results {
             background: #374151;
             border-color: #34d399;
         }
-
         body.dark-mode .results h3 {
             color: #e5e7eb;
         }
-
         body.dark-mode .error {
             background: #4a1a1a;
         }
-
         body.dark-mode .add-point-btn {
             background: #60a5fa;
             border-color: #3b82f6;
         }
-
         body.dark-mode .add-point-btn:hover {
             background: #3b82f6;
             border-color: #2563eb;
         }
-
         body.dark-mode .remove-point-btn {
             background: #f87171;
             border-color: #ef4444;
         }
-
         body.dark-mode .remove-point-btn:hover {
             background: #ef4444;
             border-color: #dc2626;
         }
-
         body.dark-mode .btn-reset {
             background: #4b5563;
             color: #e5e7eb;
             border-color: #6b7280;
         }
-
         body.dark-mode .btn-reset:hover {
             background: #374151;
             border-color: #9ca3af;
         }
-
         body.dark-mode .copy-btn {
             background: #34d399;
             border-color: #10b981;
         }
-
         body.dark-mode .copy-btn:hover {
             background: #10b981;
             border-color: #059669;
         }
 
+        body.dark-mode .history-btn {
+            background-color: #60a5fa;
+            color: #1f2937;
+        }
+
+        body.dark-mode .history-btn:hover {
+            background-color: #3b82f6;
+        }
+
+        /* История стилове */
+        .history-section {
+            background: #f1f5f9;
+            border: 2px solid #6366f1;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .history-section h3 {
+            color: #374151;
+            margin-bottom: 24px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .history-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .save-btn, .clear-history-btn {
+            padding: 12px 20px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .save-btn {
+            background: #10b981;
+            color: white;
+            border-color: #059669;
+        }
+
+        .save-btn:hover {
+            background: #059669;
+            border-color: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .clear-history-btn {
+            background: #ef4444;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        .clear-history-btn:hover {
+            background: #dc2626;
+            border-color: #b91c1c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .history-item {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-item:hover {
+            background: #f9fafb;
+            border-color: #6366f1;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .history-timestamp {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .history-preview {
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .history-preview strong {
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .history-preview small {
+            font-size: 12px;
+            color: #6b7280;
+        }
         body.dark-mode .lang-toggle {
             background: #374151;
             color: #60a5fa;
             border-color: #60a5fa;
         }
-
         body.dark-mode .lang-toggle:hover {
             background: #60a5fa;
             color: #374151;
         }
-
         body.dark-mode .dark-mode-toggle {
             background: #374151;
             border-color: #9ca3af;
             color: #e5e7eb;
         }
 
+        body.dark-mode .history-section {
+            background: #374151;
+            border-color: #4b5563;
+        }
+
+        body.dark-mode .history-section h3 {
+            color: #f9fafb;
+        }
+
+        body.dark-mode .save-btn {
+            background: #34d399;
+            border-color: #10b981;
+            color: white;
+        }
+
+        body.dark-mode .save-btn:hover {
+            background: #10b981;
+            border-color: #059669;
+            box-shadow: 0 4px 8px rgba(52, 211, 153, 0.3);
+        }
+
+        body.dark-mode .clear-history-btn {
+            background: #fca5a5;
+            border-color: #ef4444;
+            color: white;
+        }
+
+        body.dark-mode .clear-history-btn:hover {
+            background: #ef4444;
+            border-color: #dc2626;
+            box-shadow: 0 4px 8px rgba(252, 165, 165, 0.3);
+        }
+
+        body.dark-mode .history-item {
+            background: #1f2937;
+            border-color: #4b5563;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .history-item:hover {
+            background: #374151;
+            border-color: #60a5fa;
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+        }
+
+        body.dark-mode .history-timestamp {
+            color: #9ca3af;
+        }
+
+        body.dark-mode .history-preview {
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .history-preview strong {
+            color: #f9fafb;
+        }
+
+        body.dark-mode .history-preview small {
+            color: #9ca3af;
+        }
         .dark-mode-toggle {
             position: fixed;
             bottom: 20px;
@@ -747,12 +837,10 @@
             transition: all 0.3s ease;
             z-index: 1001;
         }
-
         .dark-mode-toggle:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 16px rgba(26, 188, 156, 0.5);
         }
-
         /* Responsive за екрани над 500px */
         @media (min-width: 501px) {
             .container {
@@ -761,47 +849,38 @@
                 gap: 40px;
                 align-items: start;
             }
-
             .left-column {
                 grid-column: 1;
             }
-
             .right-column {
                 grid-column: 2;
                 position: sticky;
                 top: 20px;
             }
-
             header {
                 grid-column: 1 / -1;
             }
         }
-
         @media (max-width: 500px) {
             .params-grid {
                 grid-template-columns: 1fr;
             }
-
             .point-inputs {
                 grid-template-columns: 1fr;
             }
-
             .button-group {
                 grid-template-columns: 1fr;
             }
-
             /* Mobile header adjustments */
             header {
                 text-align: center;
                 padding: 16px;
                 margin-top: 50px;
             }
-
             header h1 {
                 font-size: 18px;
                 margin: 0;
             }
-
             .lang-toggle,
             .dark-mode-toggle {
                 position: fixed;
@@ -811,61 +890,50 @@
                 min-width: auto;
                 z-index: 1000;
             }
-
             .lang-toggle {
                 right: 60px;
             }
-
             .dark-mode-toggle {
                 right: 10px;
             }
-
             .container {
                 padding: 20px;
                 display: grid;
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-
             .left-column, .right-column {
                 grid-column: 1;
             }
-
             .right-column {
                 position: static;
                 margin-top: 20px;
             }
-
             h1 {
                 font-size: 22px;
             }
         }
-
         .info-text {
             font-size: 10px;
             color: #999;
             margin-top: 2px;
         }
-
         /* Zoom-responsive scaling */
         @media screen and (min-width: 1200px) {
             body {
                 font-size: 14px;
             }
         }
-
         @media screen and (min-width: 1400px) {
             body {
                 font-size: 13px;
             }
         }
-
         @media screen and (min-width: 1600px) {
             body {
                 font-size: 12px;
             }
         }
-
         @media screen and (min-width: 2000px) {
             body {
                 font-size: 10px;
@@ -878,12 +946,10 @@
         <header>
             <h1>🔧 Калкулатор за изчисляване на работен заден ъгъл α<sub>f</sub></h1>
         </header>
-
         <!-- ЛЯВА КОЛОНА - ВЪВЕЖДАНЕ НА ДАННИ -->
         <div class="left-column">
             <div class="input-container">
                 <h3 class="input-container-title">📝 Входни данни:</h3>
-                
                 <!-- SW MODE -->
                 <div id="sw-mode" class="form-section active">
                     <div class="params-grid">
@@ -907,8 +973,8 @@
                             <input type="number" id="beta-sw" value="34" step="0.1">
                             <p class="info-text">Ъгъл между оста на конуса и образуващата (2β е ъгълът при върха)</p>
                         </div>
-                    </div>
 
+                    </div>
                     <div class="section-title">📍 Координати на точките спрямо върхът на свредлото</div>
                     <div class="points-container" id="sw-points">
                         <div class="point-group">
@@ -941,15 +1007,12 @@
                     </div>
                     <button class="add-point-btn" onclick="addPoint('sw')">+ Добави точка</button>
                 </div>
-
                 <div class="button-group">
                     <button class="btn btn-reset" onclick="resetForm()">Изчисти</button>
                 </div>
-
                 <div class="error" id="error-message"></div>
             </div>
         </div>
-
         <!-- ДЯСНА КОЛОНА - РЕЗУЛТАТИ -->
         <div class="right-column">
             <div class="results" id="results">
@@ -959,22 +1022,32 @@
                 </div>
                 <button class="copy-btn" id="copy-btn" onclick="copyResults()" style="display: none;">📋 Копирай резултатите</button>
             </div>
+
+            <!-- История на изчисленията -->
+            <div class="history-section" id="history-section">
+                <h3 id="history-title">История на изчисленията</h3>
+                
+                <div class="history-controls">
+                    <button class="save-btn" id="save-btn" onclick="saveToHistory()">Запази</button>
+                    <button class="clear-history-btn" id="clear-history-btn" onclick="clearHistory()">Изчисти историята</button>
+                </div>
+                
+                <div class="history-container" id="history-container">
+                    <!-- Историята ще се зареди тук динамично -->
+                </div>
+            </div>
         </div>
     </div>
 
     <button class="lang-toggle" id="lang-toggle" onclick="toggleLanguage()" title="Switch Language / Смени език">
         <span id="lang-text">EN</span>
     </button>
-
     <button class="dark-mode-toggle" id="dark-mode-toggle" onclick="toggleDarkMode()" title="Включи/Изключи тъмен режим">🌙</button>
-
     <!-- Load external JavaScript library -->
     <script src="GAngle_SW.js"></script>
-
     <script>
         let currentMode = 'sw';
         let currentLanguage = 'en';
-
         // Translations object
         const translations = {
             bg: {
@@ -1005,7 +1078,16 @@
                 emptyStateInvalid: "Няма валидни резултати за показване",
                 emptyStateInitial: "Резултатите ще се покажат тук",
                 darkModeTitle: "Включи/Изключи тъмен режим",
-                langToggleTitle: "Switch Language / Смени език"
+                langToggleTitle: "Switch Language / Смени език",
+                historyTitle: "История на изчисленията",
+                saveBtn: "Запази",
+                clearHistoryBtn: "Изчисти историята",
+                historyEmpty: "Няма запазени изчисления",
+                historyParams: "Параметри",
+                historyResults: "Резултати",
+                historyCoords: "Координати и ъгли",
+                historyPoint: "Точка",
+                historyNoResults: "Няма резултати"
             },
             en: {
                 title: "🔧 TWIST DRILL SIDE CLEARANCE ANGLE α<sub>f</sub> CALCULATOR",
@@ -1035,29 +1117,36 @@
                 emptyStateInvalid: "No valid results to display",
                 emptyStateInitial: "Results will be displayed here",
                 darkModeTitle: "Toggle Dark Mode",
-                langToggleTitle: "Switch Language / Смени език"
+                langToggleTitle: "Switch Language / Смени език",
+                historyTitle: "Calculation History",
+                saveBtn: "Save",
+                clearHistoryBtn: "Clear History",
+                historyEmpty: "No saved calculations",
+                historyParams: "Parameters",
+                historyResults: "Results",
+                historyCoords: "Coordinates and angles",
+                historyPoint: "Point",
+                historyNoResults: "No results"
             }
         };
-
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 resetForm();
             }
         });
-
         // Load dark mode on page load
         window.addEventListener('load', function() {
             loadDarkMode();
             loadLanguage();
             setupValidation();
             setupTooltips();
+            displayHistory(); // Зареждаме историята при стартиране
             // Auto-calculate with initial values
             setTimeout(() => {
                 calculate();
             }, 100); // Малко закъснение за да се зареди DOM-а напълно
         });
-
         // Dark mode
         function toggleDarkMode() {
             const isDarkMode = document.body.classList.toggle('dark-mode');
@@ -1065,7 +1154,6 @@
             btn.textContent = isDarkMode ? '☀️' : '🌙';
             localStorage.setItem('darkMode', isDarkMode);
         }
-
         function loadDarkMode() {
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
             if (isDarkMode) {
@@ -1073,61 +1161,49 @@
                 document.getElementById('dark-mode-toggle').textContent = '☀️';
             }
         }
-
         // Language functions
         function toggleLanguage() {
             currentLanguage = currentLanguage === 'bg' ? 'en' : 'bg';
             updateLanguage();
             localStorage.setItem('language', currentLanguage);
         }
-
         function updateLanguage() {
             const t = translations[currentLanguage];
-            
             // Update UI elements
             document.querySelector('h1').innerHTML = t.title;
             document.querySelector('.input-container-title').textContent = t.inputDataTitle;
             document.querySelector('.results h3').textContent = t.resultsTitle;
-            
             // Update parameter labels
             document.querySelector('label[for="l-sw"]').innerHTML = `&#128207; ${t.paramL}`;
             document.querySelector('label[for="d-sw"]').innerHTML = `&#128207; ${t.paramD}`;
             document.querySelector('label[for="theta-sw"]').innerHTML = `📐 ${t.paramTheta}`;
             document.querySelector('label[for="beta-sw"]').innerHTML = `📐 ${t.paramBeta}`;
-            
             // Update info texts
             const infoTexts = document.querySelectorAll('.info-text');
             if (infoTexts[0]) infoTexts[0].textContent = t.infoL;
             if (infoTexts[1]) infoTexts[1].textContent = t.infoD;
             if (infoTexts[2]) infoTexts[2].textContent = t.infoTheta;
             if (infoTexts[3]) infoTexts[3].textContent = t.infoBeta;
-            
             // Update section title
             document.querySelector('.section-title').textContent = t.coordinatesTitle;
-            
             // Update point labels and placeholders
             updatePointsLanguage();
-            
             // Update buttons
             document.querySelector('.add-point-btn').textContent = t.addPointBtn;
             document.querySelector('.btn-reset').textContent = t.resetBtn;
             document.querySelector('.copy-btn').textContent = t.copyBtn;
-            
             // Update toggle buttons
             const langText = document.getElementById('lang-text');
             const darkModeBtn = document.getElementById('dark-mode-toggle');
             const langToggleBtn = document.getElementById('lang-toggle');
-            
             // Показваме следващия език (не текущия)
             if (currentLanguage === 'en') {
                 langText.textContent = 'BG'; // Ако сме на EN, показваме BG за превключване
             } else {
                 langText.textContent = 'EN'; // Ако сме на BG, показваме EN за превключване
             }
-            
             darkModeBtn.title = t.darkModeTitle;
             langToggleBtn.title = t.langToggleTitle;
-            
             // Update empty states
             const emptyStates = document.querySelectorAll('.results-empty');
             emptyStates.forEach(empty => {
@@ -1141,26 +1217,33 @@
                     empty.textContent = t.emptyStateInitial;
                 }
             });
-        }
 
+            // Update history section
+            const historyTitle = document.getElementById('history-title');
+            const saveBtn = document.getElementById('save-btn');
+            const clearHistoryBtn = document.getElementById('clear-history-btn');
+            
+            if (historyTitle) historyTitle.textContent = t.historyTitle;
+            if (saveBtn) saveBtn.textContent = t.saveBtn;
+            if (clearHistoryBtn) clearHistoryBtn.textContent = t.clearHistoryBtn;
+            
+            // Обновяваме дисплея на историята при смяна на езика
+            displayHistory();
+        }
         function updatePointsLanguage() {
             const t = translations[currentLanguage];
             const pointGroups = document.querySelectorAll('.point-group');
-            
             pointGroups.forEach((group, index) => {
                 const h4 = group.querySelector('h4');
                 if (h4) h4.textContent = `${t.pointLabel} ${index + 1}`;
-                
                 const inputs = group.querySelectorAll('input');
                 if (inputs[0]) inputs[0].placeholder = t.placeholderX;
                 if (inputs[1]) inputs[1].placeholder = t.placeholderY;
                 if (inputs[2]) inputs[2].placeholder = t.placeholderZ;
-                
                 const removeBtn = group.querySelector('.remove-point-btn');
                 if (removeBtn) removeBtn.textContent = t.removeBtn;
             });
         }
-
         function loadLanguage() {
             const savedLang = localStorage.getItem('language');
             if (savedLang && translations[savedLang]) {
@@ -1168,7 +1251,6 @@
             }
             updateLanguage(); // Винаги извикваме за да се настрои правилно бутона
         }
-
         // Валидиране в реално време
         function setupValidation() {
             const inputs = document.querySelectorAll('input[type="number"]');
@@ -1187,7 +1269,6 @@
                 });
             });
         }
-
         function autoCalculate() {
             // Задържаме с малко закъснение, за да не се изчислява на всеки character
             clearTimeout(window.calcTimeout);
@@ -1195,7 +1276,6 @@
                 calculate();
             }, 300);
         }
-
         // Tooltip
         function setupTooltips() {
             const labels = document.querySelectorAll('label');
@@ -1207,7 +1287,6 @@
                     wrapper.className = 'tooltip-container';
                     label.parentNode.insertBefore(wrapper, label);
                     wrapper.appendChild(label);
-                    
                     const tooltip = document.createElement('div');
                     tooltip.className = 'tooltip';
                     tooltip.textContent = infoText.textContent;
@@ -1215,12 +1294,10 @@
                 }
             });
         }
-
         function addPoint(mode) {
             const container = document.getElementById(mode + '-points');
             const pointCount = container.children.length + 1;
             const t = translations[currentLanguage];
-            
             const pointGroup = document.createElement('div');
             pointGroup.className = 'point-group';
             pointGroup.innerHTML = `
@@ -1232,9 +1309,7 @@
                     <button class="remove-point-btn" onclick="removePoint(this)">${t.removeBtn}</button>
                 </div>
             `;
-            
             container.appendChild(pointGroup);
-            
             // Setup auto-calculate for new inputs
             const newInputs = pointGroup.querySelectorAll('input[type="number"]');
             newInputs.forEach(input => {
@@ -1250,16 +1325,13 @@
                     autoCalculate();
                 });
             });
-            
             autoCalculate();
         }
-
         function removePoint(btn) {
             btn.closest('.point-group').remove();
             updatePointNumbers();
             autoCalculate();
         }
-
         function updatePointNumbers() {
             const mode = currentMode;
             const container = document.getElementById(mode + '-points');
@@ -1268,43 +1340,34 @@
                 group.querySelector('h4').textContent = `${t.pointLabel} ${idx + 1}`;
             });
         }
-
         function calculateAngles(l, d, theta, beta, coordinates) {
             // Извличаме координатите за използване с външната библиотека
             const xM_SW = coordinates.map(coord => coord.x);
             const yM_SW = coordinates.map(coord => coord.y);
             const zM_SW = coordinates.map(coord => coord.z);
-
             // Използваме външната библиотека GAngle_SW.js
             const result = DrillSharpeningTransform.GAngle(l, d, theta, beta, xM_SW, yM_SW, zM_SW);
-            
             // Връщаме само ъглите αf
             return result.alphaRAD;
         }
-
         function calculate() {
             clearError();
-            
             try {
                 let l, d, theta, beta, coordinates = [];
-
                 l = parseFloat(document.getElementById('l-sw').value);
                 d = parseFloat(document.getElementById('d-sw').value);
                 theta = DrillSharpeningTransform.deg2rad(parseFloat(document.getElementById('theta-sw').value));
                 beta = DrillSharpeningTransform.deg2rad(parseFloat(document.getElementById('beta-sw').value));
-
                 const points = document.querySelectorAll('#sw-points .point-group');
                 points.forEach(point => {
                     const x = parseFloat(point.querySelector('.x-coord').value);
                     const y = parseFloat(point.querySelector('.y-coord').value);
                     const z = parseFloat(point.querySelector('.z-coord').value);
-                    
                     // Добавяме точката само ако всички координати са валидни числа
                     if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
                         coordinates.push({ x: x, y: y, z: z });
                     }
                 });
-
                 if (coordinates.length === 0) {
                     // Покажи empty state ако няма точки
                     const t = translations[currentLanguage];
@@ -1312,7 +1375,6 @@
                     document.getElementById('copy-btn').style.display = 'none';
                     return;
                 }
-
                 if (isNaN(l) || isNaN(d) || isNaN(theta) || isNaN(beta)) {
                     // Покажи empty state ако имаме невалидни параметри
                     const t = translations[currentLanguage];
@@ -1320,9 +1382,7 @@
                     document.getElementById('copy-btn').style.display = 'none';
                     return;
                 }
-
                 const angles = calculateAngles(l, d, theta, beta, coordinates);
-
                 let resultsHTML = '';
                 angles.forEach((angle, idx) => {
                     if (!isNaN(angle)) {
@@ -1334,7 +1394,6 @@
                         `;
                     }
                 });
-
                 if (resultsHTML === '') {
                     // Покажи empty state ако няма валидни резултати
                     const t = translations[currentLanguage];
@@ -1342,16 +1401,13 @@
                     document.getElementById('copy-btn').style.display = 'none';
                     return;
                 }
-
                 document.getElementById('results-content').innerHTML = resultsHTML;
                 document.getElementById('copy-btn').style.display = 'block';
-                document.getElementById('results').classList.add('active');
                 document.getElementById('results').classList.add('active');
             } catch (err) {
                 showError(err.message);
             }
         }
-
         function resetForm() {
             document.querySelectorAll('input[type="number"]').forEach(input => {
                 if (input.hasAttribute('value')) {
@@ -1360,27 +1416,22 @@
                     input.value = '';
                 }
             });
-            
             const container = document.getElementById('sw-points');
             while (container.children.length > 1) {
                 container.removeChild(container.lastChild);
             }
-
             document.getElementById('results').classList.remove('active');
             clearError();
         }
-
         function showError(message) {
             const errorDiv = document.getElementById('error-message');
             errorDiv.textContent = '❌ ' + message;
             errorDiv.classList.add('active');
         }
-
         function clearError() {
             const errorDiv = document.getElementById('error-message');
             errorDiv.classList.remove('active');
         }
-
         function copyResults() {
             const resultsContent = document.getElementById('results-content').innerText;
             const t = translations[currentLanguage];
@@ -1388,7 +1439,6 @@
                 showError(t.noResultsToCopy);
                 return;
             }
-            
             navigator.clipboard.writeText(resultsContent).then(() => {
                 const btn = document.getElementById('copy-btn');
                 btn.textContent = t.copiedBtn;
@@ -1400,22 +1450,165 @@
             });
         }
 
-        function addToHistory(l, d, theta, beta, results) {
-            // Функция премахната - историята е деактивирана
+        function toggleHistory() {
+            // Историята е винаги видима, просто зареждаме съдържанието
+            displayHistory();
         }
 
+        function saveToHistory() {
+            const results = getCurrentResults();
+            if (!results) return;
+            let history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+            const timestamp = new Date().toLocaleString('bg-BG');
+            const entry = {
+                timestamp: timestamp,
+                inputs: getInputValues(),
+                results: results
+            };
+            history.unshift(entry);
+            if (history.length > 20) history = history.slice(0, 20);
+            localStorage.setItem('calculationHistory', JSON.stringify(history));
+            displayHistory();
+        }
         function displayHistory() {
-            // Функция премахната - историята е деактивирана
+            const historyContainer = document.getElementById('history-container');
+            const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+            const t = translations[currentLanguage];
+            
+            if (history.length === 0) {
+                historyContainer.innerHTML = `<p>${t.historyEmpty}</p>`;
+                return;
+            }
+            
+            historyContainer.innerHTML = history.map((entry, index) => `
+                <div class="history-item" onclick="loadHistoryItem(${index})">
+                    <div class="history-timestamp">${entry.timestamp}</div>
+                    <div class="history-preview">
+                        <strong>${t.historyParams}:</strong> l: ${entry.inputs.l}мм, d: ${entry.inputs.d}мм, θ: ${entry.inputs.theta}°, β: ${entry.inputs.beta}°
+                        <br><strong>${t.historyResults}:</strong> ${entry.results?.summary || t.historyNoResults}
+                        ${entry.results?.coordinates && entry.results.coordinates.length > 0 ? 
+                            `<br><strong>${t.historyCoords}:</strong><br>` + 
+                            entry.results.coordinates.map((coord, i) => 
+                                `${t.historyPoint} ${i+1}: (${coord.x}, ${coord.y}, ${coord.z}) → ${coord.angle}`
+                            ).join('<br>') 
+                            : ''
+                        }
+                    </div>
+                </div>
+            `).join('');
         }
-
         function loadHistoryItem(idx) {
-            // Функция премахната - историята е деактивирана
+            const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+            if (!history[idx]) return;
+            
+            const entry = history[idx];
+            
+            // Зареждаме основните параметри
+            document.getElementById('l-sw').value = entry.inputs.l || '';
+            document.getElementById('d-sw').value = entry.inputs.d || '';
+            document.getElementById('theta-sw').value = entry.inputs.theta || '';
+            document.getElementById('beta-sw').value = entry.inputs.beta || '';
+            
+            // Изчистваме всички съществуващи точки
+            const container = document.getElementById('sw-points');
+            while (container.children.length > 1) {
+                container.removeChild(container.lastChild);
+            }
+            
+            // Зареждаме точките
+            if (entry.inputs.points && entry.inputs.points.length > 0) {
+                entry.inputs.points.forEach((point, index) => {
+                    if (index === 0) {
+                        // Използваме първата съществуваща точка
+                        const firstGroup = container.querySelector('.point-group');
+                        const inputs = firstGroup.querySelectorAll('input');
+                        inputs[0].value = point.x || '';
+                        inputs[1].value = point.y || '';
+                        inputs[2].value = point.z || '';
+                    } else {
+                        // Добавяме нови точки
+                        addPoint();
+                        const lastGroup = container.lastElementChild;
+                        const inputs = lastGroup.querySelectorAll('input');
+                        inputs[0].value = point.x || '';
+                        inputs[1].value = point.y || '';
+                        inputs[2].value = point.z || '';
+                    }
+                });
+            }
+            
+            // Извършваме изчислението
+            calculate();
         }
-
         function clearHistory() {
-            // Функция премахната - историята е деактивирана
+            localStorage.removeItem('calculationHistory');
+            displayHistory();
         }
-
+        function getCurrentResults() {
+            const resultsContent = document.getElementById('results-content');
+            if (!resultsContent) return null;
+            
+            // Проверяваме дали има валидни резултати (не празно състояние)
+            const isEmpty = resultsContent.querySelector('.results-empty');
+            if (isEmpty) return null;
+            
+            // Извличаме всички резултати
+            const resultItems = resultsContent.querySelectorAll('.result-item');
+            if (resultItems.length === 0) return null;
+            
+            const results = [];
+            const coordinates = [];
+            
+            resultItems.forEach((item, index) => {
+                const label = item.querySelector('.result-label')?.textContent || '';
+                const value = item.querySelector('.result-value')?.textContent || '';
+                results.push({ label, value });
+                
+                // Извличаме координатите за съответната точка
+                const pointGroups = document.querySelectorAll('.point-group');
+                if (pointGroups[index]) {
+                    const inputs = pointGroups[index].querySelectorAll('input');
+                    coordinates.push({
+                        x: inputs[0]?.value || '',
+                        y: inputs[1]?.value || '',
+                        z: inputs[2]?.value || '',
+                        angle: value
+                    });
+                }
+            });
+            
+            return {
+                count: results.length,
+                results: results,
+                coordinates: coordinates,
+                summary: currentLanguage === 'bg' ? 
+                    `Изчислени ${results.length} ъгъла` : 
+                    `Calculated ${results.length} angles`
+            };
+        }
+        function getInputValues() {
+            // Съберяване на всички входни данни
+            const inputs = {
+                l: document.getElementById('l-sw')?.value || '',
+                d: document.getElementById('d-sw')?.value || '',
+                theta: document.getElementById('theta-sw')?.value || '',
+                beta: document.getElementById('beta-sw')?.value || '',
+                points: []
+            };
+            
+            // Съберяване на координатите на точките
+            const pointGroups = document.querySelectorAll('.point-group');
+            pointGroups.forEach((group, index) => {
+                const x = group.querySelector('input[placeholder*="X"]')?.value || '';
+                const y = group.querySelector('input[placeholder*="Y"]')?.value || '';
+                const z = group.querySelector('input[placeholder*="Z"]')?.value || '';
+                if (x || y || z) {
+                    inputs.points.push({ x, y, z, index: index + 1 });
+                }
+            });
+            
+            return inputs;
+        }
         // Позволяване на Enter за изчисление
         document.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
