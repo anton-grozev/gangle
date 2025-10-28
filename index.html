@@ -1141,7 +1141,9 @@
             loadLanguage();
             setupValidation();
             setupTooltips();
-            displayHistory(); // Зареждаме историята при стартиране
+            clearHistory(); // Изчистваме историята при отваряне на сайта
+            displayHistory(); // Зареждаме празна история
+            updatePointsContainerVisibility(); // Проверяваме видимостта на контейнера с точки
             // Auto-calculate with initial values
             setTimeout(() => {
                 calculate();
@@ -1310,6 +1312,7 @@
                 </div>
             `;
             container.appendChild(pointGroup);
+            updatePointsContainerVisibility();
             // Setup auto-calculate for new inputs
             const newInputs = pointGroup.querySelectorAll('input[type="number"]');
             newInputs.forEach(input => {
@@ -1330,7 +1333,18 @@
         function removePoint(btn) {
             btn.closest('.point-group').remove();
             updatePointNumbers();
+            updatePointsContainerVisibility();
             autoCalculate();
+        }
+        function updatePointsContainerVisibility() {
+            const container = document.getElementById('sw-points');
+            const pointGroups = container.querySelectorAll('.point-group');
+            
+            if (pointGroups.length === 0) {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+            }
         }
         function updatePointNumbers() {
             const mode = currentMode;
@@ -1409,18 +1423,20 @@
             }
         }
         function resetForm() {
+            // Изчистваме само координатите, запазваме броя на точките
             document.querySelectorAll('input[type="number"]').forEach(input => {
-                if (input.hasAttribute('value')) {
-                    input.value = input.getAttribute('value');
-                } else {
+                // Запазваме полето за брой точки, изчистваме останалите
+                if (input.id !== 'sw-points-count') {
                     input.value = '';
                 }
             });
-            const container = document.getElementById('sw-points');
-            while (container.children.length > 1) {
-                container.removeChild(container.lastChild);
-            }
+            // НЕ премахваме точките, само изчистваме координатите им
+            
+            // Изчистваме резултатите напълно
+            const t = translations[currentLanguage];
+            document.getElementById('results-content').innerHTML = `<div class="results-empty">${t.emptyStateInput}</div>`;
             document.getElementById('results').classList.remove('active');
+            updatePointsContainerVisibility(); // Проверяваме видимостта на контейнера
             clearError();
         }
         function showError(message) {
