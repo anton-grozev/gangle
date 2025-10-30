@@ -1,19 +1,40 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Launch Chrome against localhost",
-      "type": "pwa-chrome",
-      "request": "launch",
-      "url": "http://localhost:8000/index.html",
-      "webRoot": "${workspaceFolder}"
-    },
-    {
-      "name": "Attach to Chrome",
-      "type": "pwa-chrome",
-      "request": "attach",
-      "port": 9222,
-      "webRoot": "${workspaceFolder}"
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch with Five Server (Brave)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:5500",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start Five Server",
+            "runtimeExecutable": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+            "runtimeArgs": [
+                "--disable-web-security",
+                "--disable-features=VizDisplayCompositor"
+            ]
+        },
+        {
+            "name": "Launch with Five Server (Chrome)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:5500",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start Five Server"
+        },
+        {
+            "name": "Launch Chrome against localhost:8000",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:8000/index.html",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Attach to Brave/Chrome",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
 }
