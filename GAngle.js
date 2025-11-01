@@ -13,13 +13,13 @@ class DrillAngleCalculator {
 
     /**
      * Функция за изчисляване на работен заден ъгъл с директни drill координати
-     * @param {number} l - дължина на свредлото
-     * @param {number} d - диаметър на свредлото  
-     * @param {number} theta - ъгъл theta в радиани
-     * @param {number} beta - ъгъл beta в радиани
-     * @param {number|Array} xM - x координата/координати
-     * @param {number|Array} yM - y координата/координати
-     * @param {number|Array} zM - z координата/координати
+     * @param {number} l - разстояние от върха на конуса до този край на ос–отсечката между двете оси, който лежи на оста на конуса
+     * @param {number} d - разстояние между двете оси, тоест дължината на ос–отсечката  
+     * @param {number} theta - ъгъл между осите на свредлото и конуса (в радиани)
+     * @param {number} beta - ъгъл между оста на конуса и образуващата (в радиани, 2β е ъгълът при върха на конуса)
+     * @param {number|Array} xM - x координата/координати на точки от режещия ръб
+     * @param {number|Array} yM - y координата/координати на точки от режещия ръб
+     * @param {number|Array} zM - z координата/координати на точки от режещия ръб
      */
     static calculateAngle(l, d, theta, beta, xM, yM, zM) {
         // Преобразуване на входни данни в масиви
@@ -34,9 +34,9 @@ class DrillAngleCalculator {
             throw new Error('yM и zM координатите трябва да имат еднаква дължина');
         }
 
-        // Изчисляване на h параметъра
-        const tanTheta = Math.tan(theta);
-        const tanBeta = Math.tan(beta);
+        // Изчисляване на h параметъра (разстояние от върха на конуса до ортогоналната проекция на върха на свредлото върху оста на конуса)
+        const tanTheta = Math.tan(theta);  // ъгъл между осите на свредлото и конуса
+        const tanBeta = Math.tan(beta);    // ъгъл между оста на конуса и образуващата
         
         const ah = tanTheta * tanTheta - tanBeta * tanBeta;
         const bh = tanTheta * tanTheta * l;
