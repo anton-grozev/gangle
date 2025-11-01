@@ -980,18 +980,18 @@
                         <div class="point-group">
                             <h4>Точка 1</h4>
                             <div class="point-inputs">
-                                <input type="number" class="x-coord" placeholder="X [mm]" step="0.1" value="0">
-                                <input type="number" class="y-coord" placeholder="Y [mm]" step="0.1" value="4.84">
-                                <input type="number" class="z-coord" placeholder="Z [mm]" step="0.1" value="-9.75">
+                                <input type="number" class="x-coord" placeholder="X [mm]" step="0.1" value="4.839">
+                                <input type="number" class="y-coord" placeholder="Y [mm]" step="0.1" value="-9.051">
+                                <input type="number" class="z-coord" placeholder="Z [mm]" step="0.1" value="3.635">
                                 <button class="remove-point-btn" onclick="removePoint(this)">Премахни</button>
                             </div>
                         </div>
                         <div class="point-group">
                             <h4>Точка 2</h4>
                             <div class="point-inputs">
-                                <input type="number" class="x-coord" placeholder="X [mm]" step="0.1" value="0.32">
-                                <input type="number" class="y-coord" placeholder="Y [mm]" step="0.1" value="3.7">
-                                <input type="number" class="z-coord" placeholder="Z [mm]" step="0.1" value="-7.78">
+                                <input type="number" class="x-coord" placeholder="X [mm]" step="0.1" value="3.704">
+                                <input type="number" class="y-coord" placeholder="Y [mm]" step="0.1" value="-7.099">
+                                <input type="number" class="z-coord" placeholder="Z [mm]" step="0.1" value="3.196">
                                 <button class="remove-point-btn" onclick="removePoint(this)">Премахни</button>
                             </div>
                         </div>
@@ -1044,7 +1044,7 @@
     </button>
     <button class="dark-mode-toggle" id="dark-mode-toggle" onclick="toggleDarkMode()" title="Включи/Изключи тъмен режим">🌙</button>
     <!-- Load external JavaScript library -->
-    <script src="GAngle_SW.js"></script>
+    <script src="GAngle.js"></script>
     <script>
         let currentMode = 'sw';
         let currentLanguage = 'en';
@@ -1356,11 +1356,11 @@
         }
         function calculateAngles(l, d, theta, beta, coordinates) {
             // Извличаме координатите за използване с външната библиотека
-            const xM_SW = coordinates.map(coord => coord.x);
-            const yM_SW = coordinates.map(coord => coord.y);
-            const zM_SW = coordinates.map(coord => coord.z);
-            // Използваме външната библиотека GAngle_SW.js
-            const result = DrillSharpeningTransform.GAngle(l, d, theta, beta, xM_SW, yM_SW, zM_SW);
+            const xM = coordinates.map(coord => coord.x);
+            const yM = coordinates.map(coord => coord.y);
+            const zM = coordinates.map(coord => coord.z);
+            // Използваме директни drill координати
+            const result = DrillAngleCalculator.calculateAngle(l, d, theta, beta, xM, yM, zM);
             // Връщаме само ъглите αf
             return result.alphaRAD;
         }
@@ -1370,8 +1370,8 @@
                 let l, d, theta, beta, coordinates = [];
                 l = parseFloat(document.getElementById('l-sw').value);
                 d = parseFloat(document.getElementById('d-sw').value);
-                theta = DrillSharpeningTransform.deg2rad(parseFloat(document.getElementById('theta-sw').value));
-                beta = DrillSharpeningTransform.deg2rad(parseFloat(document.getElementById('beta-sw').value));
+                theta = DrillAngleCalculator.deg2rad(parseFloat(document.getElementById('theta-sw').value));
+                beta = DrillAngleCalculator.deg2rad(parseFloat(document.getElementById('beta-sw').value));
                 const points = document.querySelectorAll('#sw-points .point-group');
                 points.forEach(point => {
                     const x = parseFloat(point.querySelector('.x-coord').value);

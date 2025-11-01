@@ -1,21 +1,8 @@
 /**
- * GAngle_SW.js - Библиотека за изчисляване на работен заден ъгъл
+ * GAngle.js - Библиотека за изчисляване на работен заден ъгъл с директни координати
  */
 
-class DrillSharpeningTransform {
-    // Трансформационна матрица за преобразуване от SW координати
-    static M11 = -0.1747159967;
-    static M12 = 0.6235799837;
-    static M13 = -0.1867561927;
-    
-    static M21 = 0.3122687596;
-    static M22 = -0.1413437982;
-    static M23 = 0.8581431812;
-    
-    static M31 = 0.8697589148;
-    static M32 = -0.1087945740;
-    static M33 = -0.4267759731;
-
+class DrillAngleCalculator {
     static rad2deg(rad) {
         return rad * 180 / Math.PI;
     }
@@ -25,45 +12,25 @@ class DrillSharpeningTransform {
     }
 
     /**
-     * Трансформация от SW към оригинална координатна система
+     * Функция за изчисляване на работен заден ъгъл с директни drill координати
+     * @param {number} l - дължина на свредлото
+     * @param {number} d - диаметър на свредлото  
+     * @param {number} theta - ъгъл theta в радиани
+     * @param {number} beta - ъгъл beta в радиани
+     * @param {number|Array} xM - x координата/координати
+     * @param {number|Array} yM - y координата/координати
+     * @param {number|Array} zM - z координата/координати
      */
-    static transformSWCoordinates(xM_SW, yM_SW, zM_SW) {
-        const xM = this.M11 * xM_SW + this.M12 * yM_SW + this.M13 * zM_SW;
-        const yM = this.M21 * xM_SW + this.M22 * yM_SW + this.M23 * zM_SW;
-        const zM = this.M31 * xM_SW + this.M32 * yM_SW + this.M33 * zM_SW;
-        
-        return { xM, yM, zM };
-    }
-
-    /**
-     * Основна функция за изчисляване на ъглите на заточване
-     */
-    static GAngle(l, d, theta, beta, xM_SW, yM_SW, zM_SW) {
+    static calculateAngle(l, d, theta, beta, xM, yM, zM) {
         // Преобразуване на входни данни в масиви
-        const xM_SW_array = Array.isArray(xM_SW) ? xM_SW : [xM_SW];
-        const yM_SW_array = Array.isArray(yM_SW) ? yM_SW : [yM_SW];
-        const zM_SW_array = Array.isArray(zM_SW) ? zM_SW : [zM_SW];
+        const xM_array = Array.isArray(xM) ? xM : [xM];
+        const yM_array = Array.isArray(yM) ? yM : [yM];
+        const zM_array = Array.isArray(zM) ? zM : [zM];
         
-        const isArrayInput = Array.isArray(xM_SW) || Array.isArray(yM_SW) || Array.isArray(zM_SW);
-        const numPoints = Math.max(xM_SW_array.length, yM_SW_array.length, zM_SW_array.length);
+        const isArrayInput = Array.isArray(xM) || Array.isArray(yM) || Array.isArray(zM);
+        const numPoints = Math.max(xM_array.length, yM_array.length, zM_array.length);
 
-        // Трансформация към оригинална система
-        const xM = [];
-        const yM = [];
-        const zM = [];
-        
-        for (let i = 0; i < numPoints; i++) {
-            const x_sw = xM_SW_array[i % xM_SW_array.length];
-            const y_sw = yM_SW_array[i % yM_SW_array.length];
-            const z_sw = zM_SW_array[i % zM_SW_array.length];
-            
-            const transformed = this.transformSWCoordinates(x_sw, y_sw, z_sw);
-            xM.push(transformed.xM);
-            yM.push(transformed.yM);
-            zM.push(transformed.zM);
-        }
-        
-        if (yM.length !== zM.length) {
+        if (yM_array.length !== zM_array.length) {
             throw new Error('yM и zM координатите трябва да имат еднаква дължина');
         }
 
@@ -76,7 +43,6 @@ class DrillSharpeningTransform {
         const ch = l * l * tanTheta * tanTheta + d * d;
 
         let h;
-        
         if (Math.abs(ah) < 1e-10) {
             h = 0.5 * ch / bh;
         } else if (ah < 0) {
@@ -97,16 +63,16 @@ class DrillSharpeningTransform {
         const cosBeta = Math.cos(beta);
         const sinTheta = Math.sin(theta);
 
-        // Обработка на всяка точка
+        // Резултати за всяка точка
         const results = {
             alphaRAD: [],
             h: h,
             xM: []
         };
-        
-        for (let i = 0; i < yM.length; i++) {
-            const yM_i = yM[i];
-            const zM_i = zM[i];
+
+        for (let i = 0; i < yM_array.length; i++) {
+            const yM_i = yM_array[i];
+            const zM_i = zM_array[i];
 
             // Решаване на квадратно уравнение за xM координатата
             const axc = cosTheta * cosTheta - cosBeta * cosBeta;
@@ -161,7 +127,10 @@ class DrillSharpeningTransform {
     }
 }
 
-// Експорт за браузър
+// Експорт за браузър и Node.js
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = DrillAngleCalculator;
+}
 if (typeof window !== 'undefined') {
-    window.DrillSharpeningTransform = DrillSharpeningTransform;
+    window.DrillAngleCalculator = DrillAngleCalculator;
 }
