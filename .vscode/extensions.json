@@ -1,0 +1,30 @@
+{
+    "recommendations": [
+        // Web Development
+        "ms-vscode.vscode-json",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-rename-tag",
+        "ms-vscode.live-server",
+        // HTML/CSS
+        "ecmel.vscode-html-css",
+        "zignd.html-css-class-completion",
+        "pranaygp.vscode-css-peek",
+        // JavaScript
+        "ms-vscode.vscode-typescript-next",
+        "ms-vscode.vscode-eslint",
+        "christian-kohler.path-intellisense",
+        // Git
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        // Productivity
+        "ms-vscode.vscode-todo-highlight",
+        "streetsidesoftware.code-spell-checker",
+        "yzhang.markdown-all-in-one",
+        // Debugging
+        "ms-vscode.vscode-js-debug",
+        // Theme (optional)
+        "zhuangtongfa.material-theme",
+        "pkief.material-icon-theme"
+    ]
+}
