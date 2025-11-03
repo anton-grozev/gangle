@@ -515,9 +515,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px;
-            background: #f1f5f9;
+            background: transparent;
             border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            border: none;
         }
         .sum-display {
             padding: 6px 12px;
@@ -843,13 +843,13 @@
             background: #0f1419;
         }
         body.dark-mode .lang-toggle {
-            background: #1a1f2e;
-            color: #4DD0E1;
-            border-color: #4DD0E1;
+            background: #374151;
+            color: #60a5fa;
+            border-color: #60a5fa;
         }
         body.dark-mode .lang-toggle:hover {
-            background: #4DD0E1;
-            color: #1a1f2e;
+            background: #60a5fa;
+            color: #374151;
         }
         body.dark-mode .dark-mode-toggle {
             background: #1a1f2e;
@@ -918,14 +918,171 @@
             background: #10b981;
             border-color: #059669;
         }
-
         body.dark-mode .history-btn {
             background-color: #60a5fa;
             color: #1f2937;
         }
-
         body.dark-mode .history-btn:hover {
             background-color: #3b82f6;
+        }
+        body.dark-mode .history-section {
+            background: #374151;
+            border-color: #4b5563;
+        }
+        body.dark-mode .history-section h3 {
+            color: #f9fafb;
+        }
+        body.dark-mode .save-btn {
+            background: #34d399;
+            border-color: #10b981;
+            color: white;
+        }
+        body.dark-mode .save-btn:hover {
+            background: #10b981;
+            border-color: #059669;
+            box-shadow: 0 4px 8px rgba(52, 211, 153, 0.3);
+        }
+        body.dark-mode .clear-history-btn {
+            background: #fca5a5;
+            border-color: #ef4444;
+            color: white;
+        }
+        body.dark-mode .clear-history-btn:hover {
+            background: #ef4444;
+            border-color: #dc2626;
+            box-shadow: 0 4px 8px rgba(252, 165, 165, 0.3);
+        }
+        body.dark-mode .history-item {
+            background: #1f2937;
+            border-color: #4b5563;
+            color: #e5e7eb;
+        }
+        body.dark-mode .history-item:hover {
+            background: #374151;
+            border-color: #60a5fa;
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+        }
+        body.dark-mode .history-timestamp {
+            color: #9ca3af;
+        }
+        body.dark-mode .history-preview {
+            color: #e5e7eb;
+        }
+        body.dark-mode .history-preview strong {
+            color: #f9fafb;
+        }
+        body.dark-mode .history-preview small {
+            color: #9ca3af;
+        }
+        body.dark-mode .results-empty {
+            color: #8b949e;
+            background: transparent;
+        }
+        body.dark-mode .section-title {
+            color: #f0f6fc;
+        }
+        body.dark-mode .info-text {
+            color: #8b949e;
+        }
+        body.dark-mode .section-title {
+            color: #f0f6fc;
+        }
+        body.dark-mode .info-text {
+            color: #8b949e;
+        }
+        body.dark-mode .history-timestamp {
+            color: #8b949e;
+        }
+        body.dark-mode .history-preview {
+            color: #e6edf3;
+        }
+        body.dark-mode .history-preview strong {
+            color: #f0f6fc;
+        }
+        body.dark-mode .history-preview small {
+            color: #8b949e;
+        }
+        body.dark-mode .interactive-section {
+            background: #1a1f2e;
+            border-color: #4DD0E1;
+        }
+        
+        /* Поправяне на всички бели фонове в тъмния режим */
+        body.dark-mode .mode-btn {
+            background: #16213e;
+            color: #e5e7eb;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .form-group input {
+            background: #1a1f2e;
+            color: #e0e0e0;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .main-result {
+            background: #16213e;
+            color: #e5e7eb;
+            border: 1px solid #4DD0E1;
+        }
+        body.dark-mode .aux-item {
+            background: #16213e;
+            color: #e5e7eb;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .result-label {
+            color: #4DD0E1;
+        }
+        body.dark-mode .result-value {
+            color: #B2EBF2;
+        }
+        body.dark-mode .status-badge.ok {
+            background: #16213e;
+            color: #4DD0E1;
+            border: 1px solid #4DD0E1;
+        }
+        body.dark-mode .status-badge.bad {
+            background: #16213e;
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+        body.dark-mode .status-line {
+            background: rgba(77, 208, 225, 0.2);
+            color: #4DD0E1;
+        }
+        body.dark-mode .input-container {
+            background: #1a1f2e;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .sum-control {
+            background: transparent;
+            border: none;
+            color: #e5e7eb;
+        }
+        body.dark-mode .realtime-result {
+            background: #16213e;
+            border-color: #4DD0E1;
+            color: #e5e7eb;
+        }
+        body.dark-mode .history-section {
+            background: #1a1f2e;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .history-item:hover {
+            background: #16213e;
+            border-color: #4DD0E1;
+        }
+        
+        /* Цветове за резултата според валидността */
+        .result-valid {
+            color: #10b981 !important; /* Ярко зелено за валидни резултати */
+        }
+        .result-invalid {
+            color: #ef4444 !important; /* Червено за невалидни резултати */
+        }
+        body.dark-mode .result-valid {
+            color: #34d399 !important; /* По-ярко зелено в тъмен режим */
+        }
+        body.dark-mode .result-invalid {
+            color: #f87171 !important; /* По-ярко червено в тъмен режим */
         }
 
         /* История стилове */
@@ -1029,20 +1186,6 @@
         .history-preview small {
             font-size: 12px;
             color: #6b7280;
-        }
-        body.dark-mode .lang-toggle {
-            background: #374151;
-            color: #60a5fa;
-            border-color: #60a5fa;
-        }
-        body.dark-mode .lang-toggle:hover {
-            background: #60a5fa;
-            color: #374151;
-        }
-        body.dark-mode .dark-mode-toggle {
-            background: #374151;
-            border-color: #9ca3af;
-            color: #e5e7eb;
         }
 
         body.dark-mode .history-section {
@@ -1279,7 +1422,7 @@
                         </div>
                         <div class="realtime-result">
                             <div class="result-big" id="alphaValue">Зареждане...</div>
-                            <div id="statusBadge" class="status-badge waiting">изчислява се...</div>
+                            <div id="statusBadge" class="status-badge waiting" style="display: none;">изчислява се...</div>
                             <div class="auxiliary-values">
                                 xM: <span id="xMval">—</span> · h: <span id="hVal">—</span>
                             </div>
@@ -1331,6 +1474,9 @@
     <script>
         let currentMode = 'sw';
         let currentLanguage = 'bg';
+        
+        // Глобален брояч за номерация на запазените точки
+        let savedPointCounter = parseInt(localStorage.getItem('savedPointCounter') || '0');
         
         // Translations object
         const translations = {
@@ -1832,6 +1978,10 @@
             const t = translations[currentLanguage];
             
             // Получаваме текущите стойности от интерактивния интерфейс
+            // Увеличаваме броя на запазените точки
+            savedPointCounter++;
+            localStorage.setItem('savedPointCounter', savedPointCounter.toString());
+            
             const inputs = {
                 l: document.getElementById('l-slider')?.value || '',
                 d: document.getElementById('d-slider')?.value || '',
@@ -1841,7 +1991,7 @@
                     x: document.getElementById('x-slider')?.value || '',
                     y: document.getElementById('y-slider')?.value || '',
                     z: document.getElementById('z-slider')?.value || '',
-                    index: 1
+                    index: savedPointCounter
                 }]
             };
 
@@ -1917,9 +2067,13 @@
                         <br><strong>${labels.historyResults}:</strong> ${entry.results?.summary || labels.historyNoResults}
                         ${entry.results?.coordinates && entry.results.coordinates.length > 0 ? 
                             `<br><strong>${labels.historyCoords}:</strong><br>` + 
-                            entry.results.coordinates.map((coord, i) => 
-                                `${labels.historyPoint} ${i+1}: (${coord.x}, ${coord.y}, ${coord.z}) → ${coord.angle}`
-                            ).join('<br>') 
+                            entry.results.coordinates.map((coord, i) => {
+                                // Използваме запазения index от точката, ако съществува, иначе i+1
+                                const pointNumber = (entry.inputs?.points && entry.inputs.points[i]?.index) 
+                                    ? entry.inputs.points[i].index 
+                                    : i+1;
+                                return `${labels.historyPoint} ${pointNumber}: (${coord.x}, ${coord.y}, ${coord.z}) → ${coord.angle}`;
+                            }).join('<br>') 
                             : ''
                         }
                     </div>
@@ -1965,6 +2119,9 @@
         }
         function clearHistory() {
             localStorage.removeItem('calculationHistory');
+            // Нулираме броячът за точките
+            savedPointCounter = 0;
+            localStorage.setItem('savedPointCounter', '0');
             displayHistory();
         }
         function getCurrentResults() {
@@ -2266,24 +2423,29 @@
                 document.getElementById('xMval').textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
                 document.getElementById('hVal').textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
 
+                // Оцветяване на резултата според валидността
+                const alphaElement = document.getElementById('alphaValue');
                 const statusBadge = document.getElementById('statusBadge');
+                
                 if (!isFinite(alpha)) {
-                    statusBadge.textContent = translations[currentLanguage].noRealSolution;
-                    statusBadge.className = 'status-badge bad';
+                    alphaElement.className = 'result-big result-invalid';
+                    statusBadge.style.display = 'none'; // Скриваме status badge
                 } else if (alpha < VALID_MIN || alpha > VALID_MAX) {
-                    statusBadge.textContent = `${translations[currentLanguage].outsideRange} ${VALID_MIN}°–${VALID_MAX}°`;
-                    statusBadge.className = 'status-badge bad';
+                    alphaElement.className = 'result-big result-invalid';
+                    statusBadge.style.display = 'none';
                 } else {
-                    statusBadge.textContent = `${translations[currentLanguage].okRange} ${VALID_MIN}°–${VALID_MAX}°`;
-                    statusBadge.className = 'status-badge ok';
+                    alphaElement.className = 'result-big result-valid';
+                    statusBadge.style.display = 'none';
                 }
 
                 setMarker(alpha);
             } catch (err) {
                 console.error(err);
-                document.getElementById('alphaValue').textContent = 'Error';
-                document.getElementById('statusBadge').textContent = 'Error';
-                document.getElementById('statusBadge').className = 'status-badge bad';
+                const alphaElement = document.getElementById('alphaValue');
+                const statusBadge = document.getElementById('statusBadge');
+                alphaElement.textContent = 'Error';
+                alphaElement.className = 'result-big result-invalid';
+                statusBadge.style.display = 'none';
                 setMarker(NaN);
             }
             updateSum();
@@ -2357,19 +2519,20 @@
                 document.getElementById('xMval').textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
                 document.getElementById('hVal').textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
 
+                // Оцветяване на резултата според валидността
+                const alphaElement = document.getElementById('alphaValue');
                 const statusBadge = document.getElementById('statusBadge');
-                let statusText = '';
+                
                 if (!isFinite(alpha)) {
-                    statusText = 'No real solution';
-                    statusBadge.className = 'status-badge bad';
+                    alphaElement.className = 'result-big result-invalid';
+                    statusBadge.style.display = 'none';
                 } else if (alpha < VALID_MIN || alpha > VALID_MAX) {
-                    statusText = `OUTSIDE ${VALID_MIN}°–${VALID_MAX}°`;
-                    statusBadge.className = 'status-badge bad';
+                    alphaElement.className = 'result-big result-invalid';
+                    statusBadge.style.display = 'none';
                 } else {
-                    statusText = `OK ${VALID_MIN}°–${VALID_MAX}°`;
-                    statusBadge.className = 'status-badge ok';
+                    alphaElement.className = 'result-big result-valid';
+                    statusBadge.style.display = 'none';
                 }
-                statusBadge.textContent = statusText;
 
                 // Обновяване на параметрите
                 updateParamsSummary(l, d, thetaDeg, betaDeg, x_sw, y_sw, z_sw);
@@ -2377,9 +2540,11 @@
                 setMarker(alpha);
             } catch (err) {
                 console.error(err);
-                document.getElementById('alphaValue').textContent = 'Error';
-                document.getElementById('statusBadge').textContent = 'Error';
-                document.getElementById('statusBadge').className = 'status-badge bad';
+                const alphaElement = document.getElementById('alphaValue');
+                const statusBadge = document.getElementById('statusBadge');
+                alphaElement.textContent = 'Error';
+                alphaElement.className = 'result-big result-invalid';
+                statusBadge.style.display = 'none';
                 setMarker(NaN);
             }
             updateSum();
