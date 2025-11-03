@@ -8,7 +8,7 @@
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 1000,
     // Live Server настройки
-    "liveServer.settings.port": 5500,
+    "liveServer.settings.port": 5501,
     "liveServer.settings.CustomBrowser": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
     // HTML настройки
     "html.format.indentInnerHtml": true,

@@ -96,6 +96,7 @@
             position: sticky;
             top: 20px;
             min-height: 300px;
+            align-self: start;
         }
         header {
             grid-column: 1 / -1;
@@ -104,6 +105,13 @@
             border-bottom: 2px solid #6b7280;
             padding-bottom: 16px;
             position: relative;
+        }
+        .language-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
         }
         h1 {
             color: #111827;
@@ -443,6 +451,297 @@
         input.invalid {
             border-color: #ff6b6b !important;
         }
+        /* Интерактивни слайдери и контроли */
+        .interactive-section {
+            margin-top: 24px;
+            border: 2px solid #6366f1;
+            border-radius: 12px;
+            padding: 24px;
+            background: #f8fafc;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .slider-group label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 14px;
+        }
+        .slider-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .slider-row input[type="range"] {
+            flex: 1;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .slider-row input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .slider-row input[type="range"]::-webkit-slider-thumb:hover {
+            background: #2563eb;
+            transform: scale(1.1);
+        }
+        .slider-num {
+            width: 80px;
+            padding: 6px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .sum-control {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 12px;
+            background: transparent;
+            border-radius: 8px;
+            border: none;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        .radio-option input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .sum-display {
+            padding: 6px 12px;
+            background: #fff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #2a7a2a;
+        }
+        .coord-control {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .coord-control label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 14px;
+        }
+        .coord-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .coord-inputs input {
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .realtime-result {
+            text-align: center;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .result-big {
+            font-size: 24px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        .status-badge.ok {
+            background: #10b981;
+            color: white;
+        }
+        .status-badge.bad {
+            background: #ef4444;
+            color: white;
+        }
+        .status-badge.waiting {
+            background: #6b7280;
+            color: white;
+        }
+        .auxiliary-values {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        .range-indicator {
+            margin-top: 16px;
+        }
+        .range-track {
+            height: 18px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #ef4444 0%, #ef4444 12.5%, #10b981 12.5%, #10b981 87.5%, #ef4444 87.5%, #ef4444 100%);
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .marker {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 26px;
+            border-radius: 4px;
+            background: #374151;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .marker.ok {
+            background: #10b981;
+        }
+        .marker.bad {
+            background: #ef4444;
+        }
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+        .range-info {
+            font-size: 12px;
+            color: #374151;
+            text-align: center;
+        }
+        .toggle-interactive-btn {
+            background: #6b7280;
+            color: white;
+            border: 1px solid #6b7280;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+        }
+        .toggle-interactive-btn:hover {
+            background: #4b5563;
+            border-color: #4b5563;
+        }
+        .btn-interactive {
+            background: #8b5cf6;
+            color: white;
+            border: 2px solid #7c3aed;
+        }
+        .btn-interactive:hover {
+            background: #7c3aed;
+            border-color: #6d28d9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+        .btn-calculate {
+            background: #10b981;
+            color: white;
+            border: 2px solid #059669;
+        }
+        .btn-calculate:hover {
+            background: #059669;
+            border-color: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Нов summary дисплей */
+        .interactive-summary {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            border: 2px solid #cbd5e1;
+        }
+        .main-result {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .result-label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 16px;
+        }
+        .result-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .status-line {
+            text-align: center;
+            margin-bottom: 16px;
+            padding: 8px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 6px;
+            color: #1e40af;
+            font-weight: 500;
+        }
+        .aux-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .aux-item {
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            color: #6b7280;
+            border: 1px solid #e5e7eb;
+        }
+        .current-params {
+            padding: 12px;
+            background: rgba(107, 114, 128, 0.1);
+            border-radius: 6px;
+            text-align: center;
+        }
+        .current-params small {
+            color: #6b7280;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
         /* Tooltip */
         .tooltip-container {
             position: relative;
@@ -559,13 +858,13 @@
             background: #0f1419;
         }
         body.dark-mode .lang-toggle {
-            background: #1a1f2e;
-            color: #4DD0E1;
-            border-color: #4DD0E1;
+            background: #374151;
+            color: #60a5fa;
+            border-color: #60a5fa;
         }
         body.dark-mode .lang-toggle:hover {
-            background: #4DD0E1;
-            color: #1a1f2e;
+            background: #60a5fa;
+            color: #374151;
         }
         body.dark-mode .dark-mode-toggle {
             background: #1a1f2e;
@@ -634,14 +933,177 @@
             background: #10b981;
             border-color: #059669;
         }
-
         body.dark-mode .history-btn {
             background-color: #60a5fa;
             color: #1f2937;
         }
-
         body.dark-mode .history-btn:hover {
             background-color: #3b82f6;
+        }
+        body.dark-mode .history-section {
+            background: #374151;
+            border-color: #4b5563;
+        }
+        body.dark-mode .history-section h3 {
+            color: #f9fafb;
+        }
+        body.dark-mode .save-btn {
+            background: #34d399;
+            border-color: #10b981;
+            color: white;
+        }
+        body.dark-mode .save-btn:hover {
+            background: #10b981;
+            border-color: #059669;
+            box-shadow: 0 4px 8px rgba(52, 211, 153, 0.3);
+        }
+        body.dark-mode .clear-history-btn {
+            background: #fca5a5;
+            border-color: #ef4444;
+            color: white;
+        }
+        body.dark-mode .clear-history-btn:hover {
+            background: #ef4444;
+            border-color: #dc2626;
+            box-shadow: 0 4px 8px rgba(252, 165, 165, 0.3);
+        }
+        body.dark-mode .history-item {
+            background: #1f2937;
+            border-color: #4b5563;
+            color: #e5e7eb;
+        }
+        body.dark-mode .history-item:hover {
+            background: #374151;
+            border-color: #60a5fa;
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+        }
+        body.dark-mode .history-timestamp {
+            color: #9ca3af;
+        }
+        body.dark-mode .history-preview {
+            color: #e5e7eb;
+        }
+        body.dark-mode .history-preview strong {
+            color: #f9fafb;
+        }
+        body.dark-mode .history-preview small {
+            color: #9ca3af;
+        }
+        body.dark-mode .results-empty {
+            color: #8b949e;
+            background: transparent;
+        }
+        body.dark-mode .section-title {
+            color: #f0f6fc;
+        }
+        body.dark-mode .info-text {
+            color: #8b949e;
+        }
+        body.dark-mode .section-title {
+            color: #f0f6fc;
+        }
+        body.dark-mode .info-text {
+            color: #8b949e;
+        }
+        body.dark-mode .history-timestamp {
+            color: #8b949e;
+        }
+        body.dark-mode .history-preview {
+            color: #e6edf3;
+        }
+        body.dark-mode .history-preview strong {
+            color: #f0f6fc;
+        }
+        body.dark-mode .history-preview small {
+            color: #8b949e;
+        }
+        body.dark-mode .interactive-section {
+            background: #1a1f2e;
+            border-color: #4DD0E1;
+        }
+        
+        /* Поправяне на всички бели фонове в тъмния режим */
+        body.dark-mode .mode-btn {
+            background: #16213e;
+            color: #e5e7eb;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .form-group input {
+            background: #1a1f2e;
+            color: #e0e0e0;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .main-result {
+            background: #16213e;
+            color: #e5e7eb;
+            border: 1px solid #4DD0E1;
+        }
+        body.dark-mode .aux-item {
+            background: #16213e;
+            color: #e5e7eb;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .result-label {
+            color: #4DD0E1;
+        }
+        body.dark-mode .result-value {
+            color: #B2EBF2;
+        }
+        body.dark-mode .status-badge.ok {
+            background: #16213e;
+            color: #4DD0E1;
+            border: 1px solid #4DD0E1;
+        }
+        body.dark-mode .status-badge.bad {
+            background: #16213e;
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+        body.dark-mode .status-line {
+            background: rgba(77, 208, 225, 0.2);
+            color: #4DD0E1;
+        }
+        body.dark-mode .input-container {
+            background: #1a1f2e;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .sum-control {
+            background: transparent;
+            border: none;
+            color: #e5e7eb;
+        }
+        body.dark-mode .radio-option label {
+            color: #e5e7eb;
+        }
+        body.dark-mode .radio-option input[type="radio"] {
+            accent-color: #4DD0E1;
+        }
+        body.dark-mode .realtime-result {
+            background: #16213e;
+            border-color: #4DD0E1;
+            color: #e5e7eb;
+        }
+        body.dark-mode .history-section {
+            background: #1a1f2e;
+            border-color: #4DD0E1;
+        }
+        body.dark-mode .history-item:hover {
+            background: #16213e;
+            border-color: #4DD0E1;
+        }
+        
+        /* Цветове за резултата според валидността */
+        .result-valid {
+            color: #10b981 !important; /* Ярко зелено за валидни резултати */
+        }
+        .result-invalid {
+            color: #ef4444 !important; /* Червено за невалидни резултати */
+        }
+        body.dark-mode .result-valid {
+            color: #34d399 !important; /* По-ярко зелено в тъмен режим */
+        }
+        body.dark-mode .result-invalid {
+            color: #f87171 !important; /* По-ярко червено в тъмен режим */
         }
 
         /* История стилове */
@@ -745,20 +1207,6 @@
         .history-preview small {
             font-size: 12px;
             color: #6b7280;
-        }
-        body.dark-mode .lang-toggle {
-            background: #374151;
-            color: #60a5fa;
-            border-color: #60a5fa;
-        }
-        body.dark-mode .lang-toggle:hover {
-            background: #60a5fa;
-            color: #374151;
-        }
-        body.dark-mode .dark-mode-toggle {
-            background: #374151;
-            border-color: #9ca3af;
-            color: #e5e7eb;
         }
 
         body.dark-mode .history-section {
@@ -944,92 +1392,101 @@
 <body>
     <div class="container">
         <header>
-            <h1>🔧 Калкулатор за изчисляване на работен заден ъгъл α<sub>f</sub></h1>
+            <h1 id="main-title">🔧 КАЛКУЛАТОР ЗА ИЗЧИСЛЯВАНЕ НА РАБОТЕН ЗАДЕН ЪГЪЛ α<sub>f</sub> НА ВИНТОВО СВРЕДЛО</h1>
         </header>
         <!-- ЛЯВА КОЛОНА - ВЪВЕЖДАНЕ НА ДАННИ -->
         <div class="left-column">
             <div class="input-container">
-                <h3 class="input-container-title">📝 Входни данни:</h3>
-                <!-- SW MODE -->
-                <div id="sw-mode" class="form-section active">
-                    <div class="params-grid">
-                        <div class="form-group">
-                            <label for="l-sw">&#128207; l [mm]:</label>
-                            <input type="number" id="l-sw" value="85" step="0.1">
-                            <p class="info-text">Разстояние от върха на конуса до ос-отсечката d</p>
+                <h3 class="input-container-title" id="section-title">🎛️ Интерактивен калкулатор за заден ъгъл</h3>
+                <!-- Интерактивни слайдери -->
+                <div class="interactive-section" id="interactive-section" style="display: block;">
+                    <div class="slider-container">
+                        <div class="slider-group">
+                            <label for="l-slider" id="l-label">📏 l [mm] - Разстояние от върха на конуса:</label>
+                            <div class="slider-row">
+                                <input id="l-slider" type="range" min="10" max="200" step="0.1" value="85">
+                                <input id="l-slider-num" class="slider-num" type="number" step="0.1" value="85">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="d-sw">&#128207; d [mm]:</label>
-                            <input type="number" id="d-sw" value="5.7" step="0.1">
-                            <p class="info-text">Ос-отсечка</p>
+                        <div class="slider-group">
+                            <label for="d-slider" id="d-label">📏 d [mm] - Разстояние между осите:</label>
+                            <div class="slider-row">
+                                <input id="d-slider" type="range" min="0" max="50" step="0.1" value="5.7">
+                                <input id="d-slider-num" class="slider-num" type="number" step="0.1" value="5.7">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="theta-sw">📐 θ [°]:</label>
-                            <input type="number" id="theta-sw" value="25" step="0.1">
-                            <p class="info-text">Ъгъл между осите на свредлото и конуса</p>
+                        <div class="slider-group">
+                            <label for="theta-slider" id="theta-label">📐 θ [°] - Ъгъл между осите на свредлото и конуса:</label>
+                            <div class="slider-row">
+                                <input id="theta-slider" type="range" min="0" max="59" step="0.1" value="25">
+                                <input id="theta-slider-num" class="slider-num" type="number" step="0.1" value="25">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="beta-sw">📐 β [°]:</label>
-                            <input type="number" id="beta-sw" value="34" step="0.1">
-                            <p class="info-text">Ъгъл между оста на конуса и образуващата (2β е ъгълът при върха)</p>
+                        <div class="slider-group">
+                            <label for="beta-slider" id="beta-label">📐 β [°] - Ъгъл между оста на конуса и образуващата:</label>
+                            <div class="slider-row">
+                                <input id="beta-slider" type="range" min="0" max="59" step="0.1" value="34">
+                                <input id="beta-slider-num" class="slider-num" type="number" step="0.1" value="34">
+                            </div>
                         </div>
-
+                        <div class="sum-control">
+                            <div class="radio-option">
+                                <label><input type="radio" name="anglePreset" value="none" checked> Без автоматично регулиране</label>
+                            </div>
+                            <div class="radio-option">
+                                <label><input type="radio" name="anglePreset" value="59"> θ + β = 59° (Kr = 118°)</label>
+                            </div>
+                            <div class="radio-option">
+                                <label><input type="radio" name="anglePreset" value="62.5"> θ + β = 62.5° (Kr = 125°)</label>
+                            </div>
+                            <div class="radio-option">
+                                <label><input type="radio" name="anglePreset" value="67.5"> θ + β = 67.5° (Kr = 135°)</label>
+                            </div>
+                        </div>
+                        <hr style="margin: 16px 0; border: 1px solid #e6e9ef;">
+                        <div class="coord-control">
+                            <label id="coord-label">📍 SW координати на точката (спрямо върха на свредлото):</label>
+                            <div class="coord-inputs">
+                                <input id="x-slider" type="number" step="0.01" value="0" placeholder="X [mm]">
+                                <input id="y-slider" type="number" step="0.01" value="4.84" placeholder="Y [mm]">
+                                <input id="z-slider" type="number" step="0.01" value="-9.75" placeholder="Z [mm]">
+                            </div>
+                        </div>
+                        <div class="realtime-result">
+                            <div class="result-big" id="alphaValue">Зареждане...</div>
+                            <div id="statusBadge" class="status-badge waiting" style="display: none;">изчислява се...</div>
+                            <div class="auxiliary-values">
+                                xM: <span id="xMval">—</span> · h: <span id="hVal">—</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Топлинна карта/индикатор -->
+                        <div class="range-indicator">
+                            <div class="range-track" id="rangeTrack">
+                                <div id="marker" class="marker" style="left:0%" title="alpha position"></div>
+                            </div>
+                            <div class="range-labels">
+                                <span>0°</span><span>5° (min)</span><span>20°</span><span>35° (max)</span><span>40°</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="section-title">📍 Координати на точките спрямо върхът на свредлото</div>
-                    <div class="points-container" id="sw-points">
-                        <div class="point-group">
-                            <h4>Точка 1</h4>
-                            <div class="point-inputs">
-                                <input type="number" class="x-coord" placeholder="X [mm]" step="0.1" value="0">
-                                <input type="number" class="y-coord" placeholder="Y [mm]" step="0.1" value="4.84">
-                                <input type="number" class="z-coord" placeholder="Z [mm]" step="0.1" value="-9.75">
-                                <button class="remove-point-btn" onclick="removePoint(this)">Премахни</button>
-                            </div>
-                        </div>
-                        <div class="point-group">
-                            <h4>Точка 2</h4>
-                            <div class="point-inputs">
-                                <input type="number" class="x-coord" placeholder="X [mm]" step="0.1" value="0.32">
-                                <input type="number" class="y-coord" placeholder="Y [mm]" step="0.1" value="3.7">
-                                <input type="number" class="z-coord" placeholder="Z [mm]" step="0.1" value="-7.78">
-                                <button class="remove-point-btn" onclick="removePoint(this)">Премахни</button>
-                            </div>
-                        </div>
-                        <div class="point-group">
-                            <h4>Точка 3</h4>
-                            <div class="point-inputs">
-                                <input type="number" class="x-coord" placeholder="X [mm]" step="0.1">
-                                <input type="number" class="y-coord" placeholder="Y [mm]" step="0.1">
-                                <input type="number" class="z-coord" placeholder="Z [mm]" step="0.1">
-                                <button class="remove-point-btn" onclick="removePoint(this)">Премахни</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="add-point-btn" onclick="addPoint('sw')">+ Добави точка</button>
                 </div>
+
                 <div class="button-group">
-                    <button class="btn btn-reset" onclick="resetForm()">Изчисти</button>
+                    <button class="btn btn-reset" id="reset-btn" onclick="resetInteractiveForm()">🔄 Възстанови стойностите</button>
                 </div>
                 <div class="error" id="error-message"></div>
             </div>
         </div>
-        <!-- ДЯСНА КОЛОНА - РЕЗУЛТАТИ -->
+        <!-- RIGHT COLUMN - HISTORY / ДЯСНА КОЛОНА - ИСТОРИЯ -->
         <div class="right-column">
-            <div class="results" id="results">
-                <h3>✓ Резултати:</h3>
-                <div id="results-content">
-                    <div class="results-empty">Резултатите ще се покажат тук</div>
-                </div>
-                <button class="copy-btn" id="copy-btn" onclick="copyResults()" style="display: none;">📋 Копирай резултатите</button>
-            </div>
-
             <!-- История на изчисленията -->
             <div class="history-section" id="history-section">
-                <h3 id="history-title">История на изчисленията</h3>
+                <h3 id="history-title">📚 История на изчисленията</h3>
                 
                 <div class="history-controls">
-                    <button class="save-btn" id="save-btn" onclick="saveToHistory()">Запази</button>
-                    <button class="clear-history-btn" id="clear-history-btn" onclick="clearHistory()">Изчисти историята</button>
+                    <button class="save-btn" id="save-btn" onclick="saveToHistory()">💾 Запази</button>
+                    <button class="clear-history-btn" id="clear-history-btn" onclick="clearHistory()">🗑️ Изчисти историята</button>
                 </div>
                 
                 <div class="history-container" id="history-container">
@@ -1043,13 +1500,77 @@
         <span id="lang-text">EN</span>
     </button>
     <button class="dark-mode-toggle" id="dark-mode-toggle" onclick="toggleDarkMode()" title="Включи/Изключи тъмен режим">🌙</button>
+    
     <!-- Load external JavaScript library -->
-    <script src="GAngle_SW.js"></script>
+    <script src="GAngle.js"></script>
     <script>
         let currentMode = 'sw';
-        let currentLanguage = 'en';
+        let currentLanguage = 'bg';
+        
+        // Глобален брояч за номерация на запазените точки
+        let savedPointCounter = parseInt(localStorage.getItem('savedPointCounter') || '0');
+        
         // Translations object
         const translations = {
+            bg: {
+                mainTitle: "🔧 КАЛКУЛАТОР ЗА ИЗЧИСЛЯВАНЕ НА РАБОТЕН ЗАДЕН ЪГЪЛ α<sub>f</sub> НА ВИНТОВО СВРЕДЛО",
+                sectionTitle: "🎛️ Интерактивен калкулатор за заден ъгъл",
+                lLabel: "📏 l [mm] - Разстояние от върха на конуса до този край на ос–отсечката между двете оси, който лежи на оста на конуса:",
+                dLabel: "📏 d [mm] - Разстояние между двете оси, тоест дължината на ос–отсечката:",
+                thetaLabel: "📐 θ [°] - Ъгъл между осите на свредлото и конуса:",
+                betaLabel: "📐 β [°] - Ъгъл между оста на конуса и образуващата (2β е ъгълът при върха):",
+                coordLabel: "📍 SW координати на точката (спрямо върха на свредлото):",
+                historyTitle: "📚 История на изчисленията",
+                saveBtn: "💾 Запази",
+                clearHistoryBtn: "🗑️ Изчисти историята",
+                resetBtn: "🔄 Възстанови стойностите",
+                loadingText: "Зареждане...",
+                calculatingText: "изчислява се...",
+                loadedFromHistory: "📥 Заредено от историята",
+                noRealSolution: "Няма реално решение",
+                outsideRange: "ВЪН",
+                okRange: "ДОБРЕ",
+                mathNotLoaded: "математиката НЕ е заредена",
+                gangleNotAvailable: "GAngle.js не е наличен"
+            },
+            en: {
+                mainTitle: "🔧 TWIST DRILL SIDE CLEARANCE ANGLE α<sub>f</sub> CALCULATOR",
+                sectionTitle: "🎛️ Interactive side clearance angle calculator",
+                lLabel: "📏 l [mm] - Axial distance from cone apex to the axis offset d:",
+                dLabel: "📏 d [mm] - Axis offset:",
+                thetaLabel: "📐 θ [°] - Angle between drill and cone axes:",
+                betaLabel: "📐 β [°] - Angle between cone axis and generatrix (2β is the apex angle):",
+                coordLabel: "📍 Point coordinates relative to drill tip:",
+                historyTitle: "📚 Calculation History",
+                saveBtn: "💾 Save",
+                clearHistoryBtn: "🗑️ Clear History",
+                resetBtn: "🔄 Reset Values",
+                loadingText: "Loading...",
+                calculatingText: "calculating...",
+                loadedFromHistory: "📥 Loaded from history",
+                noRealSolution: "No real solution",
+                outsideRange: "OUTSIDE",
+                okRange: "OK",
+                mathNotLoaded: "math NOT loaded",
+                gangleNotAvailable: "GAngle.js not available"
+            }
+        };
+
+        // Function to toggle language
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'bg' ? 'en' : 'bg';
+            updateLanguage();
+            localStorage.setItem('language', currentLanguage);
+        }
+
+        // Function to set language (for backward compatibility)
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            updateLanguage();
+        }
+
+        // Old translations object for backward compatibility
+        const oldTranslations = {
             bg: {
                 title: "🔧 КАЛКУЛАТОР ЗА ИЗЧИСЛЯВАНЕ НА РАБОТЕН ЗАДЕН ЪГЪЛ α<sub>f</sub> НА ВИНТОВО СВРЕДЛО",
                 inputDataTitle: "📝 Входни данни:",
@@ -1058,8 +1579,8 @@
                 paramD: "d [mm]:",
                 paramTheta: "θ [°]:",
                 paramBeta: "β [°]:",
-                infoL: "Разстояние от върха на конуса до ос-отсечката d",
-                infoD: "Ос-отсечка",
+                infoL: "Разстояние от върха на конуса до този край на ос–отсечката между двете оси, който лежи на оста на конуса",
+                infoD: "Разстояние между двете оси, тоест дължината на ос–отсечката",
                 infoTheta: "Ъгъл между осите на свредлото и конуса",
                 infoBeta: "Ъгъл между оста на конуса и образуващата (2β е ъгълът при върха)",
                 coordinatesTitle: "📍 Координати на точките спрямо върхът на свредлото",
@@ -1097,8 +1618,8 @@
                 paramD: "d [mm]:",
                 paramTheta: "θ [°]:",
                 paramBeta: "β [°]:",
-                infoL: "Axial distance from cone apex to the axis offset d",
-                infoD: "Axis offset",
+                infoL: "Distance from cone apex to the end of the axis offset segment that lies on the cone axis",
+                infoD: "Distance between the two axes, i.e., the length of the axis offset segment",
                 infoTheta: "Angle between drill and cone axes",
                 infoBeta: "Angle between cone axis and generatrix (2β is the apex angle)",
                 coordinatesTitle: "📍 Point coordinates relative to drill tip",
@@ -1138,114 +1659,124 @@
         // Load dark mode on page load
         window.addEventListener('load', function() {
             loadDarkMode();
-            loadLanguage();
             setupValidation();
             setupTooltips();
-            clearHistory(); // Изчистваме историята при отваряне на сайта
-            displayHistory(); // Зареждаме празна история
+            // Load saved language or default to Bulgarian
+            const savedLanguage = localStorage.getItem('language') || 'bg';
+            currentLanguage = savedLanguage;
+            loadLanguage(); // Initialize language system
+            updateLanguage(); // Update UI language display
+            displayHistory(); // Зареждаме историята след като езикът е настроен
             updatePointsContainerVisibility(); // Проверяваме видимостта на контейнера с точки
             // Auto-calculate with initial values
             setTimeout(() => {
-                calculate();
+                computeAndRender();
             }, 100); // Малко закъснение за да се зареди DOM-а напълно
         });
-        // Dark mode
+        
+        // Dark mode functions
         function toggleDarkMode() {
             const isDarkMode = document.body.classList.toggle('dark-mode');
             const btn = document.getElementById('dark-mode-toggle');
-            btn.textContent = isDarkMode ? '☀️' : '🌙';
+            if (btn) {
+                btn.textContent = isDarkMode ? '☀️' : '🌙';
+            }
             localStorage.setItem('darkMode', isDarkMode);
         }
+        
         function loadDarkMode() {
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
             if (isDarkMode) {
                 document.body.classList.add('dark-mode');
-                document.getElementById('dark-mode-toggle').textContent = '☀️';
+                const btn = document.getElementById('dark-mode-toggle');
+                if (btn) {
+                    btn.textContent = '☀️';
+                }
             }
         }
-        // Language functions
+        
+        // Language functions (new working version)
         function toggleLanguage() {
             currentLanguage = currentLanguage === 'bg' ? 'en' : 'bg';
             updateLanguage();
             localStorage.setItem('language', currentLanguage);
         }
+        
         function updateLanguage() {
+            console.log('updateLanguage called, currentLanguage:', currentLanguage);
             const t = translations[currentLanguage];
-            // Update UI elements
-            document.querySelector('h1').innerHTML = t.title;
-            document.querySelector('.input-container-title').textContent = t.inputDataTitle;
-            document.querySelector('.results h3').textContent = t.resultsTitle;
-            // Update parameter labels
-            document.querySelector('label[for="l-sw"]').innerHTML = `&#128207; ${t.paramL}`;
-            document.querySelector('label[for="d-sw"]').innerHTML = `&#128207; ${t.paramD}`;
-            document.querySelector('label[for="theta-sw"]').innerHTML = `📐 ${t.paramTheta}`;
-            document.querySelector('label[for="beta-sw"]').innerHTML = `📐 ${t.paramBeta}`;
-            // Update info texts
-            const infoTexts = document.querySelectorAll('.info-text');
-            if (infoTexts[0]) infoTexts[0].textContent = t.infoL;
-            if (infoTexts[1]) infoTexts[1].textContent = t.infoD;
-            if (infoTexts[2]) infoTexts[2].textContent = t.infoTheta;
-            if (infoTexts[3]) infoTexts[3].textContent = t.infoBeta;
-            // Update section title
-            document.querySelector('.section-title').textContent = t.coordinatesTitle;
-            // Update point labels and placeholders
-            updatePointsLanguage();
-            // Update buttons
-            document.querySelector('.add-point-btn').textContent = t.addPointBtn;
-            document.querySelector('.btn-reset').textContent = t.resetBtn;
-            document.querySelector('.copy-btn').textContent = t.copyBtn;
-            // Update toggle buttons
+            console.log('translations object:', t);
+            
+            // Update language toggle button
             const langText = document.getElementById('lang-text');
-            const darkModeBtn = document.getElementById('dark-mode-toggle');
-            const langToggleBtn = document.getElementById('lang-toggle');
-            // Показваме следващия език (не текущия)
-            if (currentLanguage === 'en') {
-                langText.textContent = 'BG'; // Ако сме на EN, показваме BG за превключване
-            } else {
-                langText.textContent = 'EN'; // Ако сме на BG, показваме EN за превключване
+            if (langText) {
+                langText.textContent = currentLanguage === 'bg' ? 'EN' : 'БГ';
             }
-            darkModeBtn.title = t.darkModeTitle;
-            langToggleBtn.title = t.langToggleTitle;
-            // Update empty states
-            const emptyStates = document.querySelectorAll('.results-empty');
-            emptyStates.forEach(empty => {
-                if (empty.textContent.includes('координати') || empty.textContent.includes('coordinates')) {
-                    empty.textContent = t.emptyStateInput;
-                } else if (empty.textContent.includes('параметри') || empty.textContent.includes('parameters')) {
-                    empty.textContent = t.emptyStateParams;
-                } else if (empty.textContent.includes('валидни') || empty.textContent.includes('valid')) {
-                    empty.textContent = t.emptyStateInvalid;
-                } else {
-                    empty.textContent = t.emptyStateInitial;
-                }
-            });
-
+            
+            // Update main title
+            const mainTitle = document.getElementById('main-title');
+            if (mainTitle && t && t.mainTitle) {
+                console.log('Setting mainTitle to:', t.mainTitle);
+                mainTitle.innerHTML = t.mainTitle;
+            }
+            
+            // Update section title
+            const sectionTitle = document.getElementById('section-title');
+            if (sectionTitle && t && t.sectionTitle) {
+                sectionTitle.textContent = t.sectionTitle;
+            }
+            
+            // Update all labels
+            const lLabel = document.getElementById('l-label');
+            if (lLabel && t && t.lLabel) {
+                lLabel.textContent = t.lLabel;
+            }
+            
+            const dLabel = document.getElementById('d-label');
+            if (dLabel && t && t.dLabel) {
+                dLabel.textContent = t.dLabel;
+            }
+            
+            const thetaLabel = document.getElementById('theta-label');
+            if (thetaLabel && t && t.thetaLabel) {
+                thetaLabel.textContent = t.thetaLabel;
+            }
+            
+            const betaLabel = document.getElementById('beta-label');
+            if (betaLabel && t && t.betaLabel) {
+                betaLabel.textContent = t.betaLabel;
+            }
+            
+            const coordLabel = document.getElementById('coord-label');
+            if (coordLabel && t && t.coordLabel) {
+                coordLabel.textContent = t.coordLabel;
+            }
+            
             // Update history section
             const historyTitle = document.getElementById('history-title');
+            if (historyTitle && t && t.historyTitle) {
+                historyTitle.textContent = t.historyTitle;
+            }
+            
             const saveBtn = document.getElementById('save-btn');
+            if (saveBtn && t && t.saveBtn) {
+                saveBtn.textContent = t.saveBtn;
+            }
+            
             const clearHistoryBtn = document.getElementById('clear-history-btn');
+            if (clearHistoryBtn && t && t.clearHistoryBtn) {
+                clearHistoryBtn.textContent = t.clearHistoryBtn;
+            }
             
-            if (historyTitle) historyTitle.textContent = t.historyTitle;
-            if (saveBtn) saveBtn.textContent = t.saveBtn;
-            if (clearHistoryBtn) clearHistoryBtn.textContent = t.clearHistoryBtn;
+            const resetBtn = document.getElementById('reset-btn');
+            if (resetBtn && t && t.resetBtn) {
+                resetBtn.textContent = t.resetBtn;
+            }
             
-            // Обновяваме дисплея на историята при смяна на езика
+            // Обновяваме и историята когато се сменя езика
             displayHistory();
         }
-        function updatePointsLanguage() {
-            const t = translations[currentLanguage];
-            const pointGroups = document.querySelectorAll('.point-group');
-            pointGroups.forEach((group, index) => {
-                const h4 = group.querySelector('h4');
-                if (h4) h4.textContent = `${t.pointLabel} ${index + 1}`;
-                const inputs = group.querySelectorAll('input');
-                if (inputs[0]) inputs[0].placeholder = t.placeholderX;
-                if (inputs[1]) inputs[1].placeholder = t.placeholderY;
-                if (inputs[2]) inputs[2].placeholder = t.placeholderZ;
-                const removeBtn = group.querySelector('.remove-point-btn');
-                if (removeBtn) removeBtn.textContent = t.removeBtn;
-            });
-        }
+        
         function loadLanguage() {
             const savedLang = localStorage.getItem('language');
             if (savedLang && translations[savedLang]) {
@@ -1356,11 +1887,11 @@
         }
         function calculateAngles(l, d, theta, beta, coordinates) {
             // Извличаме координатите за използване с външната библиотека
-            const xM_SW = coordinates.map(coord => coord.x);
-            const yM_SW = coordinates.map(coord => coord.y);
-            const zM_SW = coordinates.map(coord => coord.z);
-            // Използваме външната библиотека GAngle_SW.js
-            const result = DrillSharpeningTransform.GAngle(l, d, theta, beta, xM_SW, yM_SW, zM_SW);
+            const xM = coordinates.map(coord => coord.x);
+            const yM = coordinates.map(coord => coord.y);
+            const zM = coordinates.map(coord => coord.z);
+            // Използваме директни drill координати
+            const result = DrillAngleCalculator.calculateAngle(l, d, theta, beta, xM, yM, zM);
             // Връщаме само ъглите αf
             return result.alphaRAD;
         }
@@ -1370,8 +1901,8 @@
                 let l, d, theta, beta, coordinates = [];
                 l = parseFloat(document.getElementById('l-sw').value);
                 d = parseFloat(document.getElementById('d-sw').value);
-                theta = DrillSharpeningTransform.deg2rad(parseFloat(document.getElementById('theta-sw').value));
-                beta = DrillSharpeningTransform.deg2rad(parseFloat(document.getElementById('beta-sw').value));
+                theta = DrillAngleCalculator.deg2rad(parseFloat(document.getElementById('theta-sw').value));
+                beta = DrillAngleCalculator.deg2rad(parseFloat(document.getElementById('beta-sw').value));
                 const points = document.querySelectorAll('#sw-points .point-group');
                 points.forEach(point => {
                     const x = parseFloat(point.querySelector('.x-coord').value);
@@ -1472,27 +2003,91 @@
         }
 
         function saveToHistory() {
-            const results = getCurrentResults();
-            if (!results) return;
+            // Осигуряваме че currentLanguage е зададен
+            if (!currentLanguage || !translations[currentLanguage]) {
+                currentLanguage = localStorage.getItem('language') || 'bg';
+            }
+            const t = translations[currentLanguage];
+            
+            // Получаваме текущите стойности от интерактивния интерфейс
+            // Увеличаваме броя на запазените точки
+            savedPointCounter++;
+            localStorage.setItem('savedPointCounter', savedPointCounter.toString());
+            
+            const inputs = {
+                l: document.getElementById('l-slider')?.value || '',
+                d: document.getElementById('d-slider')?.value || '',
+                theta: document.getElementById('theta-slider')?.value || '',
+                beta: document.getElementById('beta-slider')?.value || '',
+                points: [{
+                    x: document.getElementById('x-slider')?.value || '',
+                    y: document.getElementById('y-slider')?.value || '',
+                    z: document.getElementById('z-slider')?.value || '',
+                    index: savedPointCounter
+                }]
+            };
+
+            const alphaValue = document.getElementById('alphaValue')?.textContent || '—';
+            const results = {
+                count: 1,
+                results: [{
+                    label: currentLanguage === 'bg' ? 'Заден ъгъл α' : 'Side clearance angle α',
+                    value: alphaValue
+                }],
+                coordinates: [{
+                    x: inputs.points[0].x,
+                    y: inputs.points[0].y,
+                    z: inputs.points[0].z,
+                    angle: alphaValue
+                }],
+                summary: currentLanguage === 'bg' ? `Изчислен 1 ъгъл: ${alphaValue}` : `Calculated 1 angle: ${alphaValue}`
+            };
+
+            if (!results || results.summary.includes('—') || alphaValue === (currentLanguage === 'bg' ? 'Зареждане...' : 'Loading...') || alphaValue === 'math NOT loaded') {
+                alert(currentLanguage === 'bg' ? 'Няма валидни резултати за запазване!' : 'No valid results to save!');
+                return;
+            }
+
             let history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
-            const timestamp = new Date().toLocaleString('bg-BG');
+            const timestamp = new Date().toLocaleString(currentLanguage === 'bg' ? 'bg-BG' : 'en-US');
             const entry = {
                 timestamp: timestamp,
-                inputs: getInputValues(),
+                inputs: inputs,
                 results: results
             };
             history.unshift(entry);
             if (history.length > 20) history = history.slice(0, 20);
             localStorage.setItem('calculationHistory', JSON.stringify(history));
             displayHistory();
+            
+            // Показваме потвърждение
+            const saveBtn = document.getElementById('save-btn');
+            const originalText = saveBtn.textContent;
+            saveBtn.textContent = currentLanguage === 'bg' ? '✓ Запазено' : '✓ Saved';
+            saveBtn.style.background = '#10b981';
+            setTimeout(() => {
+                saveBtn.textContent = originalText;
+                saveBtn.style.background = '';
+            }, 2000);
         }
         function displayHistory() {
             const historyContainer = document.getElementById('history-container');
             const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
-            const t = translations[currentLanguage];
+            
+            // Проверяваме текущия език
+            const isEnglish = (currentLanguage === 'en');
+            
+            const labels = {
+                historyEmpty: isEnglish ? "No saved calculations" : "Няма запазени изчисления",
+                historyParams: isEnglish ? "Parameters" : "Параметри", 
+                historyResults: isEnglish ? "Results" : "Резултати",
+                historyCoords: isEnglish ? "Coordinates and angles" : "Координати и ъгли",
+                historyPoint: isEnglish ? "Point" : "Точка",
+                historyNoResults: isEnglish ? "No results" : "Няма резултати"
+            };
             
             if (history.length === 0) {
-                historyContainer.innerHTML = `<p>${t.historyEmpty}</p>`;
+                historyContainer.innerHTML = `<p>${labels.historyEmpty}</p>`;
                 return;
             }
             
@@ -1500,13 +2095,17 @@
                 <div class="history-item" onclick="loadHistoryItem(${index})">
                     <div class="history-timestamp">${entry.timestamp}</div>
                     <div class="history-preview">
-                        <strong>${t.historyParams}:</strong> l: ${entry.inputs.l}мм, d: ${entry.inputs.d}мм, θ: ${entry.inputs.theta}°, β: ${entry.inputs.beta}°
-                        <br><strong>${t.historyResults}:</strong> ${entry.results?.summary || t.historyNoResults}
+                        <strong>${labels.historyParams}:</strong> l: ${entry.inputs.l}мм, d: ${entry.inputs.d}мм, θ: ${entry.inputs.theta}°, β: ${entry.inputs.beta}°
+                        <br><strong>${labels.historyResults}:</strong> ${entry.results?.summary || labels.historyNoResults}
                         ${entry.results?.coordinates && entry.results.coordinates.length > 0 ? 
-                            `<br><strong>${t.historyCoords}:</strong><br>` + 
-                            entry.results.coordinates.map((coord, i) => 
-                                `${t.historyPoint} ${i+1}: (${coord.x}, ${coord.y}, ${coord.z}) → ${coord.angle}`
-                            ).join('<br>') 
+                            `<br><strong>${labels.historyCoords}:</strong><br>` + 
+                            entry.results.coordinates.map((coord, i) => {
+                                // Използваме запазения index от точката, ако съществува, иначе i+1
+                                const pointNumber = (entry.inputs?.points && entry.inputs.points[i]?.index) 
+                                    ? entry.inputs.points[i].index 
+                                    : i+1;
+                                return `${labels.historyPoint} ${pointNumber}: (${coord.x}, ${coord.y}, ${coord.z}) → ${coord.angle}`;
+                            }).join('<br>') 
                             : ''
                         }
                     </div>
@@ -1519,45 +2118,42 @@
             
             const entry = history[idx];
             
-            // Зареждаме основните параметри
-            document.getElementById('l-sw').value = entry.inputs.l || '';
-            document.getElementById('d-sw').value = entry.inputs.d || '';
-            document.getElementById('theta-sw').value = entry.inputs.theta || '';
-            document.getElementById('beta-sw').value = entry.inputs.beta || '';
+            // Зареждаме параметрите в интерактивния интерфейс
+            document.getElementById('l-slider').value = entry.inputs.l || 85;
+            document.getElementById('l-slider-num').value = entry.inputs.l || 85;
+            document.getElementById('d-slider').value = entry.inputs.d || 5.7;
+            document.getElementById('d-slider-num').value = entry.inputs.d || 5.7;
+            document.getElementById('theta-slider').value = entry.inputs.theta || 25;
+            document.getElementById('theta-slider-num').value = entry.inputs.theta || 25;
+            document.getElementById('beta-slider').value = entry.inputs.beta || 34;
+            document.getElementById('beta-slider-num').value = entry.inputs.beta || 34;
             
-            // Изчистваме всички съществуващи точки
-            const container = document.getElementById('sw-points');
-            while (container.children.length > 1) {
-                container.removeChild(container.lastChild);
-            }
-            
-            // Зареждаме точките
+            // Зареждаме координатите на първата точка
             if (entry.inputs.points && entry.inputs.points.length > 0) {
-                entry.inputs.points.forEach((point, index) => {
-                    if (index === 0) {
-                        // Използваме първата съществуваща точка
-                        const firstGroup = container.querySelector('.point-group');
-                        const inputs = firstGroup.querySelectorAll('input');
-                        inputs[0].value = point.x || '';
-                        inputs[1].value = point.y || '';
-                        inputs[2].value = point.z || '';
-                    } else {
-                        // Добавяме нови точки
-                        addPoint();
-                        const lastGroup = container.lastElementChild;
-                        const inputs = lastGroup.querySelectorAll('input');
-                        inputs[0].value = point.x || '';
-                        inputs[1].value = point.y || '';
-                        inputs[2].value = point.z || '';
-                    }
-                });
+                const point = entry.inputs.points[0];
+                document.getElementById('x-slider').value = point.x || 0;
+                document.getElementById('y-slider').value = point.y || 4.84;
+                document.getElementById('z-slider').value = point.z || -9.75;
             }
             
             // Извършваме изчислението
-            calculate();
+            computeAndRender();
+            
+            // Показваме потвърждение временно
+            const statusBadge = document.getElementById('statusBadge');
+            const originalText = statusBadge.textContent;
+            const originalClass = statusBadge.className;
+            statusBadge.textContent = translations[currentLanguage].loadedFromHistory;
+            statusBadge.className = 'status-badge ok';
+            setTimeout(() => {
+                computeAndRender(); // Връщаме нормалния статус
+            }, 2000);
         }
         function clearHistory() {
             localStorage.removeItem('calculationHistory');
+            // Нулираме броячът за точките
+            savedPointCounter = 0;
+            localStorage.setItem('savedPointCounter', '0');
             displayHistory();
         }
         function getCurrentResults() {
@@ -1630,6 +2226,401 @@
             if (e.key === 'Enter') {
                 calculate();
             }
+        });
+
+        // === ИНТЕРАКТИВНИ КОНТРОЛИ ===
+        
+        const VIS_MIN = 0, VIS_MAX = 40; // visualization range for indicator
+        const VALID_MIN = 5, VALID_MAX = 35; // acceptable alpha range
+        let currentSumDeg = 59.0; // Променлива стойност според избрания пресет
+        
+        // Функция за получаване на активната сума от радио бутоните
+        function getActiveSumDeg() {
+            const selectedPreset = document.querySelector('input[name="anglePreset"]:checked');
+            if (!selectedPreset) return null;
+            
+            switch(selectedPreset.value) {
+                case '59': return 59.0;
+                case '62.5': return 62.5;
+                case '67.5': return 67.5;
+                default: return null; // Няма автоматично регулиране
+            }
+        }
+        
+        // Функция за проверка дали е активно автоматично регулиране
+        function isAutoAdjustActive() {
+            return getActiveSumDeg() !== null;
+        }
+        
+        // Функция за синхронизиране на слайдери
+        function bindSlider(rangeEl, numEl, onChange) {
+            if (!rangeEl || !numEl) return;
+            rangeEl.addEventListener('input', () => {
+                numEl.value = rangeEl.value;
+                onChange();
+            });
+            numEl.addEventListener('input', () => {
+                const v = parseFloat(numEl.value);
+                if (!isNaN(v)) rangeEl.value = v;
+                onChange();
+            });
+        }
+
+        // Функция за показване/скриване на интерактивния режим
+        function toggleInteractive() {
+            const section = document.getElementById('interactive-section');
+            const btn = document.querySelector('.btn-interactive');
+            if (!section || !btn) return;
+
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+                btn.textContent = 'Скрий интерактивния режим';
+                initializeInteractiveMode();
+            } else {
+                section.style.display = 'none';
+                btn.textContent = 'Интерактивен режим';
+            }
+        }
+
+        // Инициализация на интерактивния режим
+        function initializeInteractiveMode() {
+            const els = {
+                l: document.getElementById('l-slider'),
+                lNum: document.getElementById('l-slider-num'),
+                d: document.getElementById('d-slider'),
+                dNum: document.getElementById('d-slider-num'),
+                theta: document.getElementById('theta-slider'),
+                thetaNum: document.getElementById('theta-slider-num'),
+                beta: document.getElementById('beta-slider'),
+                betaNum: document.getElementById('beta-slider-num'),
+                x: document.getElementById('x-slider'),
+                y: document.getElementById('y-slider'),
+                z: document.getElementById('z-slider'),
+                alphaValue: document.getElementById('alphaValue'),
+                statusBadge: document.getElementById('statusBadge'),
+                xMval: document.getElementById('xMval'),
+                hVal: document.getElementById('hVal'),
+                marker: document.getElementById('marker'),
+                rangeInfo: document.getElementById('rangeInfo')
+            };
+
+            // Свързване на слайдерите с полетата
+            bindSlider(els.l, els.lNum, computeAndRender);
+            bindSlider(els.d, els.dNum, computeAndRender);
+
+            // Специални event listeners за θ и β заради sum constraint
+            if (els.theta && els.thetaNum) {
+                els.theta.addEventListener('input', () => {
+                    els.thetaNum.value = els.theta.value;
+                    if (isAutoAdjustActive()) {
+                        const sumDeg = getActiveSumDeg();
+                        els.beta.value = (sumDeg - Number(els.theta.value)).toFixed(2);
+                        els.betaNum.value = els.beta.value;
+                    }
+                    computeAndRender();
+                });
+                els.thetaNum.addEventListener('input', () => {
+                    const v = parseFloat(els.thetaNum.value);
+                    if (!isNaN(v)) {
+                        els.theta.value = v;
+                        if (isAutoAdjustActive()) {
+                            const sumDeg = getActiveSumDeg();
+                            els.beta.value = (sumDeg - v).toFixed(2);
+                            els.betaNum.value = els.beta.value;
+                        }
+                    }
+                    computeAndRender();
+                });
+            }
+
+            if (els.beta && els.betaNum) {
+                els.beta.addEventListener('input', () => {
+                    els.betaNum.value = els.beta.value;
+                    if (isAutoAdjustActive()) {
+                        const sumDeg = getActiveSumDeg();
+                        els.theta.value = (sumDeg - Number(els.beta.value)).toFixed(2);
+                        els.thetaNum.value = els.theta.value;
+                    }
+                    computeAndRender();
+                });
+                els.betaNum.addEventListener('input', () => {
+                    const v = parseFloat(els.betaNum.value);
+                    if (!isNaN(v)) {
+                        els.beta.value = v;
+                        if (isAutoAdjustActive()) {
+                            const sumDeg = getActiveSumDeg();
+                            els.theta.value = (sumDeg - v).toFixed(2);
+                            els.thetaNum.value = els.theta.value;
+                        }
+                    }
+                    computeAndRender();
+                });
+            }
+
+            // Координати
+            [els.x, els.y, els.z].forEach(e => {
+                if (e) e.addEventListener('input', computeAndRender);
+            });
+
+            // Event listeners за радио бутоните за пресети
+            const anglePresetRadios = document.querySelectorAll('input[name="anglePreset"]');
+            anglePresetRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (isAutoAdjustActive()) {
+                        const sumDeg = getActiveSumDeg();
+                        const currentTheta = Number(els.theta.value);
+                        els.beta.value = (sumDeg - currentTheta).toFixed(2);
+                        els.betaNum.value = els.beta.value;
+                    }
+                    computeAndRender();
+                });
+            });
+
+            // Синхронизация с основните полета
+            syncWithMainForm();
+            computeAndRender();
+        }
+
+        // Синхронизация на слайдерите с основните полета
+        function syncWithMainForm() {
+            const mainL = document.getElementById('l-sw');
+            const mainD = document.getElementById('d-sw');
+            const mainTheta = document.getElementById('theta-sw');
+            const mainBeta = document.getElementById('beta-sw');
+            
+            const firstPoint = document.querySelector('.point-group');
+            const firstInputs = firstPoint ? firstPoint.querySelectorAll('input') : [];
+
+            if (mainL) document.getElementById('l-slider').value = mainL.value || 85;
+            if (mainD) document.getElementById('d-slider').value = mainD.value || 5.7;
+            if (mainTheta) document.getElementById('theta-slider').value = mainTheta.value || 25;
+            if (mainBeta) document.getElementById('beta-slider').value = mainBeta.value || 34;
+
+            document.getElementById('l-slider-num').value = document.getElementById('l-slider').value;
+            document.getElementById('d-slider-num').value = document.getElementById('d-slider').value;
+            document.getElementById('theta-slider-num').value = document.getElementById('theta-slider').value;
+            document.getElementById('beta-slider-num').value = document.getElementById('beta-slider').value;
+
+            if (firstInputs.length >= 3) {
+                document.getElementById('x-slider').value = firstInputs[0].value || 0;
+                document.getElementById('y-slider').value = firstInputs[1].value || 4.84;
+                document.getElementById('z-slider').value = firstInputs[2].value || -9.75;
+            }
+        }
+
+        // Функция за обновяване на сумата
+        function updateSum() {
+            // Removed sum display as requested - only checkbox remains
+        }
+
+        // Функция за позициониране на маркера
+        function setMarker(alpha) {
+            const marker = document.getElementById('marker');
+            if (!marker) return;
+
+            if (!isFinite(alpha)) {
+                marker.style.display = 'none';
+                return;
+            }
+
+            const clamped = Math.max(VIS_MIN, Math.min(VIS_MAX, alpha));
+            const pct = ((clamped - VIS_MIN) / (VIS_MAX - VIS_MIN)) * 100;
+            marker.style.left = pct.toFixed(2) + '%';
+            marker.style.display = 'block';
+
+            const inRange = (alpha >= VALID_MIN && alpha <= VALID_MAX);
+            marker.classList.toggle('ok', inRange);
+            marker.classList.toggle('bad', !inRange);
+        }
+
+        // Основна функция за изчисляване и рендериране
+        function computeAndRender() {
+            const calc = window.DrillAngleCalculator;
+            if (!calc) {
+                const t = translations[currentLanguage];
+                document.getElementById('alphaValue').textContent = t.mathNotLoaded;
+                document.getElementById('statusBadge').textContent = t.gangleNotAvailable;
+                document.getElementById('statusBadge').className = 'status-badge bad';
+                setMarker(NaN);
+                return;
+            }
+
+            const l = Number(document.getElementById('l-slider').value);
+            const d = Number(document.getElementById('d-slider').value);
+            const thetaDeg = Number(document.getElementById('theta-slider').value);
+            const betaDeg = Number(document.getElementById('beta-slider').value);
+            const thetaRad = calc.deg2rad ? calc.deg2rad(thetaDeg) : (thetaDeg * Math.PI / 180);
+            const betaRad = calc.deg2rad ? calc.deg2rad(betaDeg) : (betaDeg * Math.PI / 180);
+            const x_sw = Number(document.getElementById('x-slider').value);
+            const y_sw = Number(document.getElementById('y-slider').value);
+            const z_sw = Number(document.getElementById('z-slider').value);
+
+            try {
+                let res;
+                if (typeof calc.calculateAngleFromSW === 'function') {
+                    res = calc.calculateAngleFromSW(l, d, thetaRad, betaRad, x_sw, y_sw, z_sw);
+                } else {
+                    res = calc.calculateAngle(l, d, thetaRad, betaRad, x_sw, y_sw, z_sw);
+                }
+
+                let alpha = NaN, xMout = NaN, hOut = NaN;
+                if (res && Array.isArray(res.alphaRAD)) {
+                    alpha = res.alphaRAD[0];
+                    xMout = (res.xM && res.xM[0] != null) ? res.xM[0] : NaN;
+                    hOut = res.h;
+                } else if (res && typeof res.alphaRAD === 'number') {
+                    alpha = res.alphaRAD;
+                    xMout = res.xM;
+                    hOut = res.h;
+                }
+
+                document.getElementById('alphaValue').textContent = isFinite(alpha) ? alpha.toFixed(4) + '°' : 'NaN';
+                document.getElementById('xMval').textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
+                document.getElementById('hVal').textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
+
+                // Оцветяване на резултата според валидността
+                const alphaElement = document.getElementById('alphaValue');
+                const statusBadge = document.getElementById('statusBadge');
+                
+                if (!isFinite(alpha)) {
+                    alphaElement.className = 'result-big result-invalid';
+                    statusBadge.style.display = 'none'; // Скриваме status badge
+                } else if (alpha < VALID_MIN || alpha > VALID_MAX) {
+                    alphaElement.className = 'result-big result-invalid';
+                    statusBadge.style.display = 'none';
+                } else {
+                    alphaElement.className = 'result-big result-valid';
+                    statusBadge.style.display = 'none';
+                }
+
+                setMarker(alpha);
+            } catch (err) {
+                console.error(err);
+                const alphaElement = document.getElementById('alphaValue');
+                const statusBadge = document.getElementById('statusBadge');
+                alphaElement.textContent = 'Error';
+                alphaElement.className = 'result-big result-invalid';
+                statusBadge.style.display = 'none';
+                setMarker(NaN);
+            }
+            updateSum();
+        }
+
+        // Wrapper function за съществуващата calculate функция
+        function calculateResults() {
+            calculate(); // Викаме съществуващата функция
+        }
+
+        // Функция за reset на интерактивната форма
+        function resetInteractiveForm() {
+            document.getElementById('l-slider').value = 85;
+            document.getElementById('l-slider-num').value = 85;
+            document.getElementById('d-slider').value = 5.7;
+            document.getElementById('d-slider-num').value = 5.7;
+            document.getElementById('theta-slider').value = 25;
+            document.getElementById('theta-slider-num').value = 25;
+            document.getElementById('beta-slider').value = 34;
+            document.getElementById('beta-slider-num').value = 34;
+            document.getElementById('x-slider').value = 0;
+            document.getElementById('y-slider').value = 4.84;
+            document.getElementById('z-slider').value = -9.75;
+            // Активиране на пресета θ + β = 59° по подразбиране
+            document.querySelector('input[name="anglePreset"][value="59"]').checked = true;
+            computeAndRender();
+        }
+
+        // Обновена функция за изчисляване с обновяване на summary
+        function computeAndRender() {
+            const calc = window.DrillAngleCalculator;
+            if (!calc) {
+                document.getElementById('alphaValue').textContent = 'math NOT loaded';
+                document.getElementById('statusBadge').textContent = 'GAngle.js not available';
+                document.getElementById('statusBadge').className = 'status-badge bad';
+                updateMainDisplay('Error', 'GAngle.js не е зареден', '', '');
+                setMarker(NaN);
+                return;
+            }
+
+            const l = Number(document.getElementById('l-slider').value);
+            const d = Number(document.getElementById('d-slider').value);
+            const thetaDeg = Number(document.getElementById('theta-slider').value);
+            const betaDeg = Number(document.getElementById('beta-slider').value);
+            const thetaRad = calc.deg2rad ? calc.deg2rad(thetaDeg) : (thetaDeg * Math.PI / 180);
+            const betaRad = calc.deg2rad ? calc.deg2rad(betaDeg) : (betaDeg * Math.PI / 180);
+            const x_sw = Number(document.getElementById('x-slider').value);
+            const y_sw = Number(document.getElementById('y-slider').value);
+            const z_sw = Number(document.getElementById('z-slider').value);
+
+            try {
+                let res;
+                if (typeof calc.calculateAngleFromSW === 'function') {
+                    res = calc.calculateAngleFromSW(l, d, thetaRad, betaRad, x_sw, y_sw, z_sw);
+                } else {
+                    res = calc.calculateAngle(l, d, thetaRad, betaRad, x_sw, y_sw, z_sw);
+                }
+
+                let alpha = NaN, xMout = NaN, hOut = NaN;
+                if (res && Array.isArray(res.alphaRAD)) {
+                    alpha = res.alphaRAD[0];
+                    xMout = (res.xM && res.xM[0] != null) ? res.xM[0] : NaN;
+                    hOut = res.h;
+                } else if (res && typeof res.alphaRAD === 'number') {
+                    alpha = res.alphaRAD;
+                    xMout = res.xM;
+                    hOut = res.h;
+                }
+
+                // Обновяване на интерактивния дисплей
+                document.getElementById('alphaValue').textContent = isFinite(alpha) ? alpha.toFixed(4) + '°' : 'NaN';
+                document.getElementById('xMval').textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
+                document.getElementById('hVal').textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
+
+                // Оцветяване на резултата според валидността
+                const alphaElement = document.getElementById('alphaValue');
+                const statusBadge = document.getElementById('statusBadge');
+                
+                if (!isFinite(alpha)) {
+                    alphaElement.className = 'result-big result-invalid';
+                    statusBadge.style.display = 'none';
+                } else if (alpha < VALID_MIN || alpha > VALID_MAX) {
+                    alphaElement.className = 'result-big result-invalid';
+                    statusBadge.style.display = 'none';
+                } else {
+                    alphaElement.className = 'result-big result-valid';
+                    statusBadge.style.display = 'none';
+                }
+
+                // Обновяване на параметрите
+                updateParamsSummary(l, d, thetaDeg, betaDeg, x_sw, y_sw, z_sw);
+
+                setMarker(alpha);
+            } catch (err) {
+                console.error(err);
+                const alphaElement = document.getElementById('alphaValue');
+                const statusBadge = document.getElementById('statusBadge');
+                alphaElement.textContent = 'Error';
+                alphaElement.className = 'result-big result-invalid';
+                statusBadge.style.display = 'none';
+                setMarker(NaN);
+            }
+            updateSum();
+        }
+
+        // Функция за обновяване на summary параметрите
+        function updateParamsSummary(l, d, theta, beta, x, y, z) {
+            const summary = `l=${l}мм d=${d}мм θ=${theta}° β=${beta}° | X=${x} Y=${y} Z=${z}`;
+            const paramsSummary = document.getElementById('params-summary');
+            if (paramsSummary) {
+                paramsSummary.textContent = summary;
+            }
+        }
+
+        // Инициализация при зареждане
+        window.addEventListener('DOMContentLoaded', () => {
+            // Започваме интерактивния режим веднага
+            setTimeout(() => {
+                initializeInteractiveMode();
+            }, 100);
         });
     </script>
 </body>

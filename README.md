@@ -23,8 +23,8 @@ A professional web-based calculator for computing the side clearance angle (α<s
 ## 🔧 Technical Specifications
 
 ### Input Parameters
-- **l [mm]**: Axial distance from cone apex to the axis offset
-- **d [mm]**: Axis offset (diameter section)
+- **l [mm]**: Distance from cone apex to the end of the axis offset segment that lies on the cone axis
+- **d [mm]**: Distance between the two axes, i.e., the length of the axis offset segment
 - **θ [°]**: Angle between drill and cone axes
 - **β [°]**: Angle between cone axis and generatrix (2β is the apex angle)
 - **Point Coordinates**: X, Y, Z coordinates relative to drill tip
