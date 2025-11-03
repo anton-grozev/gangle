@@ -1,32 +1,18 @@
 /**
  * GAngle.js - Библиотека за изчисляване на работен заден ъгъл с директни координати
+ *
+ * Added wrapper: DrillAngleCalculator.calculateAngleFromSW(l,d,theta,beta,x_sw,y_sw,z_sw)
+ * which accepts SW coordinates, transforms internally and calls calculateAngle(...).
  */
-
 class DrillAngleCalculator {
-    static rad2deg(rad) {
-        return rad * 180 / Math.PI;
-    }
+    static rad2deg(rad) { return rad * 180 / Math.PI; }
+    static deg2rad(deg) { return deg * Math.PI / 180; }
 
-    static deg2rad(deg) {
-        return deg * Math.PI / 180;
-    }
-
-    /**
-     * Функция за изчисляване на работен заден ъгъл с директни drill координати
-     * @param {number} l - разстояние от върха на конуса до този край на ос–отсечката между двете оси, който лежи на оста на конуса
-     * @param {number} d - разстояние между двете оси, тоест дължината на ос–отсечката  
-     * @param {number} theta - ъгъл между осите на свредлото и конуса (в радиани)
-     * @param {number} beta - ъгъл между оста на конуса и образуващата (в радиани, 2β е ъгълът при върха на конуса)
-     * @param {number|Array} xM - x координата/координати на точки от режещия ръб
-     * @param {number|Array} yM - y координата/координати на точки от режещия ръб
-     * @param {number|Array} zM - z координата/координати на точки от режещия ръб
-     */
     static calculateAngle(l, d, theta, beta, xM, yM, zM) {
-        // Преобразуване на входни данни в масиви
         const xM_array = Array.isArray(xM) ? xM : [xM];
         const yM_array = Array.isArray(yM) ? yM : [yM];
         const zM_array = Array.isArray(zM) ? zM : [zM];
-        
+
         const isArrayInput = Array.isArray(xM) || Array.isArray(yM) || Array.isArray(zM);
         const numPoints = Math.max(xM_array.length, yM_array.length, zM_array.length);
 
@@ -34,10 +20,9 @@ class DrillAngleCalculator {
             throw new Error('yM и zM координатите трябва да имат еднаква дължина');
         }
 
-        // Изчисляване на h параметъра (разстояние от върха на конуса до ортогоналната проекция на върха на свредлото върху оста на конуса)
-        const tanTheta = Math.tan(theta);  // ъгъл между осите на свредлото и конуса
-        const tanBeta = Math.tan(beta);    // ъгъл между оста на конуса и образуващата
-        
+        const tanTheta = Math.tan(theta);
+        const tanBeta = Math.tan(beta);
+
         const ah = tanTheta * tanTheta - tanBeta * tanBeta;
         const bh = tanTheta * tanTheta * l;
         const ch = l * l * tanTheta * tanTheta + d * d;
@@ -58,29 +43,22 @@ class DrillAngleCalculator {
             h = (bh + Math.sqrt(discriminant)) / ah;
         }
 
-        // Предварително изчисляване на тригонометрични стойности
         const cosTheta = Math.cos(theta);
         const cosBeta = Math.cos(beta);
         const sinTheta = Math.sin(theta);
 
-        // Резултати за всяка точка
-        const results = {
-            alphaRAD: [],
-            h: h,
-            xM: []
-        };
+        const results = { alphaRAD: [], h: h, xM: [] };
 
         for (let i = 0; i < yM_array.length; i++) {
             const yM_i = yM_array[i];
             const zM_i = zM_array[i];
 
-            // Решаване на квадратно уравнение за xM координатата
             const axc = cosTheta * cosTheta - cosBeta * cosBeta;
-            const bxc = cosTheta * cosTheta * (yM_i * sinTheta - h) - 
-                       cosBeta * cosBeta * (l * sinTheta * sinTheta - h);
-            
+            const bxc = cosTheta * cosTheta * (yM_i * sinTheta - h) -
+                        cosBeta * cosBeta * (l * sinTheta * sinTheta - h);
+
             const term1 = cosTheta * cosTheta * Math.pow(yM_i * sinTheta - h, 2);
-            const term2 = cosBeta * cosBeta * (Math.pow(l * sinTheta * sinTheta - h, 2) + 
+            const term2 = cosBeta * cosBeta * (Math.pow(l * sinTheta * sinTheta - h, 2) +
                          cosTheta * cosTheta * (Math.pow(yM_i - l * sinTheta, 2) + Math.pow(zM_i - d, 2)));
             const cxc = term1 - term2;
 
@@ -95,7 +73,6 @@ class DrillAngleCalculator {
                 xM_i = (bxc - sign_bxc * Math.sqrt(discriminant)) / axc;
             }
 
-            // Изчисляване на ъгъла на заточване α = arctan(B/A)
             const sqrt_yM2_zM2 = Math.sqrt(yM_i * yM_i + zM_i * zM_i);
             const A_term1 = (xM_i - yM_i * sinTheta + h) * cosTheta * cosTheta;
             const A_term2 = (xM_i - l * sinTheta * sinTheta + h) * cosBeta * cosBeta;
@@ -105,7 +82,6 @@ class DrillAngleCalculator {
             const B_term2 = zM_i * (xM_i - yM_i * sinTheta + h) * sinTheta;
             const B = B_term1 + B_term2;
 
-            // Финални изчисления
             xM_i = xM_i / cosTheta;
             const alphaRAD_radians = Math.atan(-B / A);
             const alphaRAD_degrees = this.rad2deg(alphaRAD_radians);
@@ -114,23 +90,39 @@ class DrillAngleCalculator {
             results.xM.push(xM_i);
         }
 
-        // Връщане на скаларни стойности ако входът е скалар
         if (!isArrayInput) {
-            return {
-                alphaRAD: results.alphaRAD[0],
-                h: results.h,
-                xM: results.xM[0]
-            };
+            return { alphaRAD: results.alphaRAD[0], h: results.h, xM: results.xM[0] };
         }
-
         return results;
+    }
+
+    static calculateAngleFromSW(l, d, theta, beta, x_sw, y_sw, z_sw) {
+        function transformSWtoM(x_sw, y_sw, z_sw) {
+            const M11 = -0.1747159967, M12 = 0.6235799837, M13 = -0.1867561927;
+            const M21 = 0.3122687596, M22 = -0.1413437982, M23 = 0.8581431812;
+            const M31 = 0.8697589148, M32 = -0.1087945740, M33 = -0.4267759731;
+            const xM = M11 * x_sw + M12 * y_sw + M13 * z_sw;
+            const yM = M21 * x_sw + M22 * y_sw + M23 * z_sw;
+            const zM = M31 * x_sw + M32 * y_sw + M33 * z_sw;
+            return [xM, yM, zM];
+        }
+        if (Array.isArray(x_sw) || Array.isArray(y_sw) || Array.isArray(z_sw)) {
+            const xs = Array.isArray(x_sw) ? x_sw : [x_sw];
+            const ys = Array.isArray(y_sw) ? y_sw : [y_sw];
+            const zs = Array.isArray(z_sw) ? z_sw : [z_sw];
+            const n = Math.max(xs.length, ys.length, zs.length);
+            const xM_arr = new Array(n), yM_arr = new Array(n), zM_arr = new Array(n);
+            for (let i = 0; i < n; i++) {
+                const [xm, ym, zm] = transformSWtoM(xs[i % xs.length], ys[i % ys.length], zs[i % zs.length]);
+                xM_arr[i] = xm; yM_arr[i] = ym; zM_arr[i] = zm;
+            }
+            return DrillAngleCalculator.calculateAngle(l, d, theta, beta, xM_arr, yM_arr, zM_arr);
+        } else {
+            const [xM, yM, zM] = transformSWtoM(x_sw, y_sw, z_sw);
+            return DrillAngleCalculator.calculateAngle(l, d, theta, beta, xM, yM, zM);
+        }
     }
 }
 
-// Експорт за браузър и Node.js
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = DrillAngleCalculator;
-}
-if (typeof window !== 'undefined') {
-    window.DrillAngleCalculator = DrillAngleCalculator;
-}
+if (typeof module !== 'undefined' && module.exports) { module.exports = DrillAngleCalculator; }
+if (typeof window !== 'undefined') { window.DrillAngleCalculator = DrillAngleCalculator; }

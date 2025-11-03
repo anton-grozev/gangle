@@ -3,104 +3,90 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GAngle — Realtime (loads GAngle.js from dev)</title>
-  <style>
-    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:16px;background:#f6f7fb}
-    .card{background:#fff;border:1px solid #e6e9ef;padding:14px;border-radius:8px;max-width:1100px;margin:auto}
-    .row{display:flex;gap:8px;align-items:center}
-    input[type=range]{flex:1}
-    .num{width:84px;padding:6px;border-radius:6px;border:1px solid #d7dbe6}
-    .coords{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
-    .coor-input{padding:8px;border-radius:6px;border:1px solid #e0e4ee}
-    .big{font-size:28px;font-weight:700}
-    .badge{padding:6px 10px;border-radius:8px;color:#fff;display:inline-block}
-    .ok{background:#2a7a2a}.bad{background:#d62728}
-    .sumDisplay{padding:6px 8px;border-radius:8px;background:#fafafa;border:1px solid #e6e6e6}
-    .note { margin-top:12px;color:#666;font-size:13px }
-    code{background:#f1f5fb;padding:2px 6px;border-radius:4px}
-  </style>
+  <title>GAngle — Realtime (uses only GAngle.js from dev)</title>
+  <style>/* minimal styles */ body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:16px;background:#f6f7fb} .card{background:#fff;border:1px solid #e6e9ef;padding:14px;border-radius:8px;max-width:1100px;margin:auto} .row{display:flex;gap:8px;align-items:center} input[type=range]{flex:1} .num{width:84px;padding:6px;border-radius:6px;border:1px solid #d7dbe6} .coords{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px} .coor-input{padding:8px;border-radius:6px;border:1px solid #e0e4ee} .big{font-size:28px;font-weight:700} .badge{padding:6px 10px;border-radius:8px;color:#fff;display:inline-block} .ok{background:#2a7a2a}.bad{background:#d62728} .sumDisplay{padding:6px 8px;border-radius:8px;background:#fafafa;border:1px solid #e6e6e6} .note { margin-top:12px;color:#666;font-size:13px } code{background:#f1f5fb;padding:2px 6px;border-radius:4px}</style>
 </head>
 <body>
-  <div class="card" id="appCard">
-    <h2>GAngle — Realtime (loads GAngle.js from dev)</h2>
-
+  <div class="card">
+    <h2>GAngle — Realtime (uses only GAngle.js from dev)</h2>
     <div>
       <label>l [mm]</label>
-      <div class="row">
-        <input id="l" type="range" min="10" max="200" step="0.1" value="85">
-        <input id="lNum" class="num" type="number" step="0.1" value="85">
-      </div>
-
+      <div class="row"><input id="l" type="range" min="10" max="200" step="0.1" value="85"><input id="lNum" class="num" type="number" step="0.1" value="85"></div>
       <label>d [mm]</label>
-      <div class="row">
-        <input id="d" type="range" min="0" max="50" step="0.1" value="5.7">
-        <input id="dNum" class="num" type="number" step="0.1" value="5.7">
-      </div>
-
+      <div class="row"><input id="d" type="range" min="0" max="50" step="0.1" value="5.7"><input id="dNum" class="num" type="number" step="0.1" value="5.7"></div>
       <label>θ [°]</label>
-      <div class="row">
-        <input id="theta" type="range" min="0" max="59" step="0.1" value="25">
-        <input id="thetaNum" class="num" type="number" step="0.1" value="25">
-      </div>
-
+      <div class="row"><input id="theta" type="range" min="0" max="59" step="0.1" value="25"><input id="thetaNum" class="num" type="number" step="0.1" value="25"></div>
       <label>β [°]</label>
-      <div class="row">
-        <input id="beta" type="range" min="0" max="59" step="0.1" value="34">
-        <input id="betaNum" class="num" type="number" step="0.1" value="34">
-      </div>
-
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-        <label><input id="lockSum" type="checkbox" checked> Поддържай θ + β = 59°</label>
-        <div class="sumDisplay" id="sumDisplay">θ+β = 59.00°</div>
-      </div>
-
+      <div class="row"><input id="beta" type="range" min="0" max="59" step="0.1" value="34"><input id="betaNum" class="num" type="number" step="0.1" value="34"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><label><input id="lockSum" type="checkbox" checked> Поддържай θ + β = 59°</label><div class="sumDisplay" id="sumDisplay">θ+β = 59.00°</div></div>
       <hr>
-
-      <label>Точка (X, Y, Z)</label>
-      <div class="coords">
-        <input id="x" class="coor-input" type="number" step="0.01" value="0">
-        <input id="y" class="coor-input" type="number" step="0.01" value="4.84">
-        <input id="z" class="coor-input" type="number" step="0.01" value="-9.75">
-      </div>
-
-      <div style="margin-top:12px">
-        <div class="big" id="alphaValue">loading math...</div>
-        <div id="statusBadge" class="badge">waiting for GAngle.js</div>
-        <div style="margin-top:6px">xM: <span id="xMval">—</span> · h: <span id="hVal">—</span></div>
-      </div>
-
-      <div class="note" id="loaderNote">
-        Този demo зарежда математиката от <code>GAngle.js</code> в същата папка (case-sensitive). Ако файлът липсва, ще опитаме raw URL към dev branch.
-      </div>
+      <label>Точка (X, Y, Z) — SW coordinates</label>
+      <div class="coords"><input id="x" class="coor-input" type="number" step="0.01" value="0"><input id="y" class="coor-input" type="number" step="0.01" value="4.84"><input id="z" class="coor-input" type="number" step="0.01" value="-9.75"></div>
+      <div style="margin-top:12px"><div class="big" id="alphaValue">loading math...</div><div id="statusBadge" class="badge">waiting for GAngle.js</div><div style="margin-top:6px">xM: <span id="xMval">—</span> · h: <span id="hVal">—</span></div></div>
+      <div class="note" id="loaderNote">Това демо зарежда математиката само от <code>GAngle.js</code> в dev (чрез raw.githack за тест). UI не прави трансформация — библиотеката вътре ще я направи ако е обновена.</div>
     </div>
   </div>
 
+  <!-- load GAngle.js from dev via raw.githack to avoid file:// / CORS problems during remote testing -->
+  <script src="https://raw.githack.com/anton-grozev/gangle/dev/GAngle.js" defer></script>
+
   <script>
   (function(){
-    const TRY_SOURCES = ['./GAngle.js','https://raw.githubusercontent.com/anton-grozev/gangle/dev/GAngle.js'];
-    const SUM_DEG = 59.0; const RANGE_MIN = 5.0, RANGE_MAX = 35.0;
+    const SUM_DEG = 59.0, RANGE_MIN = 5.0, RANGE_MAX = 35.0;
+    const els = { l:document.getElementById('l'), lNum:document.getElementById('lNum'), d:document.getElementById('d'), dNum:document.getElementById('dNum'), theta:document.getElementById('theta'), thetaNum:document.getElementById('thetaNum'), beta:document.getElementById('beta'), betaNum:document.getElementById('betaNum'), lockSum:document.getElementById('lockSum'), sumDisplay:document.getElementById('sumDisplay'), x:document.getElementById('x'), y:document.getElementById('y'), z:document.getElementById('z'), alphaValue:document.getElementById('alphaValue'), statusBadge:document.getElementById('statusBadge'), xMval:document.getElementById('xMval'), hVal:document.getElementById('hVal'), loaderNote:document.getElementById('loaderNote') };
 
-    function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.async=true;s.onload=()=>res(src);s.onerror=()=>rej(new Error('Failed to load '+src));document.head.appendChild(s);});}
+    function bind(rangeEl,numEl,onChange){ rangeEl.addEventListener('input',()=>{ numEl.value=rangeEl.value; onChange();}); numEl.addEventListener('input',()=>{ const v=parseFloat(numEl.value); if(!isNaN(v)) rangeEl.value=v; onChange(); }); }
 
-    async function tryLoad(){const note=document.getElementById('loaderNote');for(const src of TRY_SOURCES){try{note.textContent=`Опитваме: ${src}`;await loadScript(src);note.textContent=`Успешно: ${src}`;console.log('Loaded',src);return src;}catch(e){console.warn('load failed',src,e);} }note.textContent='GAngle.js не е намерен. Поставете GAngle.js в същата папка.';throw new Error('Load failed');}
+    bind(els.l, els.lNum, computeAndRender); bind(els.d, els.dNum, computeAndRender);
+els.theta.addEventListener('input', ()=>{ els.thetaNum.value = els.theta.value; if(els.lockSum.checked) { els.beta.value = (SUM_DEG - Number(els.theta.value)).toFixed(2); els.betaNum.value = els.beta.value; } computeAndRender(); });
+els.thetaNum.addEventListener('input', ()=>{ const v=parseFloat(els.thetaNum.value); if(!isNaN(v)){ els.theta.value = v; if(els.lockSum.checked){ els.beta.value = (SUM_DEG - v).toFixed(2); els.betaNum.value = els.beta.value; } } computeAndRender(); });
+els.beta.addEventListener('input', ()=>{ els.betaNum.value = els.beta.value; if(els.lockSum.checked){ els.theta.value = (SUM_DEG - Number(els.beta.value)).toFixed(2); els.thetaNum.value = els.theta.value; } computeAndRender(); });
+els.betaNum.addEventListener('input', ()=>{ const v=parseFloat(els.betaNum.value); if(!isNaN(v)){ els.beta.value = v; if(els.lockSum.checked){ els.theta.value = (SUM_DEG - v).toFixed(2); els.thetaNum.value = els.theta.value; } } computeAndRender(); });
 
-    function initUI(){const els={l:document.getElementById('l'),lNum:document.getElementById('lNum'),d:document.getElementById('d'),dNum:document.getElementById('dNum'),theta:document.getElementById('theta'),thetaNum:document.getElementById('thetaNum'),beta:document.getElementById('beta'),betaNum:document.getElementById('betaNum'),lockSum:document.getElementById('lockSum'),sumDisplay:document.getElementById('sumDisplay'),x:document.getElementById('x'),y:document.getElementById('y'),z:document.getElementById('z'),alphaValue:document.getElementById('alphaValue'),statusBadge:document.getElementById('statusBadge'),xMval:document.getElementById('xMval'),hVal:document.getElementById('hVal'),loaderNote:document.getElementById('loaderNote')};
+    [els.x, els.y, els.z].forEach(e=>e.addEventListener('input', computeAndRender));
+els.lockSum.addEventListener('change', ()=>{ if(els.lockSum.checked){ const t=Number(els.theta.value); els.beta.value = (SUM_DEG - t).toFixed(2); els.betaNum.value = els.beta.value; } computeAndRender(); });
 
-      function bind(rangeEl,numEl,onChange){rangeEl.addEventListener('input',()=>{numEl.value=rangeEl.value;onChange();});numEl.addEventListener('input',()=>{const v=parseFloat(numEl.value);if(!isNaN(v))rangeEl.value=v;onChange();});}
+    function updateSum(){ const sum = Number(els.theta.value) + Number(els.beta.value); els.sumDisplay.textContent = `θ+β = ${sum.toFixed(2)}°`; els.sumDisplay.style.color = (Math.abs(sum - SUM_DEG) < 1e-6) ? '#2a7a2a' : '#d62728'; }
 
-      let programmatic=false;function setTheta(v){if(programmatic)return;programmatic=true;v=Math.max(0,Math.min(SUM_DEG,Number(v)));els.theta.value=v;els.thetaNum.value=v.toFixed(2);if(els.lockSum.checked){const nb=+(SUM_DEG-v).toFixed(2);els.beta.value=nb;els.betaNum.value=nb;}programmatic=false;updateSum();computeAndRender();}
-      function setBeta(v){if(programmatic)return;programmatic=true;v=Math.max(0,Math.min(SUM_DEG,Number(v)));els.beta.value=v;els.betaNum.value=v.toFixed(2);if(els.lockSum.checked){const nt=+(SUM_DEG-v).toFixed(2);els.theta.value=nt;els.thetaNum.value=nt;}programmatic=false;updateSum();computeAndRender();}
+    function computeAndRender() {
+      const calc = window.DrillAngleCalculator;
+      if (!calc) { els.alphaValue.textContent='math NOT loaded'; els.statusBadge.textContent='GAngle.js not available'; els.statusBadge.className='badge bad'; return; }
 
-      bind(els.l,els.lNum,()=>computeAndRender());bind(els.d,els.dNum,()=>computeAndRender());els.theta.addEventListener('input',()=>setTheta(els.theta.value));els.thetaNum.addEventListener('input',()=>setTheta(els.thetaNum.value));els.beta.addEventListener('input',()=>setBeta(els.beta.value));els.betaNum.addEventListener('input',()=>setBeta(els.betaNum.value));[els.x,els.y,els.z].forEach(e=>e.addEventListener('input',computeAndRender));els.lockSum.addEventListener('change',()=>{if(els.lockSum.checked){const t=parseFloat(els.theta.value)||0;const nb=+(SUM_DEG-t).toFixed(2);els.beta.value=nb;els.betaNum.value=nb;}updateSum();computeAndRender();});
+      const hasFromSW = typeof calc.calculateAngleFromSW === 'function';
+      const l = Number(els.l.value), d = Number(els.d.value);
+      const thetaDeg = Number(els.theta.value), betaDeg = Number(els.beta.value);
+      const thetaRad = calc.deg2rad ? calc.deg2rad(thetaDeg) : (thetaDeg * Math.PI/180);
+      const betaRad = calc.deg2rad ? calc.deg2rad(betaDeg) : (betaDeg * Math.PI/180);
+      const x_sw = Number(els.x.value), y_sw = Number(els.y.value), z_sw = Number(els.z.value);
 
-      function updateSum(){const t=parseFloat(els.theta.value)||0;const b=parseFloat(els.beta.value)||0;const sum=t+b;els.sumDisplay.textContent=`θ+β = ${sum.toFixed(2)}°`;els.sumDisplay.style.color=(Math.abs(sum-SUM_DEG)<1e-6)?'#2a7a2a':'#d62728';}
+      try {
+        let res;
+        if (hasFromSW) {
+          res = calc.calculateAngleFromSW(l, d, thetaRad, betaRad, x_sw, y_sw, z_sw);
+        } else {
+          res = calc.calculateAngle(l, d, thetaRad, betaRad, x_sw, y_sw, z_sw);
+        }
 
-      function computeAndRender(){if(typeof window.DrillSharpeningTransform==='undefined'){els.alphaValue.textContent='math NOT loaded';els.statusBadge.textContent='GAngle.js not available';els.statusBadge.className='badge bad';return;}const l=parseFloat(els.l.value);const d=parseFloat(els.d.value);const thetaDeg=parseFloat(els.theta.value);const betaDeg=parseFloat(els.beta.value);const thetaRad=DrillSharpeningTransform.deg2rad(thetaDeg);const betaRad=DrillSharpeningTransform.deg2rad(betaDeg);const x=parseFloat(els.x.value),y=parseFloat(els.y.value),z=parseFloat(els.z.value);try{const res=DrillSharpeningTransform.GAngle(l,d,thetaRad,betaRad,[x],[y],[z]);let alpha=NaN,xMout=NaN,hOut=NaN;if(res&&Array.isArray(res.alphaRAD)){alpha=res.alphaRAD[0];xMout=(res.xM&&res.xM[0]!=null)?res.xM[0]:NaN;hOut=res.h;}else if(res&&typeof res.alphaRAD==='number'){alpha=res.alphaRAD;xMout=res.xM;hOut=res.h;}els.alphaValue.textContent=isFinite(alpha)?alpha.toFixed(4)+'°':'NaN';els.xMval.textContent=isFinite(xMout)?xMout.toFixed(4):'NaN';els.hVal.textContent=isFinite(hOut)?hOut.toFixed(4):'NaN';if(!isFinite(alpha)){els.statusBadge.textContent='No real solution';els.statusBadge.className='badge bad';}else if(alpha< RANGE_MIN||alpha> RANGE_MAX){els.statusBadge.textContent='OUTSIDE 5°–35°';els.statusBadge.className='badge bad';}else{els.statusBadge.textContent='OK 5°–35°';}}catch(err){els.alphaValue.textContent='Error';els.statusBadge.textContent='Error';els.statusBadge.className='badge bad';console.error(err);}}
+        let alpha = NaN, xMout = NaN, hOut = NaN;
+        if (res && Array.isArray(res.alphaRAD)) { alpha = res.alphaRAD[0]; xMout = (res.xM && res.xM[0] != null) ? res.xM[0] : NaN; hOut = res.h; }
+        else if (res && typeof res.alphaRAD === 'number') { alpha = res.alphaRAD; xMout = res.xM; hOut = res.h; }
 
-      updateSum();computeAndRender();window.__gangle_demo={computeAndRender,updateSum};
+        els.alphaValue.textContent = isFinite(alpha) ? alpha.toFixed(4)+'°' : 'NaN';
+        els.xMval.textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
+        els.hVal.textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
+        if (!isFinite(alpha)) { els.statusBadge.textContent='No real solution'; els.statusBadge.className='badge bad'; }
+        else if (alpha < RANGE_MIN || alpha > RANGE_MAX) { els.statusBadge.textContent='OUTSIDE 5°–35°'; els.statusBadge.className='badge bad'; }
+        else { els.statusBadge.textContent='OK 5°–35°'; els.statusBadge.className='badge ok'; }
+      } catch (err) {
+        console.error(err);
+        els.alphaValue.textContent='Error'; els.statusBadge.textContent='Error'; els.statusBadge.className='badge bad';
+      }
+      updateSum();
     }
 
-    (async ()=>{try{const loaded=await tryLoad();setTimeout(()=>{try{initUI();document.getElementById('loaderNote').textContent+=` (math loaded from ${loaded})`;if(window.__gangle_demo&&typeof window.__gangle_demo.computeAndRender==='function'){window.__gangle_demo.computeAndRender();}}catch(err){console.error('Init UI failed after load',err);document.getElementById('loaderNote').textContent='Скриптът е зареден, но инициализацията върна грешка. Виж конзолата.';document.getElementById('alphaValue').textContent='init error';document.getElementById('statusBadge').textContent='init error';document.getElementById('statusBadge').className='badge bad';}},80);}catch(err){console.error(err);document.getElementById('alphaValue').textContent='math load failed';document.getElementById('statusBadge').textContent='GAngle.js not found';document.getElementById('statusBadge').className='badge bad';}})();
+    window.addEventListener('DOMContentLoaded', ()=>{
+      setTimeout(()=>{ computeAndRender(); }, 80);
+    });
   })();
   </script>
 </body>
