@@ -512,12 +512,27 @@
         }
         .sum-control {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 10px;
             padding: 12px;
             background: transparent;
             border-radius: 8px;
             border: none;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        .radio-option input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
         }
         .sum-display {
             padding: 6px 12px;
@@ -1057,6 +1072,12 @@
             border: none;
             color: #e5e7eb;
         }
+        body.dark-mode .radio-option label {
+            color: #e5e7eb;
+        }
+        body.dark-mode .radio-option input[type="radio"] {
+            accent-color: #4DD0E1;
+        }
         body.dark-mode .realtime-result {
             background: #16213e;
             border-color: #4DD0E1;
@@ -1409,7 +1430,18 @@
                             </div>
                         </div>
                         <div class="sum-control">
-                            <label><input id="lockSum" type="checkbox" checked> θ + β = 59°</label>
+                            <div class="radio-option">
+                                <label><input type="radio" name="anglePreset" value="none" checked> Без автоматично регулиране</label>
+                            </div>
+                            <div class="radio-option">
+                                <label><input type="radio" name="anglePreset" value="59"> θ + β = 59° (Kr = 118°)</label>
+                            </div>
+                            <div class="radio-option">
+                                <label><input type="radio" name="anglePreset" value="62.5"> θ + β = 62.5° (Kr = 125°)</label>
+                            </div>
+                            <div class="radio-option">
+                                <label><input type="radio" name="anglePreset" value="67.5"> θ + β = 67.5° (Kr = 135°)</label>
+                            </div>
                         </div>
                         <hr style="margin: 16px 0; border: 1px solid #e6e9ef;">
                         <div class="coord-control">
@@ -2200,7 +2232,25 @@
         
         const VIS_MIN = 0, VIS_MAX = 40; // visualization range for indicator
         const VALID_MIN = 5, VALID_MAX = 35; // acceptable alpha range
-        const SUM_DEG = 59.0;
+        let currentSumDeg = 59.0; // Променлива стойност според избрания пресет
+        
+        // Функция за получаване на активната сума от радио бутоните
+        function getActiveSumDeg() {
+            const selectedPreset = document.querySelector('input[name="anglePreset"]:checked');
+            if (!selectedPreset) return null;
+            
+            switch(selectedPreset.value) {
+                case '59': return 59.0;
+                case '62.5': return 62.5;
+                case '67.5': return 67.5;
+                default: return null; // Няма автоматично регулиране
+            }
+        }
+        
+        // Функция за проверка дали е активно автоматично регулиране
+        function isAutoAdjustActive() {
+            return getActiveSumDeg() !== null;
+        }
         
         // Функция за синхронизиране на слайдери
         function bindSlider(rangeEl, numEl, onChange) {
@@ -2243,7 +2293,6 @@
                 thetaNum: document.getElementById('theta-slider-num'),
                 beta: document.getElementById('beta-slider'),
                 betaNum: document.getElementById('beta-slider-num'),
-                lockSum: document.getElementById('lockSum'),
                 x: document.getElementById('x-slider'),
                 y: document.getElementById('y-slider'),
                 z: document.getElementById('z-slider'),
@@ -2263,8 +2312,9 @@
             if (els.theta && els.thetaNum) {
                 els.theta.addEventListener('input', () => {
                     els.thetaNum.value = els.theta.value;
-                    if (els.lockSum.checked) {
-                        els.beta.value = (SUM_DEG - Number(els.theta.value)).toFixed(2);
+                    if (isAutoAdjustActive()) {
+                        const sumDeg = getActiveSumDeg();
+                        els.beta.value = (sumDeg - Number(els.theta.value)).toFixed(2);
                         els.betaNum.value = els.beta.value;
                     }
                     computeAndRender();
@@ -2273,8 +2323,9 @@
                     const v = parseFloat(els.thetaNum.value);
                     if (!isNaN(v)) {
                         els.theta.value = v;
-                        if (els.lockSum.checked) {
-                            els.beta.value = (SUM_DEG - v).toFixed(2);
+                        if (isAutoAdjustActive()) {
+                            const sumDeg = getActiveSumDeg();
+                            els.beta.value = (sumDeg - v).toFixed(2);
                             els.betaNum.value = els.beta.value;
                         }
                     }
@@ -2285,8 +2336,9 @@
             if (els.beta && els.betaNum) {
                 els.beta.addEventListener('input', () => {
                     els.betaNum.value = els.beta.value;
-                    if (els.lockSum.checked) {
-                        els.theta.value = (SUM_DEG - Number(els.beta.value)).toFixed(2);
+                    if (isAutoAdjustActive()) {
+                        const sumDeg = getActiveSumDeg();
+                        els.theta.value = (sumDeg - Number(els.beta.value)).toFixed(2);
                         els.thetaNum.value = els.theta.value;
                     }
                     computeAndRender();
@@ -2295,8 +2347,9 @@
                     const v = parseFloat(els.betaNum.value);
                     if (!isNaN(v)) {
                         els.beta.value = v;
-                        if (els.lockSum.checked) {
-                            els.theta.value = (SUM_DEG - v).toFixed(2);
+                        if (isAutoAdjustActive()) {
+                            const sumDeg = getActiveSumDeg();
+                            els.theta.value = (sumDeg - v).toFixed(2);
                             els.thetaNum.value = els.theta.value;
                         }
                     }
@@ -2309,17 +2362,19 @@
                 if (e) e.addEventListener('input', computeAndRender);
             });
 
-            // Lock sum checkbox
-            if (els.lockSum) {
-                els.lockSum.addEventListener('change', () => {
-                    if (els.lockSum.checked) {
-                        const t = Number(els.theta.value);
-                        els.beta.value = (SUM_DEG - t).toFixed(2);
+            // Event listeners за радио бутоните за пресети
+            const anglePresetRadios = document.querySelectorAll('input[name="anglePreset"]');
+            anglePresetRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (isAutoAdjustActive()) {
+                        const sumDeg = getActiveSumDeg();
+                        const currentTheta = Number(els.theta.value);
+                        els.beta.value = (sumDeg - currentTheta).toFixed(2);
                         els.betaNum.value = els.beta.value;
                     }
                     computeAndRender();
                 });
-            }
+            });
 
             // Синхронизация с основните полета
             syncWithMainForm();
@@ -2469,7 +2524,8 @@
             document.getElementById('x-slider').value = 0;
             document.getElementById('y-slider').value = 4.84;
             document.getElementById('z-slider').value = -9.75;
-            document.getElementById('lockSum').checked = true;
+            // Активиране на пресета θ + β = 59° по подразбиране
+            document.querySelector('input[name="anglePreset"][value="59"]').checked = true;
             computeAndRender();
         }
 
