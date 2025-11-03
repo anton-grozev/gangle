@@ -5,7 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GAngle — Realtime (uses only GAngle.js from dev)</title>
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=" />
-  <style>/* minimal styles */ body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:16px;background:#f6f7fb} .card{background:#fff;border:1px solid #e6e9ef;padding:14px;border-radius:8px;max-width:1100px;margin:auto} .row{display:flex;gap:8px;align-items:center} input[type=range]{flex:1} .num{width:84px;padding:6px;border-radius:6px;border:1px solid #d7dbe6} .coords{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px} .coor-input{padding:8px;border-radius:6px;border:1px solid #e0e4ee} .big{font-size:28px;font-weight:700} .badge{padding:6px 10px;border-radius:8px;color:#fff;display:inline-block} .ok{background:#2a7a2a}.bad{background:#d62728} .sumDisplay{padding:6px 8px;border-radius:8px;background:#fafafa;border:1px solid #e6e6e6} .note { margin-top:12px;color:#666;font-size:13px } code{background:#f1f5fb;padding:2px 6px;border-radius:4px}</style>
+  <style>/* minimal styles */ body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:16px;background:#f6f7fb} .card{background:#fff;border:1px solid #e6e9ef;padding:14px;border-radius:8px;max-width:1100px;margin:auto} .row{display:flex;gap:8px;align-items:center} input[type=range]{flex:1} .num{width:84px;padding:6px;border-radius:6px;border:1px solid #d7dbe6} .coords{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px} .coor-input{padding:8px;border-radius:6px;border:1px solid #e0e4ee} .big{font-size:28px;font-weight:700} .badge{padding:6px 10px;border-radius:8px;color:#fff;display:inline-block} .ok{background:#2a7a2a}.bad{background:#d62728} .sumDisplay{padding:6px 8px;border-radius:8px;background:#fafafa;border:1px solid #e6e6e6} .note { margin-top:12px;color:#666;font-size:13px } code{background:#f1f5fb;padding:2px 6px;border-radius:4px}
+
+/* range indicator */
+.range-wrap{margin-top:14px}
+.range-track{height:18px;border-radius:10px;background:linear-gradient(90deg,#d62728 0%,#d62728 12.5%,#2a7a2a 12.5%,#2a7a2a 87.5%,#d62728 87.5%,#d62728 100%);position:relative}
+.marker{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:26px;border-radius:4px;background:#333;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+.marker.ok{background:#2a7a2a}
+.marker.bad{background:#d62728}
+.range-labels{display:flex;justify-content:space-between;font-size:12px;color:#666;margin-top:6px}
+.range-info{margin-top:6px;font-size:13px;color:#333}
+  </style>
 </head>
 <body>
   <div class="card">
@@ -24,6 +34,16 @@
       <label>Точка (X, Y, Z) — SW coordinates</label>
       <div class="coords"><input id="x" class="coor-input" type="number" step="0.01" value="0"><input id="y" class="coor-input" type="number" step="0.01" value="4.84"><input id="z" class="coor-input" type="number" step="0.01" value="-9.75"></div>
       <div style="margin-top:12px"><div class="big" id="alphaValue">loading math...</div><div id="statusBadge" class="badge">waiting for GAngle.js</div><div style="margin-top:6px">xM: <span id="xMval">—</span> · h: <span id="hVal">—</span></div></div>
+
+      <!-- Range indicator -->
+      <div class="range-wrap">
+        <div class="range-track" id="rangeTrack" aria-hidden="false">
+          <div id="marker" class="marker" style="left:0%" title="alpha position"></div>
+        </div>
+        <div class="range-labels"><span>0°</span><span>5° (min)</span><span>20°</span><span>35° (max)</span><span>40°</span></div>
+        <div class="range-info" id="rangeInfo">Position: —</div>
+      </div>
+
       <div class="note" id="loaderNote">Това демо зарежда математиката само от <code>GAngle.js</code> в dev (CDN/raw/local fallback enabled).</div>
     </div>
   </div>
@@ -60,8 +80,11 @@
 
   <script>
   (function(){
-    const SUM_DEG = 59.0, RANGE_MIN = 5.0, RANGE_MAX = 35.0;
-    const els = { l:document.getElementById('l'), lNum:document.getElementById('lNum'), d:document.getElementById('d'), dNum:document.getElementById('dNum'), theta:document.getElementById('theta'), thetaNum:document.getElementById('thetaNum'), beta:document.getElementById('beta'), betaNum:document.getElementById('betaNum'), lockSum:document.getElementById('lockSum'), sumDisplay:document.getElementById('sumDisplay'), x:document.getElementById('x'), y:document.getElementById('y'), z:document.getElementById('z'), alphaValue:document.getElementById('alphaValue'), statusBadge:document.getElementById('statusBadge'), xMval:document.getElementById('xMval'), hVal:document.getElementById('hVal'), loaderNote:document.getElementById('loaderNote') };
+    const VIS_MIN = 0, VIS_MAX = 40; // visualization range for indicator
+    const VALID_MIN = 5, VALID_MAX = 35; // acceptable alpha range
+
+    const SUM_DEG = 59.0, RANGE_MIN = VALID_MIN, RANGE_MAX = VALID_MAX;
+    const els = { l:document.getElementById('l'), lNum:document.getElementById('lNum'), d:document.getElementById('d'), dNum:document.getElementById('dNum'), theta:document.getElementById('theta'), thetaNum:document.getElementById('thetaNum'), beta:document.getElementById('beta'), betaNum:document.getElementById('betaNum'), lockSum:document.getElementById('lockSum'), sumDisplay:document.getElementById('sumDisplay'), x:document.getElementById('x'), y:document.getElementById('y'), z:document.getElementById('z'), alphaValue:document.getElementById('alphaValue'), statusBadge:document.getElementById('statusBadge'), xMval:document.getElementById('xMval'), hVal:document.getElementById('hVal'), loaderNote:document.getElementById('loaderNote'), marker:document.getElementById('marker'), rangeInfo:document.getElementById('rangeInfo') };
 
     function bind(rangeEl,numEl,onChange){ rangeEl.addEventListener('input',()=>{ numEl.value=rangeEl.value; onChange();}); numEl.addEventListener('input',()=>{ const v=parseFloat(numEl.value); if(!isNaN(v)) rangeEl.value=v; onChange(); }); }
 
@@ -76,9 +99,11 @@
 
     function updateSum(){ const sum = Number(els.theta.value) + Number(els.beta.value); els.sumDisplay.textContent = `θ+β = ${sum.toFixed(2)}°`; els.sumDisplay.style.color = (Math.abs(sum - SUM_DEG) < 1e-6) ? '#2a7a2a' : '#d62728'; }
 
+    function setMarker(alpha){ const marker = els.marker; const info = els.rangeInfo; if(!marker) return; if(!isFinite(alpha)){ marker.style.display='none'; info.textContent = 'Position: —'; return; } const clamped = Math.max(VIS_MIN, Math.min(VIS_MAX, alpha)); const pct = ((clamped - VIS_MIN) / (VIS_MAX - VIS_MIN)) * 100; marker.style.left = pct.toFixed(2) + '%'; marker.style.display = 'block'; const inRange = (alpha >= VALID_MIN && alpha <= VALID_MAX); marker.classList.toggle('ok', inRange); marker.classList.toggle('bad', !inRange); info.textContent = `Position: ${alpha.toFixed(3)}° — ${inRange? 'within' : 'outside'} ${VALID_MIN}°–${VALID_MAX}°`; }
+
     function computeAndRender() {
       const calc = window.DrillAngleCalculator;
-      if (!calc) { els.alphaValue.textContent='math NOT loaded'; els.statusBadge.textContent='GAngle.js not available'; els.statusBadge.className='badge bad'; return; }
+      if (!calc) { els.alphaValue.textContent='math NOT loaded'; els.statusBadge.textContent='GAngle.js not available'; els.statusBadge.className='badge bad'; setMarker(NaN); return; }
 
       const hasFromSW = typeof calc.calculateAngleFromSW === 'function';
       const l = Number(els.l.value), d = Number(els.d.value);
@@ -105,9 +130,11 @@
         if (!isFinite(alpha)) { els.statusBadge.textContent='No real solution'; els.statusBadge.className='badge bad'; }
         else if (alpha < RANGE_MIN || alpha > RANGE_MAX) { els.statusBadge.textContent='OUTSIDE 5°–35°'; els.statusBadge.className='badge bad'; }
         else { els.statusBadge.textContent='OK 5°–35°'; els.statusBadge.className='badge ok'; }
+
+        setMarker(alpha);
       } catch (err) {
         console.error(err);
-        els.alphaValue.textContent='Error'; els.statusBadge.textContent='Error'; els.statusBadge.className='badge bad';
+        els.alphaValue.textContent='Error'; els.statusBadge.textContent='Error'; els.statusBadge.className='badge bad'; setMarker(NaN);
       }
       updateSum();
     }
