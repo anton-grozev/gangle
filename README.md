@@ -1,55 +1,55 @@
 # Gangle
 
-Gangle е уеб приложение за изчисляване на задния ъгъл αf в работната инструментална равнина Pf.
+Gangle is a web application for calculating the side clearance angle αf in the working tool plane Pf.
 
-Живо демо: https://anton-grozev.github.io/gangle/
-
----
-
-Съдържание
-- Кратко описание
-- Бързо ръководство (онлайн и локално)
-- Входни параметри
-- Технически детайли
+Live demo: https://anton-grozev.github.io/gangle/
 
 ---
 
-Кратко описание
-Приложението изчислява задния ъгъл αf в работната инструментална равнина Pf при дадени геометрични параметри на свредлото и конусовидната повърхнина. Алгоритмите използват аналитична геометрия за пресмятанията.
-
-Основни възможности (точно описани)
-- Моментални (real-time) пресмятания при промяна на входните стойности в UI.
-- Изчисленията се извършват директно в целевата (drill / M) координатна система; за обратна съвместимост има wrapper функция (calculateAngleFromSW), която трансформира SW-входни координати към drill/M и след това извършва същите пресмятания.
-- Библиотеката приема както единични координати, така и масиви (multi-point) — когато в calculateAngle(...) се подадат масиви, функцията връща масив от резултати.
+Contents
+- Brief Description
+- Quick Start Guide (online and local)
+- Input Parameters
+- Technical Details
 
 ---
 
-Бързо ръководство
+Brief Description
+The application calculates the side clearance angle αf in the working tool plane Pf given the geometric parameters of the drill and conical surface. The algorithms use analytical geometry for the calculations.
 
-Онлайн
-- Посетете живото демо: https://anton-grozev.github.io/gangle/
+Key Features (precisely described)
+- Real-time calculations when input values change in the UI.
+- Calculations are performed directly in the target (drill / M) coordinate system; for backward compatibility there is a wrapper function (calculateAngleFromSW) that transforms SW-input coordinates to drill/M and then performs the same calculations.
+- The library accepts both single coordinates and arrays (multi-point) — when arrays are passed to calculateAngle(...), the function returns an array of results.
 
-Локално
-1. Клонирайте хранилището:
+---
+
+Quick Start Guide
+
+Online
+- Visit the live demo: https://anton-grozev.github.io/gangle/
+
+Local
+1. Clone the repository:
    git clone https://github.com/anton-grozev/gangle.git
-2. Влезте в директорията на проекта:
+2. Enter the project directory:
    cd gangle
-3. Отворете index.html в браузъра или използвайте локален сървър (например Live Server за VS Code).
+3. Open index.html in a browser or use a local server (e.g., Live Server for VS Code).
 
-Входни параметри
-- l [mm] — разстояние от върха на конуса до края на сегмента, лежащ на оста на свредлото
-- d [mm] — разстояние между двете оси (дължина на сегмента на изместване на оста)
-- θ [°] — ъгъл между осите на свредлото и конуса
-- β [°] — ъгъл между осата на конуса и неговата образуваща (2β е връхният ъгъл)
-- Координати на точката — X, Y, Z (относително до върха на свредлото)
+Input Parameters
+- l [mm] — axial distance from cone apex to the axis offset d
+- d [mm] — axis offset (distance between the two axes)
+- θ [°] — angle between drill and cone axes
+- β [°] — angle between cone axis and generatrix (2β is the apex angle)
+- Point coordinates — X, Y, Z (relative to drill tip)
 
 ---
 
-Технически детайли
-- Технологии: HTML5, CSS3, JavaScript (ES6)
-- Архитектура: клиентска (front-end) логика за пресмятанията; основната библиотека връща числови резултати, UI се грижи за представянето.
-- Координатни системи и трансформации: изчисленията в основната функция се извършват в drill/M координати за по-добра производителност и опростяване; ако входните данни са в друга система (SW), използвайте calculateAngleFromSW(), който трансформира координатите и след това извиква calculateAngle(...).
-- Поддръжка на масиви: calculateAngle(...) поддържа масивни входи (xM, yM, zM масиви) и връща масив от αf стойности за multi-point случаи.
+Technical Details
+- Technologies: HTML5, CSS3, JavaScript (ES6)
+- Architecture: client-side (front-end) logic for calculations; the core library returns numerical results, UI handles the presentation.
+- Coordinate systems and transformations: calculations in the core function are performed in drill/M coordinates for better performance and simplification; if input data is in another system (SW), use calculateAngleFromSW(), which transforms the coordinates and then calls calculateAngle(...).
+- Array support: calculateAngle(...) supports array inputs (xM, yM, zM arrays) and returns an array of αf values for multi-point cases.
 
 ---
 
