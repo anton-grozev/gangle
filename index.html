@@ -82,6 +82,7 @@
         }
         .left-column {
             grid-column: 1;
+            align-self: start;
         }
         .input-container {
             border: 2px solid #3b82f6;
@@ -101,7 +102,7 @@
         .right-column {
             grid-column: 2;
             position: sticky;
-            top: 20px;
+            top: 0;
             min-height: 300px;
             align-self: start;
         }
@@ -1122,7 +1123,7 @@
             border: 2px solid #6366f1;
             border-radius: 12px;
             padding: 32px;
-            margin: 20px 0;
+            margin: 0;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
@@ -1309,11 +1310,13 @@
             }
             .left-column {
                 grid-column: 1;
+                align-self: start;
             }
             .right-column {
                 grid-column: 2;
                 position: sticky;
-                top: 20px;
+                top: 0;
+                align-self: start;
             }
             header {
                 grid-column: 1 / -1;
@@ -1463,7 +1466,6 @@
         <!-- ЛЯВА КОЛОНА - ВЪВЕЖДАНЕ НА ДАННИ -->
         <div class="left-column">
             <div class="input-container">
-                <h3 class="input-container-title" id="section-title">🎛️ Интерактивен калкулатор за заден ъгъл</h3>
                 <!-- Интерактивни слайдери -->
                 <div class="interactive-section" id="interactive-section" style="display: block;">
                     <div class="slider-container">
