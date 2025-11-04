@@ -1,146 +1,94 @@
-# GAngle Calculator ⚙️
+# GAngle — Калкулатор за страничен ъгъл при заточване на свредла
 
-**Side Clearance Angle Calculator for Drill Sharpening**
+Кратко: Уеб приложение за изчисляване на страничния ъгъл (αf) при заточване на свредла. Проектиран за инженери, лаборатории и хоби майстори, които се нуждаят от прецизни резултати и удобен интерфейс.
 
-A professional web-based calculator for computing the side clearance angle (α<sub>f</sub>) for drill sharpening operations. This tool provides precise calculations using advanced mathematical algorithms for manufacturing and engineering applications.
-
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://anton-grozev.github.io/gangle/)
-[![Academic](https://img.shields.io/badge/Academic-Research-green?style=for-the-badge)](#)
+Живо демо: https://anton-grozev.github.io/gangle/ (или новият ви сайт - поставете URL тук)
 
 ---
 
-## 🎯 Features
-
-- **Real-time Calculations**: Instant results as you input parameters
-- **Multi-point Analysis**: Calculate angles for multiple points simultaneously
-- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
-- **Bilingual Interface**: Bulgarian and English language support
-- **Dark/Light Mode**: User-preferred theme switching
-- **Professional UI**: Modern, technical interface designed for engineering workflows
+Какво има в това README
+- Описание на функционалностите
+- Как да използвате онлайн или локално
+- Обяснение на входните параметри и резултатите
+- Технически детайли и развитие
+- Как да допринесете
 
 ---
 
-## 🔧 Technical Specifications
+За проекта
 
-### Input Parameters
-- **l [mm]**: Distance from cone apex to the end of the axis offset segment that lies on the cone axis
-- **d [mm]**: Distance between the two axes, i.e., the length of the axis offset segment
-- **θ [°]**: Angle between drill and cone axes
-- **β [°]**: Angle between cone axis and generatrix (2β is the apex angle)
-- **Point Coordinates**: X, Y, Z coordinates relative to drill tip
+GAngle изчислява страничния ъгъл на свредлото спрямо конусовидна повърхност (ползван при заточване). Приложението прилага аналитична геометрия и е оптимизирано за бързи интерактивни пресмятания и работа с множество точки.
 
----
-
-## 🚀 Quick Start
-
-### Online Usage
-Visit the [live demo](https://anton-grozev.github.io/gangle/) to use the calculator immediately.
-
-### Local Development
-```bash
-# Clone the repository
-git clone https://github.com/anton-grozev/gangle.git
-
-# Navigate to project directory
-cd gangle
-
-# Open with a local server (e.g., Live Server)
-# Or simply open index.html in your browser
-```
+Основни възможности
+- Мигновени (real-time) пресмятания при промяна на входните стойности
+- Поддръжка на множество точки/координати за едновременно анализиране
+- Отчитане на всички специфични параметри на работната геометрия (l, d, θ, β)
+- Резултати с контролирана точност (до 2 десетични места по подразбиране)
+- Адаптивен интерфейс за настолни и мобилни устройства
 
 ---
 
-## 📊 Usage Guide
+Бързо ръководство
 
-### 1. Input Parameters
-- Enter the four main parameters (l, d, θ, β)
-- Add point coordinates using the "+" button or directly input the values
-- Remove points with the "Remove" button if needed
+Онлайн
+- Посетете живото демо: https://anton-grozev.github.io/gangle/ (или поставете тук новия сайт)
 
-### 2. Interpret Results
-Results show α<sub>f</sub> values for each point with precision to 2 decimal places.
+Локално
+1. Клонирайте хранилището:
+   git clone https://github.com/anton-grozev/gangle.git
+2. Влезте в директорията на проекта:
+   cd gangle
+3. Отворете index.html в браузъра или използвайте локален сървър (например Live Server за VS Code).
 
----
+Входни параметри (кратко обяснение)
+- l [mm] — разстояние от върха на конуса до края на сегмента, лежащ на оста на свредлото
+- d [mm] — разстояние между двете оси (дължина на сегмента на изместване на оста)
+- θ [°] — ъгъл между осите на свредлото и конуса
+- β [°] — ъгъл между осата на конуса и неговата образуваща (2β е връхният ъгъл)
+- Координати на точката — X, Y, Z (относително до върха на свредлото)
 
-## 🔬 Mathematical Background
-
-The calculator implements advanced analytical geometry for drill sharpening calculations:
-
-- **Coordinate Transformation**: Converts between coordinate systems
-- **Conical Surface Analysis**: Determines points on drill cone surfaces
-- **Angle Computation**: Uses arctangent formulations for precise angle calculation
-- **Multi-point Processing**: Handles arrays of coordinate points efficiently
-
----
-
-## 🛠 Development
-
-### Technologies Used
-- **Frontend**: Pure HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: Modern CSS with Flexbox/Grid layouts
-- **Mathematics**: Native JavaScript mathematical functions
-- **Responsiveness**: CSS Media Queries and Viewport Meta Tag
-
-### Code Quality
-- Modern ES6+ JavaScript syntax
-- Modular class-based architecture
-- Clean, semantic HTML structure
-- Optimized CSS with consistent naming conventions
-- Cross-browser compatibility ensured
+Интерпретиране на резултатите
+- За всяка въведена точка се дава пресметнатата стойност на αf
+- Резултатите са показани с фиксирана точност (например 2 знака след десетичната точка)
+- Проверете входните единици и знаците (мм и градуси)
 
 ---
 
-## 📈 Development History
+Технически детайли
+- Технологии: HTML5, CSS3 и JavaScript (ES6)
+- Архитектура: Ниско-зависим фронтенд, цялата логика е на клиентската страна
+- Математически подход: Преобразувания на координатни системи, анализ на конусна повърхнина и арктангенти за изчисление на ъглите
 
-### Current Version
-- ✅ Technical refinement of user interface
-- ✅ Improved mobile compatibility
-- ✅ Optimized fonts for engineering application
-- ✅ Standardized input steps (0.1 units)
-- ✅ Code optimization and cleanup
-
-### Previous Versions
-- ✅ Bilingual support (Bulgarian/English)
-- ✅ Light/dark mode
-- ✅ Responsive design
-- ✅ Core calculation functionality
+Разработка
+- За локална разработка използвайте стандартни инструменти (VS Code, Live Server)
+- Кодът е структуриран и коментиран за лесно проследяване на пресмятанията
 
 ---
 
-## 🤝 Contributing
+Как да допринесете
+1. Форкнете хранилището
+2. Създайте нов клон: git checkout -b feature/your-feature
+3. Направете промени и комитнете
+4. Изпратете PR към dev
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Моля опишете ясно промените в PR-а — особено ако внесете промени в математическата логика или формули.
 
 ---
 
-## 👨‍🎓 Author
+Лиценз и автор
 
-**Anton Grozev**  
-PhD Candidate in Manufacturing Engineering  
-*Ruse University, Bulgaria*
+Автор: Anton Grozev — PhD кандидат по Производствено инженерство, Русенски университет
+Лиценз: MIT (по подразбиране) — добавете LICENSE файл ако желаете друго
 
-- 🔗 LinkedIn: [Your LinkedIn Profile](#)
-
----
-
-##  Acknowledgments
-
-- Ruse University Engineering Faculty
-- Manufacturing Engineering Research Group
-- Open Source Community
+Контакти
+- GitHub: https://github.com/anton-grozev
+- LinkedIn: (поставете ваш профил тук)
 
 ---
 
-<div align="center">
+Бележки
+- Ако искате README-то да съвпада 1:1 с конкретните секции на новия сайт, изпратете ми URL на сайта или копие/скрийншотове от съдържанието и ще адаптирам README-то точно.
 
-**Made with ❤️ for the Engineering Community**
+---
 
-[⭐ Star this repository](https://github.com/anton-grozev/gangle) if you find it useful!
-
-</div>
+Made with ❤️ for the engineering community
