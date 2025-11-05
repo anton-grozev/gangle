@@ -103,8 +103,8 @@
         header {
             text-align: center;
             margin: 45px 8px 16px 8px;
-            border-bottom: none;
-            padding: 12px 8px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 8px 16px 8px;
             width: calc(100% - 16px);
         }
         .language-switcher {
@@ -116,11 +116,13 @@
         }
         h1 {
             color: #111827;
-            font-size: 1.25rem;
+            font-size: clamp(0.9rem, 4vw, 1.25rem);
             margin-bottom: 4px;
             font-weight: 600;
             line-height: 1.3;
             font-family: 'Inter', 'Roboto', sans-serif;
+            word-wrap: break-word;
+            hyphens: auto;
         }
         .subtitle {
             color: #666;
@@ -1442,8 +1444,43 @@
                 grid-column: 1 / -1;
             }
         }
+        /* Tablet layout - история отива отдолу */
+        @media (min-width: 501px) and (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr !important;
+                padding: 24px !important;
+            }
+            .left-column {
+                grid-column: 1 !important;
+            }
+            .right-column {
+                grid-column: 1 !important;
+                position: static !important;
+                margin-top: 24px;
+            }
+            h1 {
+                font-size: clamp(1.2rem, 3vw, 1.5rem);
+            }
+        }
         @media (max-width: 500px) {
             /* Mobile overrides if needed */
+            .container {
+                border: 1px solid rgba(107, 114, 128, 0.3) !important;
+                border-radius: 12px !important;
+                background: rgba(248, 250, 252, 0.5) !important;
+                backdrop-filter: blur(10px);
+            }
+            body.dark-mode .container {
+                border: 1px solid rgba(156, 163, 175, 0.3) !important;
+                background: rgba(31, 41, 55, 0.8) !important;
+            }
+            header {
+                border-bottom: 1px solid rgba(107, 114, 128, 0.2) !important;
+                margin: 40px 8px 12px 8px !important;
+            }
+            .input-container {
+                margin-top: 0 !important;
+            }
             .lang-toggle,
             .dark-mode-toggle {
                 position: fixed;
