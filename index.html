@@ -76,7 +76,7 @@
             width: 100%;
             padding: 48px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.86fr 1fr;
             gap: 48px;
             align-items: start;
         }
@@ -517,6 +517,25 @@
             border-radius: 6px;
             font-size: 14px;
             text-align: center;
+        }
+        
+        /* Стил за заключване на theta */
+        #theta-lock {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
+        #theta-lock-label {
+            cursor: pointer;
+            user-select: none;
+            font-size: 13px;
+            color: #4b5563;
+            font-weight: 500;
+        }
+        #theta-lock:checked + #theta-lock-label {
+            color: #3b82f6;
+            font-weight: 600;
         }
         .sum-control {
             display: flex;
@@ -1304,7 +1323,7 @@
         @media (min-width: 501px) {
             .container {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1.86fr 1fr;
                 gap: 40px;
                 align-items: start;
             }
@@ -1486,23 +1505,27 @@
                         <div class="slider-group">
                             <label for="theta-slider" id="theta-label">📐 θ [°] - Ъгъл между осите на свредлото и конуса:</label>
                             <div class="slider-row">
-                                <input id="theta-slider" type="range" min="0" max="59" step="0.1" value="25">
-                                <input id="theta-slider-num" class="slider-num" type="number" step="0.1" value="25">
+                                <input id="theta-slider" type="range" min="0" max="59" step="0.1" value="25" disabled style="opacity: 0.5;">
+                                <input id="theta-slider-num" class="slider-num" type="number" step="0.1" value="25" disabled style="opacity: 0.5;">
+                                <label style="display: flex; align-items: center; gap: 5px; margin-left: 10px; white-space: nowrap;">
+                                    <input type="checkbox" id="theta-lock" checked style="width: auto; height: auto;">
+                                    <span id="theta-lock-label">🔒 Заключи</span>
+                                </label>
                             </div>
                         </div>
                         <div class="slider-group">
                             <label for="beta-slider" id="beta-label">📐 β [°] - Ъгъл между оста на конуса и образуващата:</label>
                             <div class="slider-row">
-                                <input id="beta-slider" type="range" min="0" max="59" step="0.1" value="34">
-                                <input id="beta-slider-num" class="slider-num" type="number" step="0.1" value="34">
+                                <input id="beta-slider" type="range" min="0" max="59" step="0.1" value="34" disabled style="opacity: 0.5;">
+                                <input id="beta-slider-num" class="slider-num" type="number" step="0.1" value="34" disabled style="opacity: 0.5;">
                             </div>
                         </div>
                         <div class="sum-control">
                             <div class="radio-option">
-                                <label><input type="radio" name="anglePreset" value="none" checked> Без автоматично регулиране</label>
+                                <label><input type="radio" name="anglePreset" value="none"> Без автоматично регулиране</label>
                             </div>
                             <div class="radio-option">
-                                <label><input type="radio" name="anglePreset" value="59"> θ + β = 59° (Kr = 118°)</label>
+                                <label><input type="radio" name="anglePreset" value="59" checked> θ + β = 59° (Kr = 118°)</label>
                             </div>
                             <div class="radio-option">
                                 <label><input type="radio" name="anglePreset" value="62.5"> θ + β = 62.5° (Kr = 125°)</label>
@@ -1586,6 +1609,7 @@
                 lLabel: "📏 l [mm] - Разстояние от върха на конуса до този край на ос–отсечката между двете оси, който лежи на оста на конуса:",
                 dLabel: "📏 d [mm] - Разстояние между двете оси, тоест дължината на ос–отсечката:",
                 thetaLabel: "📐 θ [°] - Ъгъл между осите на свредлото и конуса:",
+                thetaLock: "🔒 Заключи",
                 betaLabel: "📐 β [°] - Ъгъл между оста на конуса и образуващата (2β е ъгълът при върха):",
                 coordLabel: "📍 SW координати на точката (спрямо върха на свредлото):",
                 historyTitle: "📚 История на изчисленията",
@@ -1607,6 +1631,7 @@
                 lLabel: "📏 l [mm] - Axial distance from cone apex to the axis offset d:",
                 dLabel: "📏 d [mm] - Axis offset:",
                 thetaLabel: "📐 θ [°] - Angle between drill and cone axes:",
+                thetaLock: "🔒 Lock",
                 betaLabel: "📐 β [°] - Angle between cone axis and generatrix (2β is the apex angle):",
                 coordLabel: "📍 Point coordinates relative to drill tip:",
                 historyTitle: "📚 Calculation History",
@@ -1808,6 +1833,11 @@
             const thetaLabel = document.getElementById('theta-label');
             if (thetaLabel && t && t.thetaLabel) {
                 thetaLabel.textContent = t.thetaLabel;
+            }
+            
+            const thetaLockLabel = document.getElementById('theta-lock-label');
+            if (thetaLockLabel && t && t.thetaLock) {
+                thetaLockLabel.textContent = t.thetaLock;
             }
             
             const betaLabel = document.getElementById('beta-label');
@@ -2379,6 +2409,13 @@
             // Специални event listeners за θ и β заради sum constraint
             if (els.theta && els.thetaNum) {
                 els.theta.addEventListener('input', () => {
+                    const thetaLock = document.getElementById('theta-lock');
+                    if (thetaLock && thetaLock.checked) {
+                        // Ако е заключено, не позволявай промяна
+                        els.theta.value = thetaLock.dataset.lockedValue || 25;
+                        els.thetaNum.value = els.theta.value;
+                        return;
+                    }
                     els.thetaNum.value = els.theta.value;
                     if (isAutoAdjustActive()) {
                         const sumDeg = getActiveSumDeg();
@@ -2388,6 +2425,13 @@
                     computeAndRender();
                 });
                 els.thetaNum.addEventListener('input', () => {
+                    const thetaLock = document.getElementById('theta-lock');
+                    if (thetaLock && thetaLock.checked) {
+                        // Ако е заключено, не позволявай промяна
+                        els.thetaNum.value = thetaLock.dataset.lockedValue || 25;
+                        els.theta.value = els.thetaNum.value;
+                        return;
+                    }
                     const v = parseFloat(els.thetaNum.value);
                     if (!isNaN(v)) {
                         els.theta.value = v;
@@ -2401,8 +2445,64 @@
                 });
             }
 
+            // Логика за заключване на θ
+            const thetaLock = document.getElementById('theta-lock');
+            if (thetaLock && els.theta && els.thetaNum) {
+                // Инициализирай заключената стойност при зареждане (ако е checked по подразбиране)
+                if (thetaLock.checked) {
+                    thetaLock.dataset.lockedValue = els.theta.value;
+                }
+                
+                thetaLock.addEventListener('change', () => {
+                    if (thetaLock.checked) {
+                        // Запази текущата стойност като заключена
+                        thetaLock.dataset.lockedValue = els.theta.value;
+                        els.theta.disabled = true;
+                        els.thetaNum.disabled = true;
+                        els.theta.style.opacity = '0.5';
+                        els.thetaNum.style.opacity = '0.5';
+                        
+                        // Ако има активен Kr preset, изчисли и заключи β
+                        if (isAutoAdjustActive()) {
+                            const sumDeg = getActiveSumDeg();
+                            const currentTheta = Number(els.theta.value);
+                            els.beta.value = (sumDeg - currentTheta).toFixed(2);
+                            els.betaNum.value = els.beta.value;
+                            els.beta.disabled = true;
+                            els.betaNum.disabled = true;
+                            els.beta.style.opacity = '0.5';
+                            els.betaNum.style.opacity = '0.5';
+                        }
+                    } else {
+                        // Отключи θ
+                        els.theta.disabled = false;
+                        els.thetaNum.disabled = false;
+                        els.theta.style.opacity = '1';
+                        els.thetaNum.style.opacity = '1';
+                        
+                        // Отключи и β
+                        els.beta.disabled = false;
+                        els.betaNum.disabled = false;
+                        els.beta.style.opacity = '1';
+                        els.betaNum.style.opacity = '1';
+                    }
+                });
+            }
+
             if (els.beta && els.betaNum) {
                 els.beta.addEventListener('input', () => {
+                    const thetaLock = document.getElementById('theta-lock');
+                    const isThetaLocked = thetaLock && thetaLock.checked;
+                    
+                    // Ако θ е заключен и има активен Kr preset, блокирай промяната на β
+                    if (isThetaLocked && isAutoAdjustActive()) {
+                        const sumDeg = getActiveSumDeg();
+                        const lockedTheta = Number(els.theta.value);
+                        els.beta.value = (sumDeg - lockedTheta).toFixed(2);
+                        els.betaNum.value = els.beta.value;
+                        return;
+                    }
+                    
                     els.betaNum.value = els.beta.value;
                     if (isAutoAdjustActive()) {
                         const sumDeg = getActiveSumDeg();
@@ -2412,6 +2512,18 @@
                     computeAndRender();
                 });
                 els.betaNum.addEventListener('input', () => {
+                    const thetaLock = document.getElementById('theta-lock');
+                    const isThetaLocked = thetaLock && thetaLock.checked;
+                    
+                    // Ако θ е заключен и има активен Kr preset, блокирай промяната на β
+                    if (isThetaLocked && isAutoAdjustActive()) {
+                        const sumDeg = getActiveSumDeg();
+                        const lockedTheta = Number(els.theta.value);
+                        els.beta.value = (sumDeg - lockedTheta).toFixed(2);
+                        els.betaNum.value = els.beta.value;
+                        return;
+                    }
+                    
                     const v = parseFloat(els.betaNum.value);
                     if (!isNaN(v)) {
                         els.beta.value = v;
@@ -2434,11 +2546,35 @@
             const anglePresetRadios = document.querySelectorAll('input[name="anglePreset"]');
             anglePresetRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
+                    const thetaLock = document.getElementById('theta-lock');
+                    const isThetaLocked = thetaLock && thetaLock.checked;
+                    
                     if (isAutoAdjustActive()) {
                         const sumDeg = getActiveSumDeg();
                         const currentTheta = Number(els.theta.value);
-                        els.beta.value = (sumDeg - currentTheta).toFixed(2);
-                        els.betaNum.value = els.beta.value;
+                        
+                        // Ако θ е заключен, изчисли β и го заключи
+                        if (isThetaLocked) {
+                            els.beta.value = (sumDeg - currentTheta).toFixed(2);
+                            els.betaNum.value = els.beta.value;
+                            // Заключи β
+                            els.beta.disabled = true;
+                            els.betaNum.disabled = true;
+                            els.beta.style.opacity = '0.5';
+                            els.betaNum.style.opacity = '0.5';
+                        } else {
+                            // Ако θ не е заключен, работи нормално
+                            els.beta.value = (sumDeg - currentTheta).toFixed(2);
+                            els.betaNum.value = els.beta.value;
+                        }
+                    } else {
+                        // Ако е избрано "Без автоматично регулиране", отключи β
+                        if (isThetaLocked) {
+                            els.beta.disabled = false;
+                            els.betaNum.disabled = false;
+                            els.beta.style.opacity = '1';
+                            els.betaNum.style.opacity = '1';
+                        }
                     }
                     computeAndRender();
                 });
@@ -2446,6 +2582,20 @@
 
             // Синхронизация с основните полета
             syncWithMainForm();
+            
+            // Инициализация: ако θ е заключен по подразбиране и има активен Kr preset, заключи и β
+            const thetaLockInit = document.getElementById('theta-lock');
+            if (thetaLockInit && thetaLockInit.checked && isAutoAdjustActive()) {
+                const sumDeg = getActiveSumDeg();
+                const currentTheta = Number(els.theta.value);
+                els.beta.value = (sumDeg - currentTheta).toFixed(2);
+                els.betaNum.value = els.beta.value;
+                els.beta.disabled = true;
+                els.betaNum.disabled = true;
+                els.beta.style.opacity = '0.5';
+                els.betaNum.style.opacity = '0.5';
+            }
+            
             computeAndRender();
         }
 
