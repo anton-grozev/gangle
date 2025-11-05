@@ -87,9 +87,9 @@
             align-self: start;
         }
         .input-container {
-            border: 1px solid #3b82f6;
-            border-radius: 6px;
-            padding: 10px;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 12px;
             background: #f1f5f9;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -233,13 +233,14 @@
             padding: 12px;
             background: #f8fafc;
             border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            border: 2px solid #e2e8f0;
         }
         .point-group {
             background: white;
             padding: 10px;
             border-radius: 6px;
             margin-bottom: 8px;
+            border: 1px solid #e2e8f0;
             border-left: 3px solid #1abc9c;
             line-height: 1.5;
         }
@@ -602,7 +603,7 @@
             padding: 12px;
             background: #f9fafb;
             border-radius: 8px;
-            border: 1px solid #e5e7eb;
+            border: 2px solid #e5e7eb;
         }
         .result-big {
             font-size: 24px;
@@ -1202,10 +1203,10 @@
 
         .history-item {
             background: #ffffff;
-            border: 1px solid #d1d5db;
+            border: 2px solid #d1d5db;
             border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -1343,7 +1344,6 @@
                 margin: 0 auto;
             }
             .input-container {
-                border-width: 2px;
                 border-radius: 12px;
                 padding: 32px;
             }
@@ -1392,9 +1392,15 @@
                 padding: 14px;
                 border-radius: 8px;
                 border-left-width: 4px;
+                border-width: 1px;
             }
             .realtime-result {
                 padding: 16px;
+            }
+            .history-item {
+                padding: 16px;
+                margin-bottom: 12px;
+                border-width: 1px;
             }
             .left-column {
                 grid-column: 1;
@@ -1443,11 +1449,6 @@
             }
             .dark-mode-toggle {
                 right: 10px;
-            }
-            .input-container {
-                padding: 12px;
-                border-radius: 8px;
-                border-width: 2px;
             }
             .left-column, .right-column {
                 grid-column: 1;
