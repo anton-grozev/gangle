@@ -19,15 +19,14 @@
             letter-spacing: 0;
             background: linear-gradient(135deg, #E8F5E8 0%, #F0F8FF 25%, #E0F7FA 50%, #F5F5DC 75%, #E8F5E8 100%);
             background-size: 400% 400%;
+            background-attachment: fixed;
             animation: lightGradientFlow 12s ease-in-out infinite;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: block;
             font-size: 16px;
             overflow-x: hidden;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             box-sizing: border-box;
         }
         * {
@@ -69,9 +68,9 @@
         }
         .container {
             background: #f8fafc;
-            border: 2px solid #6b7280;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid #6b7280;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             max-width: 1400px;
             width: 100%;
             padding: 12px;
@@ -79,6 +78,7 @@
             grid-template-columns: 1fr;
             gap: 16px;
             align-items: start;
+            margin: 0 auto;
         }
         .left-column {
             grid-column: 1;
@@ -1320,6 +1320,12 @@
         }
         /* Responsive за екрани над 500px */
         @media (min-width: 501px) {
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
             .container {
                 padding: 48px;
                 display: grid;
@@ -1327,6 +1333,8 @@
                 gap: 48px;
                 align-items: start;
                 border-width: 2px;
+                border-radius: 16px;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
             .input-container {
                 border-width: 2px;
