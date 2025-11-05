@@ -74,10 +74,10 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             max-width: 1400px;
             width: 100%;
-            padding: 48px;
+            padding: 12px;
             display: grid;
-            grid-template-columns: 1.86fr 1fr;
-            gap: 48px;
+            grid-template-columns: 1fr;
+            gap: 16px;
             align-items: start;
         }
         .left-column {
@@ -85,9 +85,9 @@
             align-self: start;
         }
         .input-container {
-            border: 2px solid #3b82f6;
-            border-radius: 12px;
-            padding: 32px;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 16px;
             background: #f1f5f9;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
@@ -100,9 +100,8 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
         .right-column {
-            grid-column: 2;
-            position: sticky;
-            top: 0;
+            grid-column: 1;
+            position: static;
             min-height: 300px;
             align-self: start;
         }
@@ -198,11 +197,11 @@
         }
         .params-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
-            border-bottom: 2px solid #e5e7eb;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
         }
         .params-grid .form-group {
             margin-bottom: 0;
@@ -248,7 +247,7 @@
         }
         .point-inputs {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 8px;
         }
         .point-inputs input {
@@ -301,9 +300,9 @@
         }
         .button-group {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-top: 32px;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 20px;
         }
         .btn {
             padding: 12px 24px;
@@ -1322,10 +1321,32 @@
         /* Responsive за екрани над 500px */
         @media (min-width: 501px) {
             .container {
+                padding: 48px;
                 display: grid;
                 grid-template-columns: 1.86fr 1fr;
-                gap: 40px;
+                gap: 48px;
                 align-items: start;
+                border-width: 2px;
+            }
+            .input-container {
+                border-width: 2px;
+                border-radius: 12px;
+                padding: 32px;
+            }
+            .params-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin-bottom: 32px;
+                padding-bottom: 24px;
+                border-bottom-width: 2px;
+            }
+            .point-inputs {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .button-group {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin-top: 32px;
             }
             .left-column {
                 grid-column: 1;
@@ -1344,18 +1365,6 @@
         @media (max-width: 500px) {
             body {
                 padding: 10px;
-            }
-            .params-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            .point-inputs {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-            .button-group {
-                grid-template-columns: 1fr;
-                gap: 10px;
             }
             /* Mobile header adjustments */
             header {
@@ -1384,12 +1393,7 @@
                 right: 10px;
             }
             .container {
-                padding: 12px;
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 16px;
                 border-width: 1px;
-                max-width: 100%;
             }
             .left-column, .right-column {
                 grid-column: 1;
