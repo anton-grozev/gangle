@@ -1,56 +1,64 @@
-# Gangle
+<p align="center">
+  <a href="https://anton-grozev.github.io/gangle/" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/Live%20Demo-Click%20Here-brightgreen?style=for-the-badge&logo=google-chrome" alt="Live Demo">
+  </a>
+</p>
 
-Gangle is a web application for calculating the side clearance angle αf in the working tool plane Pf.
+# gangle — Side Clearance Angle Calculator for Drill Sharpening
 
-Live demo: https://anton-grozev.github.io/gangle/
+## Description
 
----
-
-Contents
-- Brief Description
-- Quick Start Guide (online and local)
-- Input Parameters
-- Technical Details
+**gangle** is a web-based calculator for the side clearance angle (`αf`) in drill point geometry. Users can adjust drill geometry values through interactive sliders; calculations update live with every change, no manual Calculate button required.
 
 ---
 
-Brief Description
-The application calculates the side clearance angle αf in the working tool plane Pf given the geometric parameters of the drill and conical surface. The algorithms use analytical geometry for the calculations.
+## Main Features
 
-Key Features (precisely described)
-- Real-time calculations when input values change in the UI.
-- Calculations are performed directly in the target (drill / M) coordinate system; for backward compatibility there is a wrapper function (calculateAngleFromSW) that transforms SW-input coordinates to drill/M and then performs the same calculations.
-- The library accepts both single coordinates and arrays (multi-point) — when arrays are passed to calculateAngle(...), the function returns an array of results.
-
----
-
-Quick Start Guide
-
-Online
-- Visit the live demo: https://anton-grozev.github.io/gangle/
-
-Local
-1. Clone the repository:
-   git clone https://github.com/anton-grozev/gangle.git
-2. Enter the project directory:
-   cd gangle
-3. Open index.html in a browser or use a local server (e.g., Live Server for VS Code).
-
-Input Parameters
-- l [mm] — axial distance from cone apex to the axis offset d
-- d [mm] — axis offset (distance between the two axes)
-- θ [°] — angle between drill and cone axes
-- β [°] — angle between cone axis and generatrix (2β is the apex angle)
-- Point coordinates — X, Y, Z (relative to drill tip)
+- **Interactive sliders** for parameter input:
+  - `l [mm]` — Axial distance from cone apex to axis offset
+  - `d [mm]` — Axis offset
+  - `θ [°]` — Angle between drill and cone axes (lockable)
+  - `β [°]` — Angle between cone axis and generatrix (lockable)
+- **Kr Mode & Angle Presets:** Choose between no adjustment or preset sum constraints. When enabled, Kr automatically maintains valid geometric dependencies between θ and β; locking θ fixes its value and recalculates β as needed.
+- **Live Calculation:** All results (side clearance angle, etc.) are instantly updated as values change.
+- **Calculation History:** The app saves previously calculated results, accessible for review and export.
+- **Technical Terms:** All terminology (e.g., side clearance angle, drill point, Kr, etc.) follows the usage from the codebase and UI.
 
 ---
 
-Technical Details
-- Technologies: HTML5, CSS3, JavaScript (ES6)
-- Architecture: client-side (front-end) logic for calculations; the core library returns numerical results, UI handles the presentation.
-- Coordinate systems and transformations: calculations in the core function are performed in drill/M coordinates for better performance and simplification; if input data is in another system (SW), use calculateAngleFromSW(), which transforms the coordinates and then calls calculateAngle(...).
-- Array support: calculateAngle(...) supports array inputs (xM, yM, zM arrays) and returns an array of αf values for multi-point cases.
+## Usage Instructions
+
+1. Visit the [Live Demo](https://anton-grozev.github.io/gangle/) or open `index.html` from a local clone.
+2. Adjust parameters with the sliders and numeric inputs. Optionally, use the lock feature for θ or β, and select an angle preset for Kr functionality.
+3. View instant results and access the history for previous calculations.
+
+#### Local Usage
+
+```sh
+git clone https://github.com/anton-grozev/gangle.git
+cd gangle
+open index.html
+```
 
 ---
 
-Made with ❤️ for the engineering community
+## File Structure
+
+- `index.html` — Main UI; contains sliders and app controls.
+- JavaScript — Embedded in HTML (or in linked `.js`), handles all logic for calculation, Kr adjustment, history, and updates.
+- CSS — Styling for sliders, layout, and responsive controls (inline or separate).
+
+---
+
+## License
+
+MIT License — see `LICENSE`.
+
+---
+
+## Author
+
+Anton Grozev  
+[GitHub](https://github.com/anton-grozev)
+
+Issues, feedback, and questions are welcome in the repository's Issue section.
