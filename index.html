@@ -2072,8 +2072,9 @@
             const xM = coordinates.map(coord => coord.x);
             const yM = coordinates.map(coord => coord.y);
             const zM = coordinates.map(coord => coord.z);
-            // Използваме директни drill координати
-            const result = DrillAngleCalculator.calculateAngle(l, d, theta, beta, xM, yM, zM);
+            // ВАЖНО: Тези координати са в SW система и трябва да се трансформират в drill (M) система
+            // Използваме wrapper функцията за правилна трансформация SW → M
+            const result = DrillAngleCalculator.calculateAngleFromSW(l, d, theta, beta, xM, yM, zM);
             // Връщаме само ъглите αf
             return result.alphaRAD;
         }
