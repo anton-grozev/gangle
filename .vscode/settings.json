@@ -1,0 +1,39 @@
+{
+    // HTML/CSS/JS форматиране
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    // Auto-save настройки
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    // Live Server настройки
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.CustomBrowser": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+    // HTML настройки
+    "html.format.indentInnerHtml": true,
+    "html.format.wrapLineLength": 120,
+    // CSS настройки
+    "css.validate": true,
+    "css.lint.duplicateProperties": "warning",
+    // JavaScript настройки
+    "javascript.validate.enable": true,
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+    // Файлове за игнориране
+    "files.exclude": {
+        "**/.git": true,
+        "**/node_modules": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    // Emmet настройки
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    // Bracket pair colorization
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+    // Миниmap
+    "editor.minimap.enabled": true,
+    "editor.minimap.maxColumn": 120
+}
