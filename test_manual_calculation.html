@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>РЪЧНО ИЗЧИСЛЕНИЕ - Стъпка по стъпка</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1600px;
+            margin: 20px auto;
+            padding: 30px;
+            background: #0a0e27;
+            color: #e0e0e0;
+        }
+        h1 {
+            color: #64ffda;
+            text-align: center;
+            font-size: 42px;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+            margin-bottom: 40px;
+        }
+        .step {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 15px;
+            border-left: 5px solid #64ffda;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .step h2 {
+            color: #64ffda;
+            margin-top: 0;
+            font-size: 28px;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+        }
+        .code {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.8;
+            border: 1px solid #334155;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .value {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+        .function {
+            color: #a78bfa;
+            font-weight: bold;
+        }
+        .comment {
+            color: #6ee7b7;
+            font-style: italic;
+        }
+        .result-box {
+            background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .result-box .big {
+            font-size: 72px;
+            font-weight: bold;
+            color: #6ee7b7;
+            margin: 20px 0;
+            text-shadow: 0 0 30px rgba(110, 231, 183, 0.5);
+        }
+        .result-box .label {
+            font-size: 24px;
+            color: #d1fae5;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #334155;
+        }
+        th {
+            background: #1e293b;
+            color: #64ffda;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background: #1e293b;
+        }
+        .highlight {
+            background: rgba(251, 191, 36, 0.2);
+            padding: 3px 10px;
+            border-radius: 5px;
+            border: 1px solid #fbbf24;
+        }
+        .final-answer {
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 12px 48px rgba(124, 58, 237, 0.4);
+        }
+        .final-answer h2 {
+            color: white;
+            font-size: 36px;
+            margin: 0 0 20px 0;
+        }
+        .final-answer p {
+            font-size: 22px;
+            line-height: 1.8;
+            color: #e9d5ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧮 РЪЧНО ИЗЧИСЛЕНИЕ<br>Точно като в GAngle.js</h1>
+    
+    <div class="step">
+        <h2>📥 Входни данни</h2>
+        <div class="code" id="inputs"></div>
+    </div>
+
+    <div class="step">
+        <h2>🔄 СТЪПКА 1: Проверка дали се използва wrapper</h2>
+        <div class="code" id="step1"></div>
+    </div>
+
+    <div class="step">
+        <h2>🔄 СТЪПКА 2: Трансформация SW → M (ако се използва wrapper)</h2>
+        <div class="code" id="step2"></div>
+    </div>
+
+    <div class="step">
+        <h2>📐 СТЪПКА 3: Изчисляване на h</h2>
+        <div class="code" id="step3"></div>
+    </div>
+
+    <div class="step">
+        <h2>📐 СТЪПКА 4: Изчисляване на xM_i</h2>
+        <div class="code" id="step4"></div>
+    </div>
+
+    <div class="step">
+        <h2>📐 СТЪПКА 5: Изчисляване на αf</h2>
+        <div class="code" id="step5"></div>
+    </div>
+
+    <div class="result-box">
+        <div class="label">🎯 ОКОНЧАТЕЛЕН РЕЗУЛТАТ</div>
+        <div class="big" id="final-result"></div>
+        <div id="final-details" style="font-size: 20px; color: #d1fae5; margin-top: 15px;"></div>
+    </div>
+
+    <div class="final-answer" id="conclusion"></div>
+
+    <script>
+        // Входни данни от интерактивния калкулатор
+        const l = 85;
+        const d = 5.7;
+        const thetaDeg = 61;
+        const betaDeg = 24;
+        const x_input = 0;
+        const y_input = 4.84;
+        const z_input = -9.75;
+
+        const theta = thetaDeg * Math.PI / 180;
+        const beta = betaDeg * Math.PI / 180;
+
+        console.log('====================================');
+        console.log('РЪЧНО ИЗЧИСЛЕНИЕ - СТЪПКА ПО СТЪПКА');
+        console.log('====================================');
+        console.log('');
+        console.log('ВХОДНИ ДАННИ:');
+        console.log('l =', l, 'mm');
+        console.log('d =', d, 'mm');
+        console.log('θ =', thetaDeg, '° =', theta, 'rad');
+        console.log('β =', betaDeg, '° =', beta, 'rad');
+        console.log('Входни координати: x =', x_input, ', y =', y_input, ', z =', z_input);
+
+        document.getElementById('inputs').innerHTML = `
+<span class="comment">// Параметри на свредлото и конуса</span>
+<span class="value">l</span> = ${l} mm         <span class="comment">// Разстояние от върха на конуса</span>
+<span class="value">d</span> = ${d} mm        <span class="comment">// Разстояние между осите</span>
+<span class="value">θ</span> = ${thetaDeg}° = ${theta.toFixed(10)} rad
+<span class="value">β</span> = ${betaDeg}° = ${beta.toFixed(10)} rad
+
+<span class="comment">// Координати на точката</span>
+<span class="value">x</span> = ${x_input} mm
+<span class="value">y</span> = ${y_input} mm
+<span class="value">z</span> = ${z_input} mm
+        `;
+
+        // СТЪПКА 1: Дали се използва wrapper?
+        console.log('\n===== СТЪПКА 1: Проверка за wrapper =====');
+        const usesWrapper = true; // От index.html, ред 2763
+        console.log('calculateAngleFromSW съществува?', usesWrapper);
+        console.log('Index.html използва:', usesWrapper ? 'calculateAngleFromSW()' : 'calculateAngle()');
+
+        document.getElementById('step1').innerHTML = `
+<span class="comment">// От index.html, редове 2762-2765:</span>
+<span class="function">if</span> (<span class="function">typeof</span> calc.calculateAngleFromSW === <span class="value">'function'</span>) {
+    <span class="comment">// ✅ Wrapper СЪЩЕСТВУВА и се използва</span>
+    res = calc.<span class="function">calculateAngleFromSW</span>(l, d, thetaRad, betaRad, x_sw, y_sw, z_sw);
+}
+
+<span class="comment">// Резултат: ${usesWrapper ? '✅ Wrapper СЕ ИЗПОЛЗВА' : '❌ Wrapper НЕ се използва'}</span>
+        `;
+
+        // СТЪПКА 2: Трансформация SW → M
+        console.log('\n===== СТЪПКА 2: Трансформация SW → M =====');
+        
+        let xM, yM, zM;
+        
+        if (usesWrapper) {
+            // Трансформационна матрица от GAngle.js
+            const M11 = -0.1747159967, M12 = 0.6235799837, M13 = -0.1867561927;
+            const M21 = 0.3122687596, M22 = -0.1413437982, M23 = 0.8581431812;
+            const M31 = 0.8697589148, M32 = -0.1087945740, M33 = -0.4267759731;
+            
+            xM = M11 * x_input + M12 * y_input + M13 * z_input;
+            yM = M21 * x_input + M22 * y_input + M23 * z_input;
+            zM = M31 * x_input + M32 * y_input + M33 * z_input;
+            
+            console.log('Трансформация SW → M:');
+            console.log('xM =', M11, '×', x_input, '+', M12, '×', y_input, '+', M13, '×', z_input);
+            console.log('   =', xM);
+            console.log('yM =', M21, '×', x_input, '+', M22, '×', y_input, '+', M23, '×', z_input);
+            console.log('   =', yM);
+            console.log('zM =', M31, '×', x_input, '+', M32, '×', y_input, '+', M33, '×', z_input);
+            console.log('   =', zM);
+
+            document.getElementById('step2').innerHTML = `
+<span class="comment">// От GAngle.js, функция transformSWtoM():</span>
+<span class="value">M11</span> = -0.1747159967, <span class="value">M12</span> = 0.6235799837, <span class="value">M13</span> = -0.1867561927
+<span class="value">M21</span> = 0.3122687596,  <span class="value">M22</span> = -0.1413437982, <span class="value">M23</span> = 0.8581431812
+<span class="value">M31</span> = 0.8697589148,  <span class="value">M32</span> = -0.1087945740, <span class="value">M33</span> = -0.4267759731
+
+<span class="value">xM</span> = M11 × ${x_input} + M12 × ${y_input} + M13 × ${z_input}
+   = ${M11} × ${x_input} + ${M12} × ${y_input} + ${M13} × ${z_input}
+   = <span class="highlight">${xM.toFixed(10)}</span> mm
+
+<span class="value">yM</span> = M21 × ${x_input} + M22 × ${y_input} + M23 × ${z_input}
+   = ${M21} × ${x_input} + ${M22} × ${y_input} + ${M23} × ${z_input}
+   = <span class="highlight">${yM.toFixed(10)}</span> mm
+
+<span class="value">zM</span> = M31 × ${x_input} + M32 × ${y_input} + M33 × ${z_input}
+   = ${M31} × ${x_input} + ${M32} × ${y_input} + ${M33} × ${z_input}
+   = <span class="highlight">${zM.toFixed(10)}</span> mm
+            `;
+        } else {
+            xM = x_input;
+            yM = y_input;
+            zM = z_input;
+            console.log('БЕЗ трансформация - използват се директно като M координати');
+            
+            document.getElementById('step2').innerHTML = `
+<span class="comment">// Wrapper НЕ се използва - координатите остават както са:</span>
+<span class="value">xM</span> = ${xM} mm
+<span class="value">yM</span> = ${yM} mm
+<span class="value">zM</span> = ${zM} mm
+            `;
+        }
+
+        // СТЪПКА 3: Изчисляване на h (от calculateAngle)
+        console.log('\n===== СТЪПКА 3: Изчисляване на h =====');
+        
+        const tanTheta = Math.tan(theta);
+        const tanBeta = Math.tan(beta);
+        const ah = tanTheta * tanTheta - tanBeta * tanBeta;
+        const bh = tanTheta * tanTheta * l;
+        const ch = l * l * tanTheta * tanTheta + d * d;
+        
+        let h;
+        if (Math.abs(ah) < 1e-10) {
+            h = 0.5 * ch / bh;
+        } else if (ah < 0) {
+            const discriminant = bh * bh - ah * ch;
+            h = (bh - Math.sqrt(discriminant)) / ah;
+        } else if (Math.abs(theta) < Math.PI / 2) {
+            const discriminant = bh * bh - ah * ch;
+            h = (bh - Math.sqrt(discriminant)) / ah;
+        } else if (Math.abs(theta) === Math.PI / 2) {
+            h = l;
+        } else {
+            const discriminant = bh * bh - ah * ch;
+            h = (bh + Math.sqrt(discriminant)) / ah;
+        }
+        
+        console.log('tan(θ) =', tanTheta);
+        console.log('tan(β) =', tanBeta);
+        console.log('ah = tan²(θ) - tan²(β) =', ah);
+        console.log('bh = tan²(θ) × l =', bh);
+        console.log('ch = l² × tan²(θ) + d² =', ch);
+        console.log('h =', h);
+
+        const discriminant_h = bh * bh - ah * ch;
+        document.getElementById('step3').innerHTML = `
+<span class="comment">// Изчисляване на h (височина на конуса)</span>
+tan(θ) = ${tanTheta.toFixed(10)}
+tan(β) = ${tanBeta.toFixed(10)}
+
+<span class="value">ah</span> = tan²(θ) - tan²(β) = ${ah.toFixed(10)}
+<span class="value">bh</span> = tan²(θ) × l = ${bh.toFixed(10)}
+<span class="value">ch</span> = l² × tan²(θ) + d² = ${ch.toFixed(10)}
+
+discriminant = bh² - ah × ch = ${discriminant_h.toFixed(10)}
+<span class="function">if</span> (Math.abs(θ) < π/2) {
+    h = (bh - √discriminant) / ah
+      = (${bh.toFixed(6)} - ${Math.sqrt(discriminant_h).toFixed(6)}) / ${ah.toFixed(6)}
+      = <span class="highlight">${h.toFixed(10)}</span> mm
+}
+        `;
+
+        // СТЪПКА 4: Изчисляване на xM_i
+        console.log('\n===== СТЪПКА 4: Изчисляване на xM_i =====');
+        
+        const cosTheta = Math.cos(theta);
+        const cosBeta = Math.cos(beta);
+        const sinTheta = Math.sin(theta);
+        
+        const axc = cosTheta * cosTheta - cosBeta * cosBeta;
+        const bxc = cosTheta * cosTheta * (yM * sinTheta - h) - 
+                    cosBeta * cosBeta * (l * sinTheta * sinTheta - h);
+        const term1 = cosTheta * cosTheta * Math.pow(yM * sinTheta - h, 2);
+        const term2 = cosBeta * cosBeta * (Math.pow(l * sinTheta * sinTheta - h, 2) +
+                     cosTheta * cosTheta * (Math.pow(yM - l * sinTheta, 2) + Math.pow(zM - d, 2)));
+        const cxc = term1 - term2;
+        
+        const discriminant_x = bxc * bxc - axc * cxc;
+        const sign_bxc = bxc >= 0 ? 1 : -1;
+        let xM_i = (bxc - sign_bxc * Math.sqrt(discriminant_x)) / axc;
+        
+        console.log('cos(θ) =', cosTheta);
+        console.log('cos(β) =', cosBeta);
+        console.log('sin(θ) =', sinTheta);
+        console.log('axc =', axc);
+        console.log('bxc =', bxc);
+        console.log('cxc =', cxc);
+        console.log('discriminant =', discriminant_x);
+        console.log('xM_i (before /cos(θ)) =', xM_i);
+        
+        document.getElementById('step4').innerHTML = `
+<span class="comment">// Изчисляване на xM координата</span>
+cos(θ) = ${cosTheta.toFixed(10)}
+cos(β) = ${cosBeta.toFixed(10)}
+sin(θ) = ${sinTheta.toFixed(10)}
+
+<span class="value">axc</span> = cos²(θ) - cos²(β) = ${axc.toFixed(10)}
+<span class="value">bxc</span> = cos²(θ) × (yM × sin(θ) - h) - cos²(β) × (l × sin²(θ) - h)
+    = ${bxc.toFixed(10)}
+<span class="value">cxc</span> = term1 - term2 = ${cxc.toFixed(10)}
+
+discriminant = bxc² - axc × cxc = ${discriminant_x.toFixed(10)}
+sign_bxc = ${sign_bxc}
+
+xM_i = (bxc - sign_bxc × √discriminant) / axc
+     = (${bxc.toFixed(6)} - ${sign_bxc} × ${Math.sqrt(discriminant_x).toFixed(6)}) / ${axc.toFixed(6)}
+     = <span class="highlight">${xM_i.toFixed(10)}</span>
+        `;
+
+        // СТЪПКА 5: Изчисляване на αf
+        console.log('\n===== СТЪПКА 5: Изчисляване на αf =====');
+        
+        const sqrt_yM2_zM2 = Math.sqrt(yM * yM + zM * zM);
+        const A_term1 = (xM_i - yM * sinTheta + h) * cosTheta * cosTheta;
+        const A_term2 = (xM_i - l * sinTheta * sinTheta + h) * cosBeta * cosBeta;
+        const A = sqrt_yM2_zM2 * (A_term1 - A_term2) / cosTheta;
+        
+        const B_term1 = (yM * d - zM * l * sinTheta) * cosBeta * cosBeta;
+        const B_term2 = zM * (xM_i - yM * sinTheta + h) * sinTheta;
+        const B = B_term1 + B_term2;
+        
+        xM_i = xM_i / cosTheta;
+        const alphaRAD_radians = Math.atan(-B / A);
+        const alphaRAD_degrees = alphaRAD_radians * 180 / Math.PI;
+        
+        console.log('√(yM² + zM²) =', sqrt_yM2_zM2);
+        console.log('A_term1 =', A_term1);
+        console.log('A_term2 =', A_term2);
+        console.log('A =', A);
+        console.log('B_term1 =', B_term1);
+        console.log('B_term2 =', B_term2);
+        console.log('B =', B);
+        console.log('xM_i (after /cos(θ)) =', xM_i);
+        console.log('αf (rad) =', alphaRAD_radians);
+        console.log('αf (°) =', alphaRAD_degrees);
+
+        document.getElementById('step5').innerHTML = `
+<span class="comment">// Изчисляване на работния заден ъгъл αf</span>
+√(yM² + zM²) = ${sqrt_yM2_zM2.toFixed(10)}
+
+<span class="value">A_term1</span> = (xM_i - yM × sin(θ) + h) × cos²(θ) = ${A_term1.toFixed(10)}
+<span class="value">A_term2</span> = (xM_i - l × sin²(θ) + h) × cos²(β) = ${A_term2.toFixed(10)}
+<span class="value">A</span> = √(yM² + zM²) × (A_term1 - A_term2) / cos(θ)
+  = ${A.toFixed(10)}
+
+<span class="value">B_term1</span> = (yM × d - zM × l × sin(θ)) × cos²(β) = ${B_term1.toFixed(10)}
+<span class="value">B_term2</span> = zM × (xM_i - yM × sin(θ) + h) × sin(θ) = ${B_term2.toFixed(10)}
+<span class="value">B</span> = B_term1 + B_term2 = ${B.toFixed(10)}
+
+xM_i = xM_i / cos(θ) = <span class="highlight">${xM_i.toFixed(10)}</span> mm
+
+αf = arctan(-B / A)
+   = arctan(${(-B/A).toFixed(10)})
+   = ${alphaRAD_radians.toFixed(10)} rad
+   = <span class="highlight">${alphaRAD_degrees.toFixed(10)}°</span>
+        `;
+
+        // Окончателен резултат
+        console.log('\n====================================');
+        console.log('ОКОНЧАТЕЛЕН РЕЗУЛТАТ:');
+        console.log('αf =', alphaRAD_degrees.toFixed(4), '°');
+        console.log('h =', h.toFixed(4), 'mm');
+        console.log('xM =', xM_i.toFixed(4), 'mm');
+        console.log('====================================');
+
+        document.getElementById('final-result').textContent = alphaRAD_degrees.toFixed(4) + '°';
+        document.getElementById('final-details').innerHTML = `
+            h = ${h.toFixed(6)} mm &nbsp;&nbsp;|&nbsp;&nbsp; x<sub>M</sub> = ${xM_i.toFixed(6)} mm
+        `;
+
+        // Заключение
+        const expectedAlpha = 15.98;
+        const diff = Math.abs(alphaRAD_degrees - expectedAlpha);
+
+        let conclusion = `
+            <h2>🎯 ОКОНЧАТЕЛЕН ОТГОВОР</h2>
+            <p>Очакван резултат от вас: <span class="highlight">${expectedAlpha}°</span></p>
+            <p>Изчислен резултат: <span class="highlight">${alphaRAD_degrees.toFixed(4)}°</span></p>
+            <p>Разлика: <span class="highlight">${diff.toFixed(4)}°</span></p>
+            <br>
+        `;
+
+        if (diff < 0.01) {
+            conclusion += `
+                <p style="font-size: 28px; color: #6ee7b7;">
+                    ✅ <strong>РЕЗУЛТАТЪТ Е ПРАВИЛЕН!</strong>
+                </p>
+                <br>
+                <p style="font-size: 22px; text-align: left; line-height: 1.8;">
+                    <strong>Как се получава ${expectedAlpha}°:</strong><br><br>
+                    1️⃣ Index.html ИЗПОЛЗВА <span class="highlight">calculateAngleFromSW()</span><br>
+                    2️⃣ Wrapper-ът ТРАНСФОРМИРА SW(${x_input}, ${y_input}, ${z_input}) → M(${xM.toFixed(2)}, ${yM.toFixed(2)}, ${zM.toFixed(2)})<br>
+                    3️⃣ С M координатите се изчислява αf = ${alphaRAD_degrees.toFixed(4)}°<br><br>
+                    <strong style="color: #fbbf24;">✅ Wrapper функцията Е АБСОЛЮТНО НЕОБХОДИМА!</strong>
+                </p>
+            `;
+        } else {
+            conclusion += `
+                <p style="font-size: 24px; color: #fca5a5;">
+                    ⚠️ Разликата е ${diff.toFixed(4)}° - има несъответствие!
+                </p>
+            `;
+        }
+
+        document.getElementById('conclusion').innerHTML = conclusion;
+    </script>
+</body>
+</html>

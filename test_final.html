@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>ОКОНЧАТЕЛЕН ТЕСТ - Имитация на живата страница</title>
+    <script src="GAngle.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .input-item {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .result-mega {
+            text-align: center;
+            padding: 40px;
+            margin: 30px 0;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        .result-mega .value {
+            font-size: 72px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        .result-mega .label {
+            font-size: 24px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 10px;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .method-box {
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .method-wrong {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        .method-correct {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        .method-box h3 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .method-box .alpha {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .conclusion {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .conclusion h2 {
+            color: #333;
+            font-size: 32px;
+            margin-top: 0;
+        }
+        .conclusion p {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        .highlight {
+            background: rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 ОКОНЧАТЕЛЕН ТЕСТ<br>Точно като на живата страница</h1>
+    
+    <div class="panel">
+        <h2>📥 Входни данни (от интерактивния калкулатор)</h2>
+        <div class="input-grid" id="inputs"></div>
+    </div>
+
+    <div class="panel">
+        <h2>🔬 Какво прави кодът на ЖИВАТА страница?</h2>
+        <div class="code-block" id="live-code"></div>
+    </div>
+
+    <div class="comparison">
+        <div class="method-box method-wrong">
+            <h3>❌ БЕЗ wrapper</h3>
+            <p>calculateAngle()</p>
+            <div id="without-wrapper"></div>
+        </div>
+        <div class="method-box method-correct">
+            <h3>✅ С wrapper</h3>
+            <p>calculateAngleFromSW()</p>
+            <div id="with-wrapper"></div>
+        </div>
+    </div>
+
+    <div class="result-mega">
+        <div class="label">🎯 РЕЗУЛТАТ ОТ ЖИВАТА СТРАНИЦА</div>
+        <div class="value" id="live-result"></div>
+        <div id="live-details" style="font-size: 20px; margin-top: 20px;"></div>
+    </div>
+
+    <div class="conclusion" id="conclusion"></div>
+
+    <script>
+        // ТОЧНО СЪЩИТЕ параметри като на живата страница
+        const l = 85;
+        const d = 5.7;
+        const thetaDeg = 61;
+        const betaDeg = 24;
+        const x = 0;
+        const y = 4.84;
+        const z = -9.75;
+
+        const calc = window.DrillAngleCalculator;
+        const theta = calc.deg2rad(thetaDeg);
+        const beta = calc.deg2rad(betaDeg);
+
+        console.log('===== ОКОНЧАТЕЛЕН ТЕСТ =====');
+        console.log('Параметри:');
+        console.log('l =', l, 'mm');
+        console.log('d =', d, 'mm');
+        console.log('θ =', thetaDeg, '° =', theta, 'rad');
+        console.log('β =', betaDeg, '° =', beta, 'rad');
+        console.log('Координати: x =', x, ', y =', y, ', z =', z);
+
+        // Показване на входните данни
+        document.getElementById('inputs').innerHTML = `
+            <div class="input-item"><strong>l</strong> = ${l} mm</div>
+            <div class="input-item"><strong>d</strong> = ${d} mm</div>
+            <div class="input-item"><strong>θ</strong> = ${thetaDeg}° (${theta.toFixed(8)} rad)</div>
+            <div class="input-item"><strong>β</strong> = ${betaDeg}° (${beta.toFixed(8)} rad)</div>
+            <div class="input-item"><strong>x</strong> = ${x} mm</div>
+            <div class="input-item"><strong>y</strong> = ${y} mm</div>
+            <div class="input-item"><strong>z</strong> = ${z} mm</div>
+        `;
+
+        // Показване какво прави живата страница (редове 2760-2765 от index.html)
+        document.getElementById('live-code').innerHTML = `
+<span style="color: #9cdcfe;">const</span> <span style="color: #4fc1ff;">calc</span> = <span style="color: #4ec9b0;">window</span>.<span style="color: #dcdcaa;">DrillAngleCalculator</span>;
+<span style="color: #9cdcfe;">const</span> <span style="color: #4fc1ff;">thetaRad</span> = <span style="color: #4fc1ff;">calc</span>.<span style="color: #dcdcaa;">deg2rad</span>(<span style="color: #b5cea8;">${thetaDeg}</span>);
+<span style="color: #9cdcfe;">const</span> <span style="color: #4fc1ff;">betaRad</span> = <span style="color: #4fc1ff;">calc</span>.<span style="color: #dcdcaa;">deg2rad</span>(<span style="color: #b5cea8;">${betaDeg}</span>);
+<span style="color: #9cdcfe;">const</span> <span style="color: #4fc1ff;">x_sw</span> = <span style="color: #b5cea8;">${x}</span>, <span style="color: #4fc1ff;">y_sw</span> = <span style="color: #b5cea8;">${y}</span>, <span style="color: #4fc1ff;">z_sw</span> = <span style="color: #b5cea8;">${z}</span>;
+
+<span style="color: #c586c0;">let</span> <span style="color: #4fc1ff;">res</span>;
+<span style="color: #c586c0;">if</span> (<span style="color: #c586c0;">typeof</span> <span style="color: #4fc1ff;">calc</span>.<span style="color: #dcdcaa;">calculateAngleFromSW</span> === <span style="color: #ce9178;">'function'</span>) {
+    <span style="color: #6a9955;">// ✅ Wrapper функцията СЪЩЕСТВУВА - използва се тя!</span>
+    <span style="color: #4fc1ff;">res</span> = <span style="color: #4fc1ff;">calc</span>.<span style="color: #dcdcaa;">calculateAngleFromSW</span>(<span style="color: #4fc1ff;">l</span>, <span style="color: #4fc1ff;">d</span>, <span style="color: #4fc1ff;">thetaRad</span>, <span style="color: #4fc1ff;">betaRad</span>, <span style="color: #4fc1ff;">x_sw</span>, <span style="color: #4fc1ff;">y_sw</span>, <span style="color: #4fc1ff;">z_sw</span>);
+} <span style="color: #c586c0;">else</span> {
+    <span style="color: #6a9955;">// ❌ Wrapper функцията НЕ съществува - fallback към директно</span>
+    <span style="color: #4fc1ff;">res</span> = <span style="color: #4fc1ff;">calc</span>.<span style="color: #dcdcaa;">calculateAngle</span>(<span style="color: #4fc1ff;">l</span>, <span style="color: #4fc1ff;">d</span>, <span style="color: #4fc1ff;">thetaRad</span>, <span style="color: #4fc1ff;">betaRad</span>, <span style="color: #4fc1ff;">x_sw</span>, <span style="color: #4fc1ff;">y_sw</span>, <span style="color: #4fc1ff;">z_sw</span>);
+}
+        `;
+
+        // Метод 1: БЕЗ wrapper
+        console.log('\n----- БЕЗ WRAPPER -----');
+        const result1 = calc.calculateAngle(l, d, theta, beta, x, y, z);
+        console.log('Резултат БЕЗ wrapper:', result1);
+
+        document.getElementById('without-wrapper').innerHTML = `
+            <div class="alpha">${result1.alphaRAD.toFixed(4)}°</div>
+            <div>h = ${result1.h.toFixed(4)} mm</div>
+            <div>x<sub>M</sub> = ${result1.xM.toFixed(4)} mm</div>
+        `;
+
+        // Метод 2: С wrapper
+        console.log('\n----- С WRAPPER -----');
+        let result2;
+        if (typeof calc.calculateAngleFromSW === 'function') {
+            result2 = calc.calculateAngleFromSW(l, d, theta, beta, x, y, z);
+            console.log('Резултат С wrapper:', result2);
+            
+            document.getElementById('with-wrapper').innerHTML = `
+                <div class="alpha">${result2.alphaRAD.toFixed(4)}°</div>
+                <div>h = ${result2.h.toFixed(4)} mm</div>
+                <div>x<sub>M</sub> = ${result2.xM.toFixed(4)} mm</div>
+            `;
+        } else {
+            console.log('❌ calculateAngleFromSW НЕ съществува!');
+            document.getElementById('with-wrapper').innerHTML = `
+                <div style="color: #fff;">❌ Функцията не съществува!</div>
+            `;
+        }
+
+        // Какво използва ЖИВАТА страница?
+        console.log('\n----- ЖИВАТА СТРАНИЦА -----');
+        let liveResult;
+        if (typeof calc.calculateAngleFromSW === 'function') {
+            console.log('✅ calculateAngleFromSW СЪЩЕСТВУВА - страницата я използва!');
+            liveResult = calc.calculateAngleFromSW(l, d, theta, beta, x, y, z);
+        } else {
+            console.log('❌ calculateAngleFromSW НЕ съществува - използва се calculateAngle');
+            liveResult = calc.calculateAngle(l, d, theta, beta, x, y, z);
+        }
+        console.log('Резултат от живата страница:', liveResult);
+
+        document.getElementById('live-result').textContent = liveResult.alphaRAD.toFixed(4) + '°';
+        document.getElementById('live-details').innerHTML = `
+            h = ${liveResult.h.toFixed(4)} mm &nbsp;|&nbsp; x<sub>M</sub> = ${liveResult.xM.toFixed(4)} mm
+        `;
+
+        // Заключение
+        const expectedAlpha = 15.98;
+        const diff1 = Math.abs(result1.alphaRAD - expectedAlpha);
+        const diff2 = result2 ? Math.abs(result2.alphaRAD - expectedAlpha) : Infinity;
+        const diffLive = Math.abs(liveResult.alphaRAD - expectedAlpha);
+
+        console.log('\n===== ЗАКЛЮЧЕНИЕ =====');
+        console.log('Очакван резултат:', expectedAlpha, '°');
+        console.log('БЕЗ wrapper:', result1.alphaRAD.toFixed(4), '° | Разлика:', diff1.toFixed(4), '°');
+        if (result2) {
+            console.log('С wrapper:', result2.alphaRAD.toFixed(4), '° | Разлика:', diff2.toFixed(4), '°');
+        }
+        console.log('ЖИВАТА страница:', liveResult.alphaRAD.toFixed(4), '° | Разлика:', diffLive.toFixed(4), '°');
+
+        let conclusionHTML = `
+            <h2>🎯 ОКОНЧАТЕЛЕН ОТГОВОР</h2>
+            <p style="font-size: 24px; margin: 20px 0;">
+                <strong>Очакван резултат: ${expectedAlpha}°</strong>
+            </p>
+        `;
+
+        if (diffLive < 0.01) {
+            conclusionHTML += `
+                <p style="font-size: 22px;">
+                    ✅ Живата страница дава точно <span class="highlight">${liveResult.alphaRAD.toFixed(4)}°</span> 
+                    (разлика: ${diffLive.toFixed(4)}°)
+                </p>
+            `;
+        }
+
+        if (typeof calc.calculateAngleFromSW === 'function') {
+            if (diff2 < diff1) {
+                conclusionHTML += `
+                    <div style="background: rgba(76, 175, 80, 0.3); padding: 25px; border-radius: 10px; margin: 25px 0;">
+                        <p style="font-size: 26px; margin: 0;">
+                            ✅ <strong>Wrapper функцията Е НЕОБХОДИМА!</strong>
+                        </p>
+                        <p style="margin-top: 15px;">
+                            <strong>С wrapper:</strong> ${result2.alphaRAD.toFixed(4)}° (разлика: ${diff2.toFixed(4)}°)<br>
+                            <strong>БЕЗ wrapper:</strong> ${result1.alphaRAD.toFixed(4)}° (разлика: ${diff1.toFixed(4)}°)
+                        </p>
+                        <p style="margin-top: 20px; font-size: 20px;">
+                            📍 Координатите (${x}, ${y}, ${z}) СА в SW система<br>
+                            🔄 Трансформацията SW → M е ЗАДЪЛЖИТЕЛНА<br>
+                            ✅ Живата страница ИЗПОЛЗВА wrapper-а правилно
+                        </p>
+                    </div>
+                `;
+            } else {
+                conclusionHTML += `
+                    <div style="background: rgba(255, 152, 0, 0.3); padding: 25px; border-radius: 10px; margin: 25px 0;">
+                        <p style="font-size: 26px; margin: 0;">
+                            ⚠️ <strong>Wrapper функцията НЕ Е необходима!</strong>
+                        </p>
+                        <p style="margin-top: 15px;">
+                            <strong>БЕЗ wrapper:</strong> ${result1.alphaRAD.toFixed(4)}° (разлика: ${diff1.toFixed(4)}°)<br>
+                            <strong>С wrapper:</strong> ${result2.alphaRAD.toFixed(4)}° (разлика: ${diff2.toFixed(4)}°)
+                        </p>
+                        <p style="margin-top: 20px; font-size: 20px;">
+                            📍 Координатите (${x}, ${y}, ${z}) вероятно вече СА в M система<br>
+                            ❌ Label-ът "SW координати" е ГРЕШЕН<br>
+                            🔧 Трябва или да се махне wrapper-а, или да се промени label-а
+                        </p>
+                    </div>
+                `;
+            }
+        } else {
+            conclusionHTML += `
+                <div style="background: rgba(244, 67, 54, 0.3); padding: 25px; border-radius: 10px; margin: 25px 0;">
+                    <p style="font-size: 24px;">
+                        ❌ calculateAngleFromSW функцията <strong>НЕ СЪЩЕСТВУВА</strong> в локалния GAngle.js!
+                    </p>
+                    <p style="margin-top: 15px;">
+                        Живата страница използва: ${liveResult.alphaRAD.toFixed(4)}°<br>
+                        Локално без wrapper: ${result1.alphaRAD.toFixed(4)}°
+                    </p>
+                </div>
+            `;
+        }
+
+        document.getElementById('conclusion').innerHTML = conclusionHTML;
+    </script>
+</body>
+</html>
