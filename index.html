@@ -1052,22 +1052,39 @@
             const calc = window.DrillAngleCalculator;
             if (!calc) {
                 const t = translations[currentLanguage];
-                document.getElementById('alphaValue').textContent = t.mathNotLoaded;
-                document.getElementById('statusBadge').textContent = t.gangleNotAvailable;
-                document.getElementById('statusBadge').className = 'status-badge bad';
+                const alphaEl = document.getElementById('alphaValue');
+                const statusEl = document.getElementById('statusBadge');
+                if (alphaEl) alphaEl.textContent = t.mathNotLoaded;
+                if (statusEl) {
+                    statusEl.textContent = t.gangleNotAvailable;
+                    statusEl.className = 'status-badge bad';
+                }
                 setMarker(NaN);
                 return;
             }
 
-            const l = Number(document.getElementById('l-slider').value);
-            const d = Number(document.getElementById('d-slider').value);
-            const thetaDeg = Number(document.getElementById('theta-slider').value);
-            const betaDeg = Number(document.getElementById('beta-slider').value);
+            const lEl = document.getElementById('l-slider');
+            const dEl = document.getElementById('d-slider');
+            const thetaEl = document.getElementById('theta-slider');
+            const betaEl = document.getElementById('beta-slider');
+            const xEl = document.getElementById('x-slider');
+            const yEl = document.getElementById('y-slider');
+            const zEl = document.getElementById('z-slider');
+            
+            if (!lEl || !dEl || !thetaEl || !betaEl || !xEl || !yEl || !zEl) {
+                console.warn('Some slider elements not found, skipping computeAndRender()');
+                return;
+            }
+            
+            const l = Number(lEl.value);
+            const d = Number(dEl.value);
+            const thetaDeg = Number(thetaEl.value);
+            const betaDeg = Number(betaEl.value);
             const thetaRad = calc.deg2rad ? calc.deg2rad(thetaDeg) : (thetaDeg * Math.PI / 180);
             const betaRad = calc.deg2rad ? calc.deg2rad(betaDeg) : (betaDeg * Math.PI / 180);
-            const x_sw = Number(document.getElementById('x-slider').value);
-            const y_sw = Number(document.getElementById('y-slider').value);
-            const z_sw = Number(document.getElementById('z-slider').value);
+            const x_sw = Number(xEl.value);
+            const y_sw = Number(yEl.value);
+            const z_sw = Number(zEl.value);
 
             try {
                 let res;
@@ -1088,23 +1105,27 @@
                     hOut = res.h;
                 }
 
-                document.getElementById('alphaValue').textContent = isFinite(alpha) ? alpha.toFixed(4) + '°' : 'NaN';
-                document.getElementById('xMval').textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
-                document.getElementById('hVal').textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
-
-                // Оцветяване на резултата според валидността
                 const alphaElement = document.getElementById('alphaValue');
+                const xMvalElement = document.getElementById('xMval');
+                const hValElement = document.getElementById('hVal');
                 const statusBadge = document.getElementById('statusBadge');
                 
-                if (!isFinite(alpha)) {
-                    alphaElement.className = 'result-big result-invalid';
-                    statusBadge.style.display = 'none'; // Скриваме status badge
-                } else if (alpha < VALID_MIN || alpha > VALID_MAX) {
-                    alphaElement.className = 'result-big result-invalid';
-                    statusBadge.style.display = 'none';
-                } else {
-                    alphaElement.className = 'result-big result-valid';
-                    statusBadge.style.display = 'none';
+                if (alphaElement) alphaElement.textContent = isFinite(alpha) ? alpha.toFixed(4) + '°' : 'NaN';
+                if (xMvalElement) xMvalElement.textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
+                if (hValElement) hValElement.textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
+
+                // Оцветяване на резултата според валидността
+                if (alphaElement && statusBadge) {
+                    if (!isFinite(alpha)) {
+                        alphaElement.className = 'result-big result-invalid';
+                        statusBadge.style.display = 'none'; // Скриваме status badge
+                    } else if (alpha < VALID_MIN || alpha > VALID_MAX) {
+                        alphaElement.className = 'result-big result-invalid';
+                        statusBadge.style.display = 'none';
+                    } else {
+                        alphaElement.className = 'result-big result-valid';
+                        statusBadge.style.display = 'none';
+                    }
                 }
 
                 setMarker(alpha);
@@ -1112,9 +1133,11 @@
                 console.error(err);
                 const alphaElement = document.getElementById('alphaValue');
                 const statusBadge = document.getElementById('statusBadge');
-                alphaElement.textContent = 'Error';
-                alphaElement.className = 'result-big result-invalid';
-                statusBadge.style.display = 'none';
+                if (alphaElement) {
+                    alphaElement.textContent = 'Error';
+                    alphaElement.className = 'result-big result-invalid';
+                }
+                if (statusBadge) statusBadge.style.display = 'none';
                 setMarker(NaN);
             }
             updateSum();
@@ -1147,23 +1170,39 @@
         function computeAndRender() {
             const calc = window.DrillAngleCalculator;
             if (!calc) {
-                document.getElementById('alphaValue').textContent = 'math NOT loaded';
-                document.getElementById('statusBadge').textContent = 'GAngle.js not available';
-                document.getElementById('statusBadge').className = 'status-badge bad';
-                updateMainDisplay('Error', 'GAngle.js не е зареден', '', '');
+                const alphaEl = document.getElementById('alphaValue');
+                const statusEl = document.getElementById('statusBadge');
+                if (alphaEl) alphaEl.textContent = 'math NOT loaded';
+                if (statusEl) {
+                    statusEl.textContent = 'GAngle.js not available';
+                    statusEl.className = 'status-badge bad';
+                }
                 setMarker(NaN);
                 return;
             }
 
-            const l = Number(document.getElementById('l-slider').value);
-            const d = Number(document.getElementById('d-slider').value);
-            const thetaDeg = Number(document.getElementById('theta-slider').value);
-            const betaDeg = Number(document.getElementById('beta-slider').value);
+            const lEl = document.getElementById('l-slider');
+            const dEl = document.getElementById('d-slider');
+            const thetaEl = document.getElementById('theta-slider');
+            const betaEl = document.getElementById('beta-slider');
+            const xEl = document.getElementById('x-slider');
+            const yEl = document.getElementById('y-slider');
+            const zEl = document.getElementById('z-slider');
+            
+            if (!lEl || !dEl || !thetaEl || !betaEl || !xEl || !yEl || !zEl) {
+                console.warn('Some slider elements not found, skipping computeAndRender()');
+                return;
+            }
+            
+            const l = Number(lEl.value);
+            const d = Number(dEl.value);
+            const thetaDeg = Number(thetaEl.value);
+            const betaDeg = Number(betaEl.value);
             const thetaRad = calc.deg2rad ? calc.deg2rad(thetaDeg) : (thetaDeg * Math.PI / 180);
             const betaRad = calc.deg2rad ? calc.deg2rad(betaDeg) : (betaDeg * Math.PI / 180);
-            const x_sw = Number(document.getElementById('x-slider').value);
-            const y_sw = Number(document.getElementById('y-slider').value);
-            const z_sw = Number(document.getElementById('z-slider').value);
+            const x_sw = Number(xEl.value);
+            const y_sw = Number(yEl.value);
+            const z_sw = Number(zEl.value);
 
             try {
                 let res;
@@ -1185,23 +1224,27 @@
                 }
 
                 // Обновяване на интерактивния дисплей
-                document.getElementById('alphaValue').textContent = isFinite(alpha) ? alpha.toFixed(4) + '°' : 'NaN';
-                document.getElementById('xMval').textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
-                document.getElementById('hVal').textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
-
-                // Оцветяване на резултата според валидността
                 const alphaElement = document.getElementById('alphaValue');
+                const xMvalElement = document.getElementById('xMval');
+                const hValElement = document.getElementById('hVal');
                 const statusBadge = document.getElementById('statusBadge');
                 
-                if (!isFinite(alpha)) {
-                    alphaElement.className = 'result-big result-invalid';
-                    statusBadge.style.display = 'none';
-                } else if (alpha < VALID_MIN || alpha > VALID_MAX) {
-                    alphaElement.className = 'result-big result-invalid';
-                    statusBadge.style.display = 'none';
-                } else {
-                    alphaElement.className = 'result-big result-valid';
-                    statusBadge.style.display = 'none';
+                if (alphaElement) alphaElement.textContent = isFinite(alpha) ? alpha.toFixed(4) + '°' : 'NaN';
+                if (xMvalElement) xMvalElement.textContent = isFinite(xMout) ? xMout.toFixed(4) : 'NaN';
+                if (hValElement) hValElement.textContent = isFinite(hOut) ? hOut.toFixed(4) : 'NaN';
+
+                // Оцветяване на резултата според валидността
+                if (alphaElement && statusBadge) {
+                    if (!isFinite(alpha)) {
+                        alphaElement.className = 'result-big result-invalid';
+                        statusBadge.style.display = 'none';
+                    } else if (alpha < VALID_MIN || alpha > VALID_MAX) {
+                        alphaElement.className = 'result-big result-invalid';
+                        statusBadge.style.display = 'none';
+                    } else {
+                        alphaElement.className = 'result-big result-valid';
+                        statusBadge.style.display = 'none';
+                    }
                 }
 
                 // Обновяване на параметрите
@@ -1212,9 +1255,11 @@
                 console.error(err);
                 const alphaElement = document.getElementById('alphaValue');
                 const statusBadge = document.getElementById('statusBadge');
-                alphaElement.textContent = 'Error';
-                alphaElement.className = 'result-big result-invalid';
-                statusBadge.style.display = 'none';
+                if (alphaElement) {
+                    alphaElement.textContent = 'Error';
+                    alphaElement.className = 'result-big result-invalid';
+                }
+                if (statusBadge) statusBadge.style.display = 'none';
                 setMarker(NaN);
             }
             updateSum();
