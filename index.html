@@ -1170,11 +1170,12 @@
         function computeAndRender() {
             const calc = window.DrillAngleCalculator;
             if (!calc) {
+                const t = translations[currentLanguage];
                 const alphaEl = document.getElementById('alphaValue');
                 const statusEl = document.getElementById('statusBadge');
-                if (alphaEl) alphaEl.textContent = 'math NOT loaded';
+                if (alphaEl) alphaEl.textContent = t.mathNotLoaded;
                 if (statusEl) {
-                    statusEl.textContent = 'GAngle.js not available';
+                    statusEl.textContent = t.gangleNotAvailable;
                     statusEl.className = 'status-badge bad';
                 }
                 setMarker(NaN);
