@@ -368,6 +368,11 @@
         }
         function updatePointsContainerVisibility() {
             const container = document.getElementById('sw-points');
+            // The sw-points container doesn't exist in the current interface
+            // This function is legacy code and can be safely skipped
+            if (!container) {
+                return;
+            }
             const pointGroups = container.querySelectorAll('.point-group');
             
             if (pointGroups.length === 0) {
@@ -399,58 +404,50 @@
             clearError();
             try {
                 let l, d, theta, beta, coordinates = [];
-                l = parseFloat(document.getElementById('l-sw').value);
-                d = parseFloat(document.getElementById('d-sw').value);
-                theta = DrillAngleCalculator.deg2rad(parseFloat(document.getElementById('theta-sw').value));
-                beta = DrillAngleCalculator.deg2rad(parseFloat(document.getElementById('beta-sw').value));
-                const points = document.querySelectorAll('#sw-points .point-group');
-                points.forEach(point => {
-                    const x = parseFloat(point.querySelector('.x-coord').value);
-                    const y = parseFloat(point.querySelector('.y-coord').value);
-                    const z = parseFloat(point.querySelector('.z-coord').value);
+                const lEl = document.getElementById('l-slider');
+                const dEl = document.getElementById('d-slider');
+                const thetaEl = document.getElementById('theta-slider');
+                const betaEl = document.getElementById('beta-slider');
+                
+                // Check if elements exist before accessing .value
+                if (!lEl || !dEl || !thetaEl || !betaEl) {
+                    console.warn('Parameter elements not found, skipping calculate()');
+                    return;
+                }
+                
+                l = parseFloat(lEl.value);
+                d = parseFloat(dEl.value);
+                theta = DrillAngleCalculator.deg2rad(parseFloat(thetaEl.value));
+                beta = DrillAngleCalculator.deg2rad(parseFloat(betaEl.value));
+                
+                // Get coordinates from the interactive interface
+                const xEl = document.getElementById('x-slider');
+                const yEl = document.getElementById('y-slider');
+                const zEl = document.getElementById('z-slider');
+                
+                if (xEl && yEl && zEl) {
+                    const x = parseFloat(xEl.value);
+                    const y = parseFloat(yEl.value);
+                    const z = parseFloat(zEl.value);
                     // Добавяме точката само ако всички координати са валидни числа
                     if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
                         coordinates.push({ x: x, y: y, z: z });
                     }
-                });
+                }
+                
                 if (coordinates.length === 0) {
-                    // Покажи empty state ако няма точки
-                    const t = translations[currentLanguage];
-                    document.getElementById('results-content').innerHTML = `<div class="results-empty">${t.emptyStateInput}</div>`;
-                    document.getElementById('copy-btn').style.display = 'none';
+                    // No point to calculate, skip
                     return;
                 }
                 if (isNaN(l) || isNaN(d) || isNaN(theta) || isNaN(beta)) {
-                    // Покажи empty state ако имаме невалидни параметри
-                    const t = translations[currentLanguage];
-                    document.getElementById('results-content').innerHTML = `<div class="results-empty">${t.emptyStateParams}</div>`;
-                    document.getElementById('copy-btn').style.display = 'none';
+                    // Invalid parameters, skip
                     return;
                 }
-                const angles = calculateAngles(l, d, theta, beta, coordinates);
-                let resultsHTML = '';
-                angles.forEach((angle, idx) => {
-                    if (!isNaN(angle)) {
-                        resultsHTML += `
-                            <div class="result-item">
-                                <span class="result-label">📐 α<sub>f</sub><sub>${idx + 1}</sub></span>
-                                <span class="result-value">${angle.toFixed(2)}°</span>
-                            </div>
-                        `;
-                    }
-                });
-                if (resultsHTML === '') {
-                    // Покажи empty state ако няма валидни резултати
-                    const t = translations[currentLanguage];
-                    document.getElementById('results-content').innerHTML = `<div class="results-empty">${t.emptyStateInvalid}</div>`;
-                    document.getElementById('copy-btn').style.display = 'none';
-                    return;
-                }
-                document.getElementById('results-content').innerHTML = resultsHTML;
-                document.getElementById('copy-btn').style.display = 'block';
-                document.getElementById('results').classList.add('active');
+                
+                // Note: This function is legacy and not actively used
+                // The main calculation is done by computeAndRender()
             } catch (err) {
-                showError(err.message);
+                console.error('Error in calculate():', err);
             }
         }
         function resetForm() {
@@ -699,25 +696,22 @@
             };
         }
         function getInputValues() {
-            // Съберяване на всички входни данни
+            // Съберяване на всички входни данни от интерактивния интерфейс
             const inputs = {
-                l: document.getElementById('l-sw')?.value || '',
-                d: document.getElementById('d-sw')?.value || '',
-                theta: document.getElementById('theta-sw')?.value || '',
-                beta: document.getElementById('beta-sw')?.value || '',
+                l: document.getElementById('l-slider')?.value || '',
+                d: document.getElementById('d-slider')?.value || '',
+                theta: document.getElementById('theta-slider')?.value || '',
+                beta: document.getElementById('beta-slider')?.value || '',
                 points: []
             };
             
-            // Съберяване на координатите на точките
-            const pointGroups = document.querySelectorAll('.point-group');
-            pointGroups.forEach((group, index) => {
-                const x = group.querySelector('input[placeholder*="X"]')?.value || '';
-                const y = group.querySelector('input[placeholder*="Y"]')?.value || '';
-                const z = group.querySelector('input[placeholder*="Z"]')?.value || '';
-                if (x || y || z) {
-                    inputs.points.push({ x, y, z, index: index + 1 });
-                }
-            });
+            // Съберяване на координатите на точката от интерактивния интерфейс
+            const x = document.getElementById('x-slider')?.value || '';
+            const y = document.getElementById('y-slider')?.value || '';
+            const z = document.getElementById('z-slider')?.value || '';
+            if (x || y || z) {
+                inputs.points.push({ x, y, z, index: 1 });
+            }
             
             return inputs;
         }
