@@ -52,7 +52,7 @@ open index.html
 
 ## License
 
-MIT License — see `LICENSE`.
+MIT License — see [LICENSE](LICENSE).
 
 ---
 

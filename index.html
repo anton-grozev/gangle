@@ -138,12 +138,6 @@
             localStorage.setItem('language', currentLanguage);
         }
 
-        // Function to set language (for backward compatibility)
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            updateLanguage();
-        }
-
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
@@ -177,7 +171,7 @@
             }
             localStorage.setItem('darkMode', isDarkMode);
         }
-        
+
         function loadDarkMode() {
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
             if (isDarkMode) {
@@ -189,7 +183,7 @@
             }
         }
         
-        // Language functions (new working version)
+        // Language functions
         function toggleLanguage() {
             currentLanguage = currentLanguage === 'bg' ? 'en' : 'bg';
             updateLanguage();
@@ -197,9 +191,7 @@
         }
         
         function updateLanguage() {
-            console.log('updateLanguage called, currentLanguage:', currentLanguage);
             const t = translations[currentLanguage];
-            console.log('translations object:', t);
             
             // Update language toggle button
             const langText = document.getElementById('lang-text');
@@ -210,7 +202,6 @@
             // Update main title
             const mainTitle = document.getElementById('main-title');
             if (mainTitle && t && t.mainTitle) {
-                console.log('Setting mainTitle to:', t.mainTitle);
                 mainTitle.innerHTML = t.mainTitle;
             }
             
@@ -368,13 +359,11 @@
         }
         function updatePointsContainerVisibility() {
             const container = document.getElementById('sw-points');
-            // The sw-points container doesn't exist in the current interface
-            // This function is legacy code and can be safely skipped
             if (!container) {
                 return;
             }
             const pointGroups = container.querySelectorAll('.point-group');
-            
+
             if (pointGroups.length === 0) {
                 container.style.display = 'none';
             } else {
@@ -390,14 +379,10 @@
             });
         }
         function calculateAngles(l, d, theta, beta, coordinates) {
-            // Извличаме координатите за използване с външната библиотека
             const xM = coordinates.map(coord => coord.x);
             const yM = coordinates.map(coord => coord.y);
             const zM = coordinates.map(coord => coord.z);
-            // ВАЖНО: Тези координати са в SW система и трябва да се трансформират в drill (M) система
-            // Използваме wrapper функцията за правилна трансформация SW → M
             const result = DrillAngleCalculator.calculateAngleFromSW(l, d, theta, beta, xM, yM, zM);
-            // Връщаме само ъглите αf
             return result.alphaRAD;
         }
         function calculate() {
@@ -408,63 +393,49 @@
                 const dEl = document.getElementById('d-slider');
                 const thetaEl = document.getElementById('theta-slider');
                 const betaEl = document.getElementById('beta-slider');
-                
-                // Check if elements exist before accessing .value
+
                 if (!lEl || !dEl || !thetaEl || !betaEl) {
-                    console.warn('Parameter elements not found, skipping calculate()');
                     return;
                 }
-                
+
                 l = parseFloat(lEl.value);
                 d = parseFloat(dEl.value);
                 theta = DrillAngleCalculator.deg2rad(parseFloat(thetaEl.value));
                 beta = DrillAngleCalculator.deg2rad(parseFloat(betaEl.value));
-                
-                // Get coordinates from the interactive interface
+
                 const xEl = document.getElementById('x-slider');
                 const yEl = document.getElementById('y-slider');
                 const zEl = document.getElementById('z-slider');
-                
+
                 if (xEl && yEl && zEl) {
                     const x = parseFloat(xEl.value);
                     const y = parseFloat(yEl.value);
                     const z = parseFloat(zEl.value);
-                    // Добавяме точката само ако всички координати са валидни числа
                     if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
                         coordinates.push({ x: x, y: y, z: z });
                     }
                 }
-                
-                if (coordinates.length === 0) {
-                    // No point to calculate, skip
+
+                if (coordinates.length === 0 || isNaN(l) || isNaN(d) || isNaN(theta) || isNaN(beta)) {
                     return;
                 }
-                if (isNaN(l) || isNaN(d) || isNaN(theta) || isNaN(beta)) {
-                    // Invalid parameters, skip
-                    return;
-                }
-                
-                // Note: This function is legacy and not actively used
-                // The main calculation is done by computeAndRender()
+
+                // Legacy function - main calculation is done by computeAndRender()
             } catch (err) {
-                console.error('Error in calculate():', err);
+                // Error handling
             }
         }
         function resetForm() {
-            // Изчистваме само координатите, запазваме броя на точките
             document.querySelectorAll('input[type="number"]').forEach(input => {
-                // Запазваме полето за брой точки, изчистваме останалите
                 if (input.id !== 'sw-points-count') {
                     input.value = '';
                 }
             });
-            // НЕ премахваме точките, само изчистваме координатите им
-            
-            // Изчистваме резултатите напълно
+
             const t = translations[currentLanguage];
             document.getElementById('results-content').innerHTML = `<div class="results-empty">${t.emptyStateInput}</div>`;
             document.getElementById('results').classList.remove('active');
-            updatePointsContainerVisibility(); // Проверяваме видимостта на контейнера
+            updatePointsContainerVisibility();
             clearError();
         }
         function showError(message) {
@@ -495,12 +466,10 @@
         }
 
         function toggleHistory() {
-            // Историята е винаги видима, просто зареждаме съдържанието
             displayHistory();
         }
 
         function saveToHistory() {
-            // Осигуряваме че currentLanguage е зададен
             if (!currentLanguage || !translations[currentLanguage]) {
                 currentLanguage = localStorage.getItem('language') || 'bg';
             }
@@ -570,13 +539,12 @@
         function displayHistory() {
             const historyContainer = document.getElementById('history-container');
             const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
-            
-            // Проверяваме текущия език
+
             const isEnglish = (currentLanguage === 'en');
-            
+
             const labels = {
                 historyEmpty: isEnglish ? "No saved calculations" : "Няма запазени изчисления",
-                historyParams: isEnglish ? "Parameters" : "Параметри", 
+                historyParams: isEnglish ? "Parameters" : "Параметри",
                 historyResults: isEnglish ? "Results" : "Резултати",
                 historyCoords: isEnglish ? "Coordinates and angles" : "Координати и ъгли",
                 historyPoint: isEnglish ? "Point" : "Точка",
@@ -636,19 +604,17 @@
             // Извършваме изчислението
             computeAndRender();
             
-            // Показваме потвърждение временно
             const statusBadge = document.getElementById('statusBadge');
             const originalText = statusBadge.textContent;
             const originalClass = statusBadge.className;
             statusBadge.textContent = translations[currentLanguage].loadedFromHistory;
             statusBadge.className = 'status-badge ok';
             setTimeout(() => {
-                computeAndRender(); // Връщаме нормалния статус
+                computeAndRender();
             }, 2000);
         }
         function clearHistory() {
             localStorage.removeItem('calculationHistory');
-            // Нулираме броячът за точките
             savedPointCounter = 0;
             localStorage.setItem('savedPointCounter', '0');
             displayHistory();
@@ -656,24 +622,21 @@
         function getCurrentResults() {
             const resultsContent = document.getElementById('results-content');
             if (!resultsContent) return null;
-            
-            // Проверяваме дали има валидни резултати (не празно състояние)
+
             const isEmpty = resultsContent.querySelector('.results-empty');
             if (isEmpty) return null;
-            
-            // Извличаме всички резултати
+
             const resultItems = resultsContent.querySelectorAll('.result-item');
             if (resultItems.length === 0) return null;
-            
+
             const results = [];
             const coordinates = [];
-            
+
             resultItems.forEach((item, index) => {
                 const label = item.querySelector('.result-label')?.textContent || '';
                 const value = item.querySelector('.result-value')?.textContent || '';
                 results.push({ label, value });
-                
-                // Извличаме координатите за съответната точка
+
                 const pointGroups = document.querySelectorAll('.point-group');
                 if (pointGroups[index]) {
                     const inputs = pointGroups[index].querySelectorAll('input');
@@ -685,18 +648,17 @@
                     });
                 }
             });
-            
+
             return {
                 count: results.length,
                 results: results,
                 coordinates: coordinates,
-                summary: currentLanguage === 'bg' ? 
-                    `Изчислени ${results.length} ъгъла` : 
+                summary: currentLanguage === 'bg' ?
+                    `Изчислени ${results.length} ъгъла` :
                     `Calculated ${results.length} angles`
             };
         }
         function getInputValues() {
-            // Съберяване на всички входни данни от интерактивния интерфейс
             const inputs = {
                 l: document.getElementById('l-slider')?.value || '',
                 d: document.getElementById('d-slider')?.value || '',
@@ -704,49 +666,42 @@
                 beta: document.getElementById('beta-slider')?.value || '',
                 points: []
             };
-            
-            // Съберяване на координатите на точката от интерактивния интерфейс
+
             const x = document.getElementById('x-slider')?.value || '';
             const y = document.getElementById('y-slider')?.value || '';
             const z = document.getElementById('z-slider')?.value || '';
             if (x || y || z) {
                 inputs.points.push({ x, y, z, index: 1 });
             }
-            
+
             return inputs;
         }
-        // Позволяване на Enter за изчисление
         document.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 calculate();
             }
         });
 
-        // === ИНТЕРАКТИВНИ КОНТРОЛИ ===
+        const VIS_MIN = 0, VIS_MAX = 40;
+        const VALID_MIN = 5, VALID_MAX = 35;
+        let currentSumDeg = 59.0;
         
-        const VIS_MIN = 0, VIS_MAX = 40; // visualization range for indicator
-        const VALID_MIN = 5, VALID_MAX = 35; // acceptable alpha range
-        let currentSumDeg = 59.0; // Променлива стойност според избрания пресет
-        
-        // Функция за получаване на активната сума от радио бутоните
         function getActiveSumDeg() {
             const selectedPreset = document.querySelector('input[name="anglePreset"]:checked');
             if (!selectedPreset) return null;
-            
+
             switch(selectedPreset.value) {
                 case '59': return 59.0;
                 case '62.5': return 62.5;
                 case '67.5': return 67.5;
-                default: return null; // Няма автоматично регулиране
+                default: return null;
             }
         }
         
-        // Функция за проверка дали е активно автоматично регулиране
         function isAutoAdjustActive() {
             return getActiveSumDeg() !== null;
         }
         
-        // Функция за синхронизиране на слайдери
         function bindSlider(rangeEl, numEl, onChange) {
             if (!rangeEl || !numEl) return;
             rangeEl.addEventListener('input', () => {
@@ -760,7 +715,6 @@
             });
         }
 
-        // Функция за показване/скриване на интерактивния режим
         function toggleInteractive() {
             const section = document.getElementById('interactive-section');
             const btn = document.querySelector('.btn-interactive');
@@ -776,7 +730,6 @@
             }
         }
 
-        // Инициализация на интерактивния режим
         function initializeInteractiveMode() {
             const els = {
                 l: document.getElementById('l-slider'),
@@ -995,7 +948,6 @@
             computeAndRender();
         }
 
-        // Синхронизация на слайдерите с основните полета
         function syncWithMainForm() {
             const mainL = document.getElementById('l-sw');
             const mainD = document.getElementById('d-sw');
@@ -1022,12 +974,10 @@
             }
         }
 
-        // Функция за обновяване на сумата
         function updateSum() {
             // Removed sum display as requested - only checkbox remains
         }
 
-        // Функция за позициониране на маркера
         function setMarker(alpha) {
             const marker = document.getElementById('marker');
             if (!marker) return;
@@ -1047,7 +997,6 @@
             marker.classList.toggle('bad', !inRange);
         }
 
-        // Основна функция за изчисляване и рендериране
         function computeAndRender() {
             const calc = window.DrillAngleCalculator;
             if (!calc) {
@@ -1072,7 +1021,6 @@
             const zEl = document.getElementById('z-slider');
             
             if (!lEl || !dEl || !thetaEl || !betaEl || !xEl || !yEl || !zEl) {
-                console.warn('Some slider elements not found, skipping computeAndRender()');
                 return;
             }
             
@@ -1130,7 +1078,6 @@
 
                 setMarker(alpha);
             } catch (err) {
-                console.error(err);
                 const alphaElement = document.getElementById('alphaValue');
                 const statusBadge = document.getElementById('statusBadge');
                 if (alphaElement) {
@@ -1143,12 +1090,10 @@
             updateSum();
         }
 
-        // Wrapper function за съществуващата calculate функция
         function calculateResults() {
-            calculate(); // Викаме съществуващата функция
+            calculate();
         }
 
-        // Функция за reset на интерактивната форма
         function resetInteractiveForm() {
             document.getElementById('l-slider').value = 85;
             document.getElementById('l-slider-num').value = 85;
@@ -1166,7 +1111,6 @@
             computeAndRender();
         }
 
-        // Обновена функция за изчисляване с обновяване на summary
         function computeAndRender() {
             const calc = window.DrillAngleCalculator;
             if (!calc) {
@@ -1253,7 +1197,6 @@
 
                 setMarker(alpha);
             } catch (err) {
-                console.error(err);
                 const alphaElement = document.getElementById('alphaValue');
                 const statusBadge = document.getElementById('statusBadge');
                 if (alphaElement) {
@@ -1266,7 +1209,6 @@
             updateSum();
         }
 
-        // Функция за обновяване на summary параметрите
         function updateParamsSummary(l, d, theta, beta, x, y, z) {
             const summary = `l=${l}мм d=${d}мм θ=${theta}° β=${beta}° | X=${x} Y=${y} Z=${z}`;
             const paramsSummary = document.getElementById('params-summary');
@@ -1275,9 +1217,7 @@
             }
         }
 
-        // Инициализация при зареждане
         window.addEventListener('DOMContentLoaded', () => {
-            // Започваме интерактивния режим веднага
             setTimeout(() => {
                 initializeInteractiveMode();
             }, 100);
