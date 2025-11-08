@@ -1,8 +1,5 @@
 /**
  * GAngle.js - Библиотека за изчисляване на работен заден ъгъл с директни координати
- *
- * Added wrapper: DrillAngleCalculator.calculateAngleFromSW(l,d,theta,beta,x_sw,y_sw,z_sw)
- * which accepts SW coordinates, transforms internally and calls calculateAngle(...).
  */
 class DrillAngleCalculator {
     static rad2deg(rad) { return rad * 180 / Math.PI; }
@@ -30,17 +27,15 @@ class DrillAngleCalculator {
         let h;
         if (Math.abs(ah) < 1e-10) {
             h = 0.5 * ch / bh;
-        } else if (ah < 0) {
-            const discriminant = bh * bh - ah * ch;
-            h = (bh - Math.sqrt(discriminant)) / ah;
-        } else if (Math.abs(theta) < Math.PI / 2) {
-            const discriminant = bh * bh - ah * ch;
-            h = (bh - Math.sqrt(discriminant)) / ah;
-        } else if (Math.abs(theta) === Math.PI / 2) {
-            h = l;
         } else {
             const discriminant = bh * bh - ah * ch;
-            h = (bh + Math.sqrt(discriminant)) / ah;
+            if (ah < 0 || Math.abs(theta) < Math.PI / 2) {
+                h = (bh - Math.sqrt(discriminant)) / ah;
+            } else if (Math.abs(theta) === Math.PI / 2) {
+                h = l;
+            } else {
+                h = (bh + Math.sqrt(discriminant)) / ah;
+            }
         }
 
         const cosTheta = Math.cos(theta);
@@ -69,8 +64,7 @@ class DrillAngleCalculator {
                 xM_i = 0;
             } else {
                 const discriminant = bxc * bxc - axc * cxc;
-                const sign_bxc = bxc >= 0 ? 1 : -1;
-                xM_i = (bxc - sign_bxc * Math.sqrt(discriminant)) / axc;
+                xM_i = (bxc - Math.sign(bxc) * Math.sqrt(discriminant)) / axc;
             }
 
             const sqrt_yM2_zM2 = Math.sqrt(yM_i * yM_i + zM_i * zM_i);
